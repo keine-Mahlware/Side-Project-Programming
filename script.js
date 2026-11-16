@@ -370,6 +370,7 @@ zurueck.addEventListener("click", function() {
 
     seite2.style.display = "none";
     seite1.style.display = "block";
+    locstion.reload();
 
 });
 
