@@ -149,7 +149,7 @@ reset.addEventListener("click",function(){
 
         roboterKaputt = false;
 
-        roboterSimulation.classList.remove("explodiert");
+        roboter.classList.remove("explodiert");
 
         roboterZyklusLaeuft = false;
 
@@ -274,7 +274,7 @@ if (roboterKaputt) {
     roboterZyklusLaeuft = false;
 }
 roboterZyklus();
- const roboter = document.getElementById("roboter-sockel");
+ const roboter = document.getElementById("roboter");
 
 let roboterKlicks = 0;
 let klickTimer;
@@ -303,7 +303,7 @@ roboter.addEventListener("click", function() {
         roboterKaputt = true;
         roboterZyklusLaeuft = true;
 
-        roboterSimulation.classList.add("explodiert");
+        roboter.classList.add("explodiert");
 
         roboterKlicks = 0;
     }
