@@ -369,7 +369,6 @@ naechsteSeite.addEventListener("click", function() {
 zurueck.addEventListener("click", function() {
     
     levelTransition.classList.add("aktiv");
-    await warten(1400);
    window.location.reload()
 
 });
