@@ -771,6 +771,9 @@ body.dark h3 {
     display: none;
 }
 #seite2 {
+    display: none;
+}
+#seite2 {
     min-height: 100vh;
     background: #080d15;
     color: white;
