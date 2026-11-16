@@ -5,6 +5,7 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
+        <div id="seite1">
             <h1 id="start"> SPS & Robotik Grundlagen</h1>
             <p> Die Robotik arbeitet Hand in Hand mit der SPS.</p>
 
@@ -42,7 +43,7 @@
                         <div id="lampe-quit" class="leuchte Quit"><p class="beschriftung">Quittieren</p></div>
                     </div>
                     <div>
-                        <div id="lampe-stoerung" class="leuchte stoerung"><p class="beschriftung">Störung</p></div>
+                        <div id="lampe-fehler" class="leuchte fehler"><p class="beschriftung">Fehler</p></div>
                     </div>
                 </div>
                 <p id="anlagen-status">Anlage bereit</p>
@@ -68,7 +69,9 @@
                     </div>
                 </div>
             </div>
-
+            <button id="naechste-seite" class="tunnel-button">
+                <img src="tunnel.png" alt="Geheimer Eingang">
+            </button>
             <div class="robotik" id="robotik">
                 <div class="roboter-text">
                 <h2> Was ist Robotik?</h2>
@@ -123,6 +126,59 @@
             </div>
             <a class="top-button" href="#start">Nach oben</a>
 
-            <script src="script.js"></script>
+        </div>
+
+        <div id="seite2">
+             <div class="secret-level">
+
+        <h1>SECRET AREA</h1>
+
+        <p>
+            Du hast beide Easter Eggs gefunden.
+        </p>
+
+        <div class="secret-inhalt">
+
+        <h2>⚠ NOTFALLPROTOKOLL ⚠</h2>
+
+        <p>
+            Die Anlage spielt verrückt! Quittiere die Störungen,
+            bevor die Zeit abläuft.
+        </p>
+
+        <div class="spiel-info">
+            <span>Zeit: <b id="spiel-zeit">20</b></span>
+            <span>Punkte: <b id="spiel-punkte">0</b></span>
+        </div>
+
+        <div class="stoerungen">
+
+            <button class="stoerung" id="stoerung1"></button>
+            <button class="stoerung" id="stoerung2"></button>
+            <button class="stoerung" id="stoerung3"></button>
+
+            
+            <button class="stoerung" id="stoerung4"></button>
+            <button class="stoerung" id="stoerung5"></button>
+            <button class="stoerung" id="stoerung6"></button>
+
+        </div>
+
+        <button id="spiel-start">SYSTEM STARTEN</button>
+
+        <p id="spiel-meldung">
+            System bereit
+        </p>
+
+        </div>
+            <button id="zurueck">Zurück</button>
+
+        </div>
+        <div id="level-transition">
+            <div class="unlock-text">
+                <span>UNLOCKED</span>
+            </div>
+        </div>
+         <script src="script.js"></script>
     </body>
 </html>
