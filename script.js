@@ -1,641 +1,313 @@
-body {    
-    background-color: lightgray ;
-    font-family: Arial;
-    margin: 40px;
-}
-h1 {
-     color: black;
-}
-h2 {    
-    color: rgb(24, 24, 153);
-}
-h3 {
-    color: rgb(86, 86, 253);
-}
-.sps  {
-    background-color: white;
-    padding: 20px;
-    border: 2px solid darkblue;
-    border-radius: 10px;
-    margin-top: 20px;
-    box-shadow: 0 4px 10px grey;
-    transition: 0.3s;
-}
-.robotik  {
-    background-color: white;
-    padding: 20px;
-    border: 2px solid blue;
-    border-radius: 10px;
-    margin-top: 20px;
-    box-shadow: 0 4px 10px grey;
-    transition: 0.3s;
-}
-.sps:hover {
-    background-color: lightblue;
-}
-.robotik:hover { 
-    background-color: lightcyan;
-}
-img {
-    width: 500px;
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-    border: 2px solid darkblue;
-    box-shadow: 0 4px 10px grey;
-}
-.roboter-bild {
-    width: 100%;
-    max-width: 100%;
-    transition: 0.4s;
-    box-shadow: 0 4px 10px grey;
-}
-.roboter-karte:hover .roboter-bild:hover {
-    transform: scale(1.05) ;
-    box-shadow: 0 5px 10px darkblue;
-}
-.roboter-karte {
-    width: 500px;
-    max-width: 100%;
-    padding: 20px;
-    background-color: white;
-    border: 2px solid darkblue;
-    border-radius: 15px;
-    box-shadow: 0 4px 10px grey;
-    transition: 0.4s;
-}
-.roboter-karte:hover {
-    transform: translate(-10px);
-    box-shadow: 0 12px 25px grey;
-}
-nav {
-    background-color: darkblue;
-    padding: 15px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-}
-nav a {
-    color: white;
-    text-decoration: none;
-    padding: 8px 12px;
-    transition: 0.3s;
-}
-nav a:hover {
-    color: lightblue;
-    border-radius: 5px;
-}
-.themen {
-    display: flex;
-    gap: 20px;
-}
-.sps,
-.robotik {
-    flex: 1;
-}
-@media (max-width: 700px) {
-    .themen {
-        flex-direction: column;
+console.log("JavaScript funktioniert");
+
+const button = document.getElementById("darkmode")
+
+button.addEventListener("click", function() {
+    document.body.classList.toggle("dark");
+
+    if (document.body.classList.contains("dark")) {
+        button.textContent = "Light Mode";       
+    } else {
+        button.textContent = "Dark Mode";
+    }
+})
+
+const startButton = document.getElementById("start-button")
+const stopButton  = document.getElementById("stop-button")
+const anlagenStatus = document.getElementById("anlagen-status")
+const handButton = document.getElementById("hand-betrieb")
+const autoButton = document.getElementById("auto-betrieb")
+const betrieb    = document.getElementById("betriebsart")
+const notausButton = document.getElementById("not-aus")
+const quitButton   = document.getElementById("quit-button")
+const stoerungsStatus = document.getElementById("stoerungs-status")
+const leuchteBetrieb = document.getElementById("lampe-betrieb")
+const leuchteStop   = document.getElementById("lampe-stop")
+const leuchteStoerung = document.getElementById("lampe-stoerung")
+const leuchteQuit   = document.getElementById("lampe-quit")
+const motor = document.getElementById("motor")
+
+let autoBetriebs = false; 
+let anlageLaeuft = false;
+let stoerung = false;
+let motorDrehzahl = 0;
+let motorWinkel = 0;
+let motorTimer;
+
+notausButton.addEventListener("click", function(){
+    stoerung = true;
+    anlageLaeuft = false;
+    leuchteStoerung.style.backgroundColor = "red"
+    leuchteBetrieb.style.backgroundColor = "white"
+    leuchteStop.style.backgroundColor = "yellow"
+    leuchteQuit.style.backgroundColor = "blue"
+    anlagenStatus.textContent = "Anlage gestoppt"
+    stoerungsStatus.textContent = "Störung Aktiv"
+    motorStoppen();
+})
+quitButton.addEventListener("click", function(){
+    if ( stoerung == true ){
+        stoerung = false;
+        leuchteStoerung.style.backgroundColor = "white"
+        leuchteQuit.style.backgroundColor = "white"
+        stoerungsStatus.textContent = "Keine Störung"
+        anlagenStatus.textContent = "Anlage bereit"
+    }
+})
+
+stopButton.addEventListener("click", function(){
+    if (anlageLaeuft == true) {
+        anlageLaeuft = false;
+        leuchteBetrieb.style.backgroundColor = "white"
+        leuchteStop.style.backgroundColor = "yellow"
+        anlagenStatus.textContent = "Anlage gestoppt"
+       motorStoppen();
+    }
+})
+autoButton.addEventListener("click",function(){
+    if (autoBetriebs == false) {
+        autoBetriebs = true;
+        if (stoerung == false) {
+            leuchteStoerung.style.backgroundColor = "white"
+            leuchteStop.style.backgroundColor = "yellow"
+        }
+        betrieb.textContent = "Betriebsart: AUTO"
+        anlagenStatus.textContent = "Anlage bereit"
+    }
+})
+startButton.addEventListener("click", function() {
+    if (anlageLaeuft == false && autoBetriebs == false) {
+
+        leuchteStoerung.style.backgroundColor = "red"
+        anlagenStatus.textContent = "Start nicht möglich: Betriebsart HAND"
+    }
+    if (anlageLaeuft == false && autoBetriebs == true && stoerung == false ) {
+        anlageLaeuft = true;
+        leuchteBetrieb.style.backgroundColor = "green"
+        leuchteStop.style.backgroundColor = "white"
+        anlagenStatus.textContent = "Anlage gestartet"
+        motorDrehzahl = 10;
+        clearTimeout(motorTimer);
+
+        motorTimer = setTimeout(function() {
+            document.querySelector(".flamme").style.zIndex = "50";
+
+        }, 120000); //5000 ms = 5s / 120000 ms = 2 Minuten
+     }
+    if (anlageLaeuft == false && autoBetriebs == true && stoerung == true ) {
+        anlagenStatus.textContent = "Bitte Störung beseitigen & quittieren"
+    }
+        
+
+})
+handButton.addEventListener("click",function(){
+    if (autoBetriebs == true && anlageLaeuft == true) {
+        autoBetriebs = false;
+        anlageLaeuft = false;
+        leuchteBetrieb.style.backgroundColor = "white"
+        leuchteStop.style.backgroundColor = "yellow"
+        anlagenStatus.textContent = "Anlage gestoppt"
+        betrieb.textContent = "Betriebsart: HAND"
+        motorStoppen();
+    }
+    if (autoBetriebs == true && anlageLaeuft == false) {
+        autoBetriebs = false;
+         betrieb.textContent = "Betriebsart: HAND"
+    }
+})
+function motorStoppen() {
+    if (motorDrehzahl > 0) {
+        motorDrehzahl -= 0.15;
+        setTimeout(motorStoppen, 10) 
+    } else {
+        motorDrehzahl = 0;
+        clearTimeout(motorTimer);
+
+        document.querySelector(".flamme").style.zIndex = "-1";
     }
 }
-.top-button {
-    display: inline-block;
-    background-color: darkblue;
-    color: white;
-    text-decoration: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    margin-top: 20px;
-    transition: 0.3s;
-}
-.top-button:hover {
-    background-color: blue;
-}
-body.dark {
-    background-color: #222;
-    color: white;
-}
-body.dark .sps,
-body.dark .robotik {
-    background-color: #333;
-    color: white;
-}
-body.dark h1 {
-    color: white;
-}
-body.dark h2 {
-    color: lightblue;
-}
-body.dark h3 {
-    color: aliceblue;
-}
-.leuchte {
-    width: 30px;
-    height: 30px;
-    background-color: white;
-    border-radius: 50%;
-    border: 2px solid black;
-    justify-content:flex-end;
-}
-.beschriftung{
-    padding-left: 35px;
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: bold;
-}
-.bedienpult {
-    background-color: #444;
-    padding: 30px;
-    border: 4px solid #222;
-    border-radius: 15px;
-    box-shadow: 0 6px 15px #222;
-    color: white;
-}
-.taster-gruppe {
-    display: flex;
-    justify-content:first baseline;
-    gap: 35px;
-    margin: 25px;
-}
-.taster {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    border: 5px solid #222;
-    font-weight: bold;
-    font-size: 16px;
-    cursor: pointer;
-    box-shadow: 0 6px 8px #222;
-    transition: 0.1s;
-}
-.start {
-    background-color: green;
-    color: white;
-}
-.stop {
-    background-color: red;
-    color: white;
-}
-.quit {
-    background-color: rgb(71, 71, 245);
-    color: white;
-}
-.sicherheit {
-    background-color: #ffd900;
-    width: 200px;
-    height: 200px;
-    gap: 30px;
-    display: flex;
-
-    align-items: center;
-
-    border: 4px solid #222;
-    border-radius: 15px;
-}
-
-.notaus {
-    width: 160px;
-    height: 160px;
-
-    background-color: #d00000;
-    color: white;
-
-    border: 8px solid #8b0000;
-    border-radius: 50%;
-
-    font-size: 18px;
-    font-weight: bold;
-
-    cursor: pointer;
-
-    box-shadow: 0 8px 0 #700000;
-}
-.notaus:active {
-    transform: translateY(5px);
-    box-shadow: 0 3px 0 #700000;
-}
-.taster:active {
-    transform: translateY(4px);
-    box-shadow: 0 2px 4px #222;
-}
-.wahl-taster {
-    width: 150px;
-    height: 75px;
-    background-color: #ddd;
-    border: 3px solid #222;
-    border-radius: 8px;
-    font-weight: bold;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.wahl-taster:active {
-    transform: translateY(3px);
-}
-.motor {
-    width: 280px;
-    height: 280px;
-    background-color: #555;
-    border: 12px solid #222;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.motor-welle {
-    width: 160px;
-    height: 160px;
-    background-color: silver;
-    border: 10px solid #222;
-    border-radius: 50%;
-}
-.motor-welle::after {
-    content: "";
-    display: block;
-    width: 16px;
-    height: 35px;
-    background-color: red;
-    margin-left: 72px;
-    margin-top: 10px;
-}
-.motor-dreht {
-    animation: motorRotation 0.25s linear infinite;
+function motorAnimation() {
+    motorWinkel += motorDrehzahl;
+    motor.style.transform = "rotate(" + motorWinkel + "deg)";
+    requestAnimationFrame(motorAnimation);
 
 }
-@keyframes motorRotation {
-    from {
-        transform: rotate(0deg)
+motorAnimation();
+
+const roboterSimulation =   document.getElementById("roboter-simulation");
+
+const greifer = document.getElementById("greifer");
+
+const wuerfel = document.getElementById("wuerfel");
+
+const reset = document.getElementById("reset-roboter")
+
+let roboterZyklusLaeuft = false;
+
+reset.addEventListener("click",function(){
+     if (roboterKaputt == true) {
+
+        roboterKaputt = false;
+
+        roboterSimulation.classList.remove("explodiert");
+
+        roboterZyklusLaeuft = false;
+
+        roboterZyklus();
+
+    } else if (roboterZyklusLaeuft == false) {
+
+        roboterZyklus();
     }
-    to {
-        transform: rotate(360deg)
-    }
+   
+})
+function warten(zeit) {
+    return new Promise(function(resolve) {
+        setTimeout(resolve, zeit);
+    });
 }
-.motor-bereich {
-    position: relative;
-}
+async function roboterZyklus() {
 
-.flamme {
-    position: absolute;
-    z-index: -1;
-
-    font-size: 250px;
-    top: -20px;
-    left: -10px;
-}
-
-/* Nur anzeigen, wenn der Motor die Klasse "brennt" hat */
-#motor.brennt .flamme {
-    display: block;
-    animation: feuer 0.3s infinite alternate;
-}
-
-@keyframes feuer {
-    from {
-        transform: scale(0.9) rotate(-5deg);
+    if (roboterZyklusLaeuft == true) {
+        return;
     }
 
-    to {
-        transform: scale(1.2) rotate(5deg);
+    roboterZyklusLaeuft = true;
+
+    /* Würfel auf P1 vorbereiten */
+    roboterSimulation.appendChild(wuerfel);
+    wuerfel.className = "wuerfel auf-p1";
+
+    greifer.className = "greifer offen";
+
+    /* Grundstellung */
+    roboterSimulation.className =
+        "roboter-simulation grundstellung";
+
+    await warten(1400);
+
+if (roboterKaputt) {
+    return;
+}
+
+    /* P1 anfahren */
+    roboterSimulation.className =
+        "roboter-simulation fahre-p1";
+
+    await warten(1400);
+
+if (roboterKaputt) {
+    return;
+}
+
+    /* Greifer schließen */
+    greifer.className = "greifer geschlossen";
+
+    await warten(500);
+
+if (roboterKaputt) {
+    return;
+}
+
+    /* Würfel mit dem Greifer verbinden */
+    wuerfel.className = "wuerfel";
+    greifer.appendChild(wuerfel);
+
+    await warten(300);
+
+if (roboterKaputt) {
+    return;
+}
+
+    /* Würfel anheben */
+    roboterSimulation.className =
+        "roboter-simulation hebe-p1";
+
+    await warten(1400);
+
+if (roboterKaputt) {
+    return;
+}
+
+    /* Durch die Mitte fahren */
+    roboterSimulation.className =
+        "roboter-simulation transport";
+
+    await warten(1400);
+
+if (roboterKaputt) {
+    return;
+}
+
+    /* P2 anfahren */
+    roboterSimulation.className =
+        "roboter-simulation fahre-p2";
+
+    await warten(1400);
+
+if (roboterKaputt) {
+    return;
+}
+
+    /* Würfel wieder in die Roboterfläche setzen */
+    roboterSimulation.appendChild(wuerfel);
+    wuerfel.className = "wuerfel auf-p2";
+
+    /* Greifer öffnen */
+    greifer.className = "greifer offen";
+
+    await warten(700);
+
+if (roboterKaputt) {
+    return;
+}
+
+    /* Zur Grundstellung zurückfahren */
+    roboterSimulation.className =
+        "roboter-simulation grundstellung";
+
+    await warten(1400);
+
+if (roboterKaputt) {
+    return;
+}
+    roboterZyklusLaeuft = false;
+}
+roboterZyklus();
+
+let roboterKlicks = 0;
+let klickTimer;
+let roboterKaputt = false;
+
+roboterSimulation.addEventListener("click", function() {
+
+     if (roboterKaputt) {
+        return;
     }
-}
+    roboterKlicks++;
 
-.roboter-bereich {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 40px;
-}
-.roboter-text {
-    flex: 1;
-}
-.roboter-simulation {
-    position: relative;
-    width: 600px;
-    height: 500px;
+    // Beim ersten Klick startet das 3-Sekunden-Fenster
+    if (roboterKlicks === 1) {
 
-    background-color: #ddd;
-    border: 3px solid #222;
-    border-radius: 10px;
+        klickTimer = setTimeout(function() {
+            roboterKlicks = 0;
+        }, 5000);
 
-    overflow: hidden;
-}
-.reset-roboter{
-    width: 100;
-    height: 100;
-    border-radius: 50%;
-    background-color: red;
-    color: white;
-    cursor: pointer;
-}
-.reset-roboter:active {
-    transform: translateY(3px);
-}
-.position {
-    position: absolute;
+    }
 
-    width: 70px;
-    height: 55px;
+    // Easter Egg
+    if (roboterKlicks >= 10) {
 
-    top: 80px;
+        clearTimeout(klickTimer);
+        roboterKaputt = true;
+        roboterZyklusLaeuft = true;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+        roboterSimulation.classList.add("explodiert");
 
-    background-color: #aaa;
-    border: 3px dashed #444;
-    border-radius: 8px;
+        roboterKlicks = 0;
+    }
 
-    font-weight: bold;
-}
-
-.position-links {
-    left: 80px;
-}
-
-.position-rechts {
-    right: 80px;
-}
-.wuerfel {
-    position: absolute;
-
-    width: 36px;
-    height: 36px;
-
-    background-color: #e89120;
-    border: 3px solid #7a4400;
-    border-radius: 4px;
-
-    z-index: 10;
-}
-
-.wuerfel.auf-p1 {
-    left: 97px;
-    top: 89px;
-}
-
-.wuerfel.auf-p2 {
-    left: 463px;
-    top: 89px;
-}
-.greifer .wuerfel {
-    left: 9px;
-    top: -43px;
-
-    width: 36px;
-    height: 36px;
-
-    box-shadow: none;
-}
-.roboter-sockel {
-    position: absolute;
-
-    width: 140px;
-    height: 50px;
-
-    left: 225px;
-    bottom: 15px;
-
-    background-color: #555;
-    border: 4px solid #222;
-    border-radius: 10px;
-    z-index: 20;
-}
-
-
-/* Erstes Gelenk */
-.achse1 {
-    position: absolute;
-
-    width: 70px;
-    height: 70px;
-
-    left: 31px;
-    bottom: 40px;
-
-    background-color: #777;
-    border: 5px solid #222;
-    border-radius: 50%;
-}
-
-
-/* Oberarm */
-.oberarm {
-    position: absolute;
-
-    width: 40px;
-    height: 160px;
-
-    left: 10px;
-    bottom: 35px;
-
-    background-color: #d8d8d8;
-    border: 4px solid #222;
-    border-radius: 15px;
-
-    transform-origin: bottom center;
-}
-
-
-/* Zweites Gelenk */
-.achse2 {
-    position: absolute;
-
-    width: 60px;
-    height: 60px;
-
-    left: -14px;
-    top: -30px;
-
-    background-color: #777;
-    border: 4px solid #222;
-    border-radius: 50%;
-}
-
-
-/* Unterarm */
-.unterarm {
-    position: absolute;
-
-    width: 35px;
-    height: 130px;
-
-    left: 8px;
-    bottom: 30px;
-
-    background-color: #bbb;
-    border: 4px solid #222;
-    border-radius: 12px;
-
-    transform-origin: bottom center;
-}
-.oberarm {
-    transform-origin: bottom center;
-    transition: transform 1.5s ease-in-out;
-}
-
-.unterarm {
-    transform-origin: bottom center;
-    transition: transform 1.5s ease-in-out;
-}
-.achse3 {
-    position: absolute;
-
-    width: 50px;
-    height: 50px;
-
-    left: -12px;
-    top: -25px;
-
-    background-color: #777;
-    border: 4px solid #222;
-    border-radius: 50%;
-}
-.greifer {
-    position: absolute;
-
-    width: 60px;
-    height: 30px;
-
-    left: -9px;
-    top: -30px;
-
-    background-color: #555;
-    border: 3px solid #222;
-    border-radius: 5px;
-    transform-origin: bottom center;
-}
-.greifer-links {
-    position: absolute;
-
-    width: 10px;
-    height: 40px;
-
-    left: 5px;
-    top: -35px;
-
-    background-color: #222;
-}
-.greifer-rechts {
-    position: absolute;
-
-    width: 10px;
-    height: 40px;
-
-    right: 5px;
-    top: -35px;
-
-    background-color: #222;
-}
-.greifer {
-    transform-origin:  bottom center;
-    transition: transform 1.5s ease-in-out;
-}
-/* Grundstellung */
-.roboter-simulation.grundstellung .oberarm {
-    transform: rotate(0deg);
-}
-
-.roboter-simulation.grundstellung .unterarm {
-    transform: rotate(0deg);
-}
-.roboter-simulation.grundstellung .greifer {
-    transform: rotate(0deg);
-}
-
-/* P1 oben links anfahren */
-.roboter-simulation.fahre-p1 .oberarm {
-    transform: rotate(-53deg);
-}
-
-.roboter-simulation.fahre-p1 .unterarm {
-    transform: rotate(33deg);
-}
-.roboter-simulation.fahre-p1 .greifer {
-    transform: rotate(20deg);
-}
-
-
-/* Würfel bei P1 anheben */
-.roboter-simulation.hebe-p1 .oberarm {
-    transform: rotate(-51deg);
-}
-
-.roboter-simulation.hebe-p1 .unterarm {
-    transform: rotate(31deg);
-}
-.roboter-simulation.hebe-p1 .greifer {
-    transform: rotate(22deg);
-}
-
-
-/* Transportposition in der Mitte */
-.roboter-simulation.transport .oberarm {
-    transform: rotate(0deg);
-}
-
-.roboter-simulation.transport .unterarm {
-    transform: rotate(-20deg);
-}
-
-
-/* P2 oben rechts anfahren */
-.roboter-simulation.fahre-p2 .oberarm {
-    transform: rotate(53deg);
-}
-
-.roboter-simulation.fahre-p2 .unterarm {
-    transform: rotate(-30deg);
-}
-.roboter-simulation.fahre-p2 .greifer {
-    transform: rotate(-24deg);
-}
-.greifer-links,
-.greifer-rechts {
-    transition: transform 0.8s ease-in-out;
-}
-
-/* Offen */
-.greifer.offen .greifer-links {
-    transform: translateX(-10px);
-}
-
-.greifer.offen .greifer-rechts {
-    transform: translateX(10px);
-}
-
-/* Geschlossen */
-.greifer.geschlossen .greifer-links,
-.greifer.geschlossen .greifer-rechts {
-    transform: translateX(0);
-}
-.roboter-simulation.explodiert .oberarm {
-    transform: translate(-200px, -100px) rotate(-300deg);
-    transition: transform 1s ease-out;
-}
-
-.roboter-simulation.explodiert .unterarm {
-    transform: translate(220px, -150px) rotate(400deg);
-    transition: transform 1s ease-out;
-}
-
-.roboter-simulation.explodiert .achse1 {
-    transform: translate(-180px, 100px) rotate(250deg);
-    transition: transform 1s ease-out;
-}
-
-.roboter-simulation.explodiert .achse2 {
-    transform: translate(180px, 100px) rotate(-300deg);
-    transition: transform 1s ease-out;
-}
-
-.roboter-simulation.explodiert .achse3 {
-    transform: translate(-100px, -200px) rotate(500deg);
-    transition: transform 1s ease-out;
-}
-
-.roboter-simulation.explodiert .greifer {
-    transform: translate(200px, -200px) rotate(450deg);
-    transition: transform 1s ease-out;
+});
+function istRoboterKaputt() {
+    return roboterKaputt;
 }
