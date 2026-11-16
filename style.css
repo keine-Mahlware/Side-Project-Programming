@@ -610,32 +610,32 @@ body.dark h3 {
 .greifer.geschlossen .greifer-rechts {
     transform: translateX(0);
 }
-.roboter-simulation.explodiert .oberarm {
+.roboter.explodiert .oberarm {
     transform: translate(-200px, -100px) rotate(-300deg);
     transition: transform 1s ease-out;
 }
 
-.roboter-simulation.explodiert .unterarm {
+.roboter.explodiert .unterarm {
     transform: translate(220px, -150px) rotate(400deg);
     transition: transform 1s ease-out;
 }
 
-.roboter-simulation.explodiert .achse1 {
+.roboter.explodiert .achse1 {
     transform: translate(-180px, 100px) rotate(250deg);
     transition: transform 1s ease-out;
 }
 
-.roboter-simulation.explodiert .achse2 {
+.roboter.explodiert .achse2 {
     transform: translate(180px, 100px) rotate(-300deg);
     transition: transform 1s ease-out;
 }
 
-.roboter-simulation.explodiert .achse3 {
+.roboter.explodiert .achse3 {
     transform: translate(-100px, -200px) rotate(500deg);
     transition: transform 1s ease-out;
 }
 
-.roboter-simulation.explodiert .greifer {
+.roboter.explodiert .greifer {
     transform: translate(200px, -200px) rotate(450deg);
     transition: transform 1s ease-out;
 }
