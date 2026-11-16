@@ -1,7 +1,8 @@
 console.log("JavaScript funktioniert");
 
 const button = document.getElementById("darkmode")
-
+let roboterEasterEggGefunden = false;
+let motorEasterEggGefunden = false;
 button.addEventListener("click", function() {
     document.body.classList.toggle("dark");
 
@@ -23,7 +24,7 @@ const quitButton   = document.getElementById("quit-button")
 const stoerungsStatus = document.getElementById("stoerungs-status")
 const leuchteBetrieb = document.getElementById("lampe-betrieb")
 const leuchteStop   = document.getElementById("lampe-stop")
-const leuchteStoerung = document.getElementById("lampe-stoerung")
+const leuchteStoerung = document.getElementById("lampe-fehler")
 const leuchteQuit   = document.getElementById("lampe-quit")
 const motor = document.getElementById("motor")
 
@@ -91,8 +92,9 @@ startButton.addEventListener("click", function() {
 
         motorTimer = setTimeout(function() {
             document.querySelector(".flamme").style.zIndex = "50";
-
-        }, 120000); //5000 ms = 5s / 120000 ms = 2 Minuten
+            motorEasterEggGefunden = true;
+            pruefeEasterEggs();
+        }, 15000); //5000 ms = 5s / 120000 ms = 2 Minuten
      }
     if (anlageLaeuft == false && autoBetriebs == true && stoerung == true ) {
         anlagenStatus.textContent = "Bitte Störung beseitigen & quittieren"
@@ -302,7 +304,8 @@ roboter.addEventListener("click", function() {
         clearTimeout(klickTimer);
         roboterKaputt = true;
         roboterZyklusLaeuft = true;
-
+        roboterEasterEggGefunden = true;
+        pruefeEasterEggs();
         roboter.classList.add("explodiert");
 
         roboterKlicks = 0;
@@ -312,3 +315,247 @@ roboter.addEventListener("click", function() {
 function istRoboterKaputt() {
     return roboterKaputt;
 }
+
+function pruefeEasterEggs() {
+
+    if (
+        roboterEasterEggGefunden == true &&
+        motorEasterEggGefunden == true
+    ) {
+
+        document.getElementById("naechste-seite").style.display = "block";
+
+    }
+}
+const naechsteSeite = document.getElementById("naechste-seite");
+const levelTransition = document.getElementById("level-transition");
+const seite1 = document.getElementById("seite1");
+const seite2 = document.getElementById("seite2");
+const zurueck = document.getElementById("zurueck");
+
+naechsteSeite.addEventListener("click", async function() {
+
+    // Übergang starten
+    levelTransition.classList.add("aktiv");
+
+    // Warten bis Bildschirm dunkel ist
+    await warten(1400);
+
+    // Seite wechseln während alles verdeckt ist
+    document.body.classList.add("seite-2");
+
+    // Animation fertig laufen lassen
+    await warten(1400);
+
+    levelTransition.classList.remove("aktiv");
+
+});
+zurueck.addEventListener("click", function() {
+
+    document.body.classList.remove("seite-2");
+
+});
+
+
+
+
+
+naechsteSeite.addEventListener("click", function() {
+
+    seite1.style.display = "none";
+    seite2.style.display = "block";
+
+});
+zurueck.addEventListener("click", function() {
+
+    seite2.style.display = "none";
+    seite1.style.display = "block";
+
+});
+
+const stoerungen =
+    document.querySelectorAll(".stoerung");
+
+const spielStart =
+    document.getElementById("spiel-start");
+
+const spielZeit =
+    document.getElementById("spiel-zeit");
+
+const spielPunkte =
+    document.getElementById("spiel-punkte");
+
+const spielMeldung =
+    document.getElementById("spiel-meldung");
+
+
+let punkte = 0;
+let zeit = 20;
+
+let spielLaeuft = false;
+
+let aktiveStoerung = null;
+
+let letzteStoerung = -1;
+
+let spielTimer = null;
+
+
+/* ===============================
+   NEUE ZUFÄLLIGE STÖRUNG
+================================ */
+
+function neueStoerung() {
+
+    // Alte Lampe ausschalten
+    if (aktiveStoerung != null) {
+
+        aktiveStoerung.classList.remove("aktiv");
+
+    }
+
+
+    let zufall;
+
+    // Zufällige Lampe auswählen
+    // Sie darf NICHT die gleiche wie vorher sein
+
+    do {
+
+        zufall = Math.floor(
+            Math.random() * stoerungen.length
+        );
+
+    } while (zufall === letzteStoerung);
+
+
+    // Nummer merken
+    letzteStoerung = zufall;
+
+
+    // Neue Lampe auswählen
+    aktiveStoerung = stoerungen[zufall];
+
+
+    // Einschalten
+    aktiveStoerung.classList.add("aktiv");
+}
+
+
+/* ===============================
+   LAMPEN ANKLICKEN
+================================ */
+
+stoerungen.forEach(function(stoerung) {
+
+    stoerung.addEventListener("click", function() {
+
+        // Spiel läuft nicht
+        if (spielLaeuft == false) {
+            return;
+        }
+
+
+        // Richtige Lampe getroffen
+        if (stoerung === aktiveStoerung) {
+
+            punkte++;
+
+            spielPunkte.textContent = punkte;
+
+
+            // Aktuelle Lampe ausschalten
+            stoerung.classList.remove("aktiv");
+
+
+            // Neue Lampe auswählen
+            neueStoerung();
+
+        }
+
+    });
+
+});
+
+
+/* ===============================
+   SPIEL STARTEN
+================================ */
+
+spielStart.addEventListener("click", function() {
+
+    // Verhindert mehrfaches Starten
+    if (spielLaeuft == true) {
+        return;
+    }
+
+
+    /* Spiel zurücksetzen */
+
+    punkte = 0;
+
+    zeit = 20;
+
+    letzteStoerung = -1;
+
+
+    spielPunkte.textContent = punkte;
+
+    spielZeit.textContent = zeit;
+
+
+    spielMeldung.textContent =
+        "⚠ STÖRUNGEN ERKANNT ⚠";
+
+
+    spielLaeuft = true;
+
+
+    /* Erste Lampe aktivieren */
+
+    neueStoerung();
+
+
+    /* ============================
+       TIMER
+    ============================ */
+
+    spielTimer = setInterval(function() {
+
+        zeit--;
+
+        spielZeit.textContent = zeit;
+
+
+        /* Zeit abgelaufen */
+
+        if (zeit <= 0) {
+
+            clearInterval(spielTimer);
+
+            spielLaeuft = false;
+
+
+            /* Aktive Lampe ausschalten */
+
+            if (aktiveStoerung != null) {
+
+                aktiveStoerung.classList.remove("aktiv");
+
+                aktiveStoerung = null;
+
+            }
+
+
+            /* Ergebnis */
+
+            spielMeldung.textContent =
+                "SYSTEM STABILISIERT – " +
+                punkte +
+                " Punkte";
+
+        }
+
+    }, 1000);
+
+});
