@@ -367,10 +367,10 @@ naechsteSeite.addEventListener("click", function() {
 
 });
 zurueck.addEventListener("click", function() {
-
-    seite2.style.display = "none";
-    seite1.style.display = "block";
-    locstion.reload();
+    
+    levelTransition.classList.add("aktiv");
+    await warten(1400);
+    location.reload();
 
 });
 
