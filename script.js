@@ -370,7 +370,7 @@ zurueck.addEventListener("click", function() {
     
     levelTransition.classList.add("aktiv");
     await warten(1400);
-    location.reload();
+   window.location.reload()
 
 });
 
