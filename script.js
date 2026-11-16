@@ -274,12 +274,13 @@ if (roboterKaputt) {
     roboterZyklusLaeuft = false;
 }
 roboterZyklus();
+ const roboter = document.getElementById("roboter-sockel");
 
 let roboterKlicks = 0;
 let klickTimer;
 let roboterKaputt = false;
 
-roboterSimulation.addEventListener("click", function() {
+roboter.addEventListener("click", function() {
 
      if (roboterKaputt) {
         return;
