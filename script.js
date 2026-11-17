@@ -329,6 +329,8 @@ function pruefeEasterEggs() {
 }
 const naechsteSeite = document.getElementById("naechste-seite");
 const levelTransition = document.getElementById("level-transition");
+const seite1 = document.getElementById("seite1");
+const seite2 = document.getElementById("seite2");
 const zurueck = document.getElementById("zurueck");
 
 naechsteSeite.addEventListener("click", async function() {
@@ -354,7 +356,19 @@ zurueck.addEventListener("click", function() {
 
 });
 
+naechsteSeite.addEventListener("click", function() {
 
+    seite1.style.display = "none";
+    seite2.style.display = "block";
+
+});
+
+zurueck.addEventListener("click", function() {
+
+    seite2.style.display = "none";
+    seite1.style.display = "block";
+
+});
 
 const stoerungen =
     document.querySelectorAll(".stoerung");
