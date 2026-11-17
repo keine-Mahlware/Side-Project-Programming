@@ -598,7 +598,7 @@ let spiel2Laeuft = false;
 
 let spiel2Punkte = 0;
 let spiel2Leben = 3;
-
+let spiel3Freigeschaltet = false;
 let roboterPosition = 0;
 let bewegungsRichtung = 0;
 
@@ -907,7 +907,15 @@ function spiel2Animation(zeitstempel) {
             spiel2PunkteAnzeige.textContent =
                 spiel2Punkte;
 
+            if (
+                spiel2Punkte >= 100 &&
+                spiel3Freigeschaltet === false
+                ) {
 
+                spiel3Freigeschaltet = true;
+
+                spiel3Freischalten();
+            }
             hindernis.element.remove();
 
             hindernisse.splice(index, 1);
@@ -1146,3 +1154,1317 @@ spiel2Rechts.addEventListener(
     "pointercancel",
     bewegungStoppen
 );
+
+
+/* =========================================
+   LEVEL 3: COMBAT PROTOCOL
+========================================= */
+
+const spiel3Bereich =
+    document.getElementById("spiel3");
+
+const spiel3Feld =
+    document.getElementById("spiel3-feld");
+
+const spiel3Spieler =
+    document.getElementById("spiel3-spieler");
+
+const spiel3Start =
+    document.getElementById("spiel3-start");
+
+const spiel3Links =
+    document.getElementById("spiel3-links");
+
+const spiel3Rechts =
+    document.getElementById("spiel3-rechts");
+
+const spiel3Schiessen =
+    document.getElementById("spiel3-schiessen");
+
+const spiel3PunkteAnzeige =
+    document.getElementById("spiel3-punkte");
+
+const spiel3LebenAnzeige =
+    document.getElementById("spiel3-leben");
+
+const spiel3BossLebenAnzeige =
+    document.getElementById("spiel3-boss-leben");
+
+const spiel3Meldung =
+    document.getElementById("spiel3-meldung");
+
+const spiel3Boss =
+    document.getElementById("spiel3-boss");
+
+const bossLebensanzeige =
+    document.getElementById("boss-lebensanzeige");
+
+const spiel4Bereich =
+    document.getElementById("spiel4");
+
+
+let spiel4Freigeschaltet = false;
+
+let spiel3Laeuft = false;
+
+let spiel3Punkte = 0;
+let spiel3Leben = 3;
+
+let spiel3SpielerPosition = 0;
+let spiel3BewegungsRichtung = 0;
+
+let spiel3Projektile = [];
+let spiel3Gegner = [];
+let spiel3BossProjektile = [];
+
+let spiel3AnimationsId = null;
+
+let spiel3LetzteZeit = 0;
+let spiel3LetzteSpawnZeit = 0;
+let spiel3LetzterSchuss = 0;
+let spiel3LetzterTreffer = 0;
+
+let spiel3BossAktiv = false;
+let spiel3BossBesiegt = false;
+
+let spiel3BossLeben = 20;
+const spiel3BossMaxLeben = 20;
+
+let spiel3BossPosition = 0;
+let spiel3BossRichtung = 1;
+let spiel3BossLetzterSchuss = 0;
+
+
+/* =========================================
+   MULTIPLIKATION OHNE OPERATOR
+========================================= */
+
+function spiel3Mal(wert1, wert2) {
+
+    if (wert1 === 0 || wert2 === 0) {
+        return 0;
+    }
+
+    return wert1 / (1 / wert2);
+}
+
+
+/* =========================================
+   PRÜFEN, OB ALLE HTML-ELEMENTE EXISTIEREN
+========================================= */
+
+function spiel3ElementeVorhanden() {
+
+    return (
+        spiel3Bereich !== null &&
+        spiel3Feld !== null &&
+        spiel3Spieler !== null &&
+        spiel3Start !== null &&
+        spiel3Links !== null &&
+        spiel3Rechts !== null &&
+        spiel3Schiessen !== null &&
+        spiel3PunkteAnzeige !== null &&
+        spiel3LebenAnzeige !== null &&
+        spiel3BossLebenAnzeige !== null &&
+        spiel3Meldung !== null &&
+        spiel3Boss !== null &&
+        bossLebensanzeige !== null
+    );
+}
+
+
+/* =========================================
+   LEVEL 3 FREISCHALTEN
+========================================= */
+
+function spiel3Freischalten() {
+
+    if (spiel3ElementeVorhanden() === false) {
+
+        console.error(
+            "Mindestens ein HTML-Element von Level 3 fehlt."
+        );
+
+        return;
+    }
+
+    spiel3Bereich.classList.remove(
+        "spiel3-versteckt"
+    );
+
+    spiel3Bereich.classList.add(
+        "spiel3-sichtbar"
+    );
+
+    spiel3Meldung.textContent =
+        "COMBAT PROTOCOL FREIGESCHALTET";
+}
+
+
+/* =========================================
+   KOLLISIONSPRÜFUNG
+========================================= */
+
+function spiel3Kollidiert(element1, element2) {
+
+    if (
+        element1 === null ||
+        element2 === null ||
+        element1.isConnected === false ||
+        element2.isConnected === false
+    ) {
+        return false;
+    }
+
+    const rechteck1 =
+        element1.getBoundingClientRect();
+
+    const rechteck2 =
+        element2.getBoundingClientRect();
+
+    return !(
+        rechteck1.right < rechteck2.left ||
+        rechteck1.left > rechteck2.right ||
+        rechteck1.bottom < rechteck2.top ||
+        rechteck1.top > rechteck2.bottom
+    );
+}
+
+
+/* =========================================
+   ALLE SPIELELEMENTE ENTFERNEN
+========================================= */
+
+function spiel3ElementeEntfernen() {
+
+    spiel3Projektile.forEach(function(projektil) {
+
+        if (projektil.element.isConnected) {
+            projektil.element.remove();
+        }
+    });
+
+    spiel3Gegner.forEach(function(gegner) {
+
+        if (gegner.element.isConnected) {
+            gegner.element.remove();
+        }
+    });
+
+    spiel3BossProjektile.forEach(function(projektil) {
+
+        if (projektil.element.isConnected) {
+            projektil.element.remove();
+        }
+    });
+
+    spiel3Projektile = [];
+    spiel3Gegner = [];
+    spiel3BossProjektile = [];
+}
+
+
+/* =========================================
+   LEVEL 3 ZURÜCKSETZEN
+========================================= */
+
+function spiel3Zuruecksetzen() {
+
+    spiel3ElementeEntfernen();
+
+    spiel3Punkte = 0;
+    spiel3Leben = 3;
+
+    spiel3BossAktiv = false;
+    spiel3BossBesiegt = false;
+    spiel3BossLeben = spiel3BossMaxLeben;
+
+    spiel3PunkteAnzeige.textContent =
+        spiel3Punkte;
+
+    spiel3LebenAnzeige.textContent =
+        spiel3Leben;
+
+    spiel3BossLebenAnzeige.textContent =
+        "GESPERRT";
+
+    bossLebensanzeige.style.width =
+        "100%";
+
+    spiel3Boss.classList.remove(
+        "aktiv",
+        "phase-2",
+        "phase-3"
+    );
+
+    const feldBreite =
+        spiel3Feld.clientWidth;
+
+    const spielerBreite =
+        spiel3Spieler.offsetWidth;
+
+    spiel3SpielerPosition =
+        (feldBreite - spielerBreite) / 2;
+
+    spiel3Spieler.style.left =
+        spiel3SpielerPosition + "px";
+
+    spiel3BewegungsRichtung = 0;
+
+    spiel3LetzteZeit = 0;
+    spiel3LetzteSpawnZeit = 0;
+    spiel3LetzterSchuss = 0;
+    spiel3LetzterTreffer = 0;
+
+    spiel3BossLetzterSchuss = 0;
+    spiel3BossRichtung = 1;
+}
+
+
+/* =========================================
+   SPIELER BEWEGEN
+========================================= */
+
+function spiel3SpielerBewegen(deltaZeit) {
+
+    const geschwindigkeit = 360;
+
+    const bewegung =
+        spiel3Mal(
+            spiel3BewegungsRichtung,
+            spiel3Mal(
+                geschwindigkeit,
+                deltaZeit
+            )
+        );
+
+    spiel3SpielerPosition += bewegung;
+
+    const maximalePosition =
+        spiel3Feld.clientWidth -
+        spiel3Spieler.offsetWidth;
+
+    if (spiel3SpielerPosition < 0) {
+        spiel3SpielerPosition = 0;
+    }
+
+    if (
+        spiel3SpielerPosition >
+        maximalePosition
+    ) {
+        spiel3SpielerPosition =
+            maximalePosition;
+    }
+
+    spiel3Spieler.style.left =
+        spiel3SpielerPosition + "px";
+}
+
+
+/* =========================================
+   SPIELER SCHIESST
+========================================= */
+
+function spiel3Feuern() {
+
+    if (spiel3Laeuft === false) {
+        return;
+    }
+
+    const jetzt = performance.now();
+
+    if (
+        jetzt - spiel3LetzterSchuss <
+        250
+    ) {
+        return;
+    }
+
+    spiel3LetzterSchuss = jetzt;
+
+    const projektil =
+        document.createElement("div");
+
+    projektil.className =
+        "spiel3-projektil";
+
+    const x =
+        spiel3SpielerPosition +
+        spiel3Spieler.offsetWidth / 2 -
+        3;
+
+    const y =
+        spiel3Feld.clientHeight -
+        85;
+
+    projektil.style.left = x + "px";
+    projektil.style.top = y + "px";
+
+    spiel3Feld.appendChild(projektil);
+
+    spiel3Projektile.push({
+        element: projektil,
+        x: x,
+        y: y,
+        geschwindigkeit: 480
+    });
+}
+
+
+/* =========================================
+   GEGNER ERSTELLEN
+========================================= */
+
+function spiel3GegnerErstellen() {
+
+    if (
+        spiel3Laeuft === false ||
+        spiel3BossAktiv === true
+    ) {
+        return;
+    }
+
+    const gegner =
+        document.createElement("div");
+
+    gegner.className =
+        "spiel3-gegner";
+
+    gegner.textContent = "⚙";
+
+    const gegnerBreite = 46;
+
+    const maximalePosition =
+        spiel3Feld.clientWidth -
+        gegnerBreite;
+
+    const zufaelligePosition =
+        Math.random() /
+        (1 / maximalePosition);
+
+    gegner.style.left =
+        zufaelligePosition + "px";
+
+    gegner.style.top =
+        "-55px";
+
+    spiel3Feld.appendChild(gegner);
+
+    const zufaelligeGeschwindigkeit =
+        Math.random() / (1 / 65);
+
+    spiel3Gegner.push({
+        element: gegner,
+        x: zufaelligePosition,
+        y: -55,
+        rotation: 0,
+        geschwindigkeit:
+            125 +
+            zufaelligeGeschwindigkeit
+    });
+}
+
+
+/* =========================================
+   SPIELER WIRD GETROFFEN
+========================================= */
+
+function spiel3SpielerGetroffen() {
+
+    const jetzt = performance.now();
+
+    if (
+        jetzt - spiel3LetzterTreffer <
+        800
+    ) {
+        return;
+    }
+
+    spiel3LetzterTreffer = jetzt;
+
+    spiel3Leben--;
+
+    spiel3LebenAnzeige.textContent =
+        spiel3Leben;
+
+    spiel3Spieler.classList.remove(
+        "getroffen"
+    );
+
+    void spiel3Spieler.offsetWidth;
+
+    spiel3Spieler.classList.add(
+        "getroffen"
+    );
+
+    spiel3Meldung.textContent =
+        "TREFFER! Noch " +
+        spiel3Leben +
+        " Leben";
+
+    if (spiel3Leben <= 0) {
+        spiel3Beenden(false);
+    }
+}
+
+
+/* =========================================
+   BOSS STARTEN
+========================================= */
+
+function spiel3BossStarten() {
+
+    if (
+        spiel3BossAktiv === true ||
+        spiel3BossBesiegt === true
+    ) {
+        return;
+    }
+
+    spiel3BossAktiv = true;
+    spiel3BossLeben = spiel3BossMaxLeben;
+
+    spiel3Boss.classList.add("aktiv");
+
+    const bossBreite =
+        spiel3Boss.offsetWidth;
+
+    spiel3BossPosition =
+        (
+            spiel3Feld.clientWidth -
+            bossBreite
+        ) / 2;
+
+    spiel3BossRichtung = 1;
+
+    spiel3Boss.style.left =
+        spiel3BossPosition + "px";
+
+    spiel3BossLebenAnzeige.textContent =
+        spiel3BossLeben +
+        " / " +
+        spiel3BossMaxLeben;
+
+    bossLebensanzeige.style.width =
+        "100%";
+
+    spiel3Meldung.textContent =
+        "BOSS WARNING: CORRUPTED CONTROL UNIT";
+
+    spiel3Gegner.forEach(function(gegner) {
+
+        if (gegner.element.isConnected) {
+            gegner.element.remove();
+        }
+    });
+
+    spiel3Gegner = [];
+}
+
+
+/* =========================================
+   BOSS BEWEGEN
+========================================= */
+
+function spiel3BossBewegen(deltaZeit) {
+
+    if (spiel3BossAktiv === false) {
+        return;
+    }
+
+    let geschwindigkeit = 105;
+
+    if (spiel3BossLeben <= 13) {
+
+        geschwindigkeit = 150;
+
+        spiel3Boss.classList.add(
+            "phase-2"
+        );
+    }
+
+    if (spiel3BossLeben <= 6) {
+
+        geschwindigkeit = 220;
+
+        spiel3Boss.classList.add(
+            "phase-3"
+        );
+    }
+
+    const bewegung =
+        spiel3Mal(
+            spiel3BossRichtung,
+            spiel3Mal(
+                geschwindigkeit,
+                deltaZeit
+            )
+        );
+
+    spiel3BossPosition += bewegung;
+
+    const maximalePosition =
+        spiel3Feld.clientWidth -
+        spiel3Boss.offsetWidth;
+
+    if (spiel3BossPosition <= 0) {
+
+        spiel3BossPosition = 0;
+        spiel3BossRichtung = 1;
+    }
+
+    if (
+        spiel3BossPosition >=
+        maximalePosition
+    ) {
+        spiel3BossPosition =
+            maximalePosition;
+
+        spiel3BossRichtung = -1;
+    }
+
+    spiel3Boss.style.left =
+        spiel3BossPosition + "px";
+}
+
+
+/* =========================================
+   BOSS SCHIESST
+========================================= */
+
+function spiel3BossFeuern(zeitstempel) {
+
+    if (spiel3BossAktiv === false) {
+        return;
+    }
+
+    let schussPause = 1150;
+
+    if (spiel3BossLeben <= 13) {
+        schussPause = 800;
+    }
+
+    if (spiel3BossLeben <= 6) {
+        schussPause = 480;
+    }
+
+    if (
+        zeitstempel -
+        spiel3BossLetzterSchuss <
+        schussPause
+    ) {
+        return;
+    }
+
+    spiel3BossLetzterSchuss =
+        zeitstempel;
+
+    const projektil =
+        document.createElement("div");
+
+    projektil.className =
+        "spiel3-boss-projektil";
+
+    const x =
+        spiel3BossPosition +
+        spiel3Boss.offsetWidth / 2 -
+        6;
+
+    const y =
+        spiel3Boss.offsetTop +
+        spiel3Boss.offsetHeight;
+
+    projektil.style.left = x + "px";
+    projektil.style.top = y + "px";
+
+    spiel3Feld.appendChild(projektil);
+
+    spiel3BossProjektile.push({
+        element: projektil,
+        x: x,
+        y: y,
+        geschwindigkeit: 265
+    });
+}
+
+
+/* =========================================
+   BOSS TREFFEN
+========================================= */
+
+function spiel3BossTreffen() {
+
+    if (spiel3BossAktiv === false) {
+        return;
+    }
+
+    spiel3BossLeben--;
+
+    if (spiel3BossLeben < 0) {
+        spiel3BossLeben = 0;
+    }
+
+    spiel3BossLebenAnzeige.textContent =
+        spiel3BossLeben +
+        " / " +
+        spiel3BossMaxLeben;
+
+    const prozent =
+        spiel3BossLeben /
+        spiel3BossMaxLeben /
+        0.01;
+
+    bossLebensanzeige.style.width =
+        prozent + "%";
+
+    if (spiel3BossLeben <= 0) {
+        spiel3BossBesiegen();
+    }
+}
+
+
+/* =========================================
+   BOSS BESIEGEN
+========================================= */
+
+function spiel3BossBesiegen() {
+
+    spiel3BossAktiv = false;
+    spiel3BossBesiegt = true;
+
+    spiel3Boss.classList.remove(
+        "aktiv",
+        "phase-2",
+        "phase-3"
+    );
+
+    spiel3BossProjektile.forEach(
+        function(projektil) {
+
+            if (projektil.element.isConnected) {
+                projektil.element.remove();
+            }
+        }
+    );
+
+    spiel3BossProjektile = [];
+
+    spiel3Meldung.textContent =
+        "BOSS DEFEATED – SYSTEM GERETTET";
+
+    spiel4Freischalten();
+
+    spiel3Beenden(true);
+}
+
+
+/* =========================================
+   LEVEL 4 FREISCHALTEN
+========================================= */
+
+function spiel4Freischalten() {
+
+    if (spiel4Freigeschaltet === true) {
+        return;
+    }
+
+    spiel4Freigeschaltet = true;
+
+    if (spiel4Bereich === null) {
+
+        console.error(
+            "Das HTML-Element spiel4 fehlt."
+        );
+
+        return;
+    }
+
+    spiel4Bereich.classList.remove(
+        "spiel4-versteckt"
+    );
+
+    spiel4Bereich.classList.add(
+        "spiel4-sichtbar"
+    );
+}
+
+
+/* =========================================
+   PROJEKTILE DES SPIELERS AKTUALISIEREN
+========================================= */
+
+function spiel3ProjektileAktualisieren(
+    deltaZeit
+) {
+
+    for (
+        let index =
+            spiel3Projektile.length - 1;
+
+        index >= 0;
+
+        index--
+    ) {
+
+        const projektil =
+            spiel3Projektile[index];
+
+        projektil.y -= spiel3Mal(
+            projektil.geschwindigkeit,
+            deltaZeit
+        );
+
+        projektil.element.style.top =
+            projektil.y + "px";
+
+        let projektilEntfernt = false;
+
+        for (
+            let gegnerIndex =
+                spiel3Gegner.length - 1;
+
+            gegnerIndex >= 0;
+
+            gegnerIndex--
+        ) {
+
+            const gegner =
+                spiel3Gegner[gegnerIndex];
+
+            if (
+                spiel3Kollidiert(
+                    projektil.element,
+                    gegner.element
+                )
+            ) {
+
+                projektil.element.remove();
+                gegner.element.remove();
+
+                spiel3Projektile.splice(
+                    index,
+                    1
+                );
+
+                spiel3Gegner.splice(
+                    gegnerIndex,
+                    1
+                );
+
+                spiel3Punkte++;
+
+                spiel3PunkteAnzeige.textContent =
+                    spiel3Punkte;
+
+                projektilEntfernt = true;
+
+                if (
+                    spiel3Punkte >= 20 &&
+                    spiel3BossAktiv === false &&
+                    spiel3BossBesiegt === false
+                ) {
+                    spiel3BossStarten();
+                }
+
+                break;
+            }
+        }
+
+        if (projektilEntfernt === true) {
+            continue;
+        }
+
+        if (
+            spiel3BossAktiv === true &&
+            spiel3Kollidiert(
+                projektil.element,
+                spiel3Boss
+            )
+        ) {
+
+            projektil.element.remove();
+
+            spiel3Projektile.splice(
+                index,
+                1
+            );
+
+            spiel3BossTreffen();
+
+            continue;
+        }
+
+        if (projektil.y < -30) {
+
+            projektil.element.remove();
+
+            spiel3Projektile.splice(
+                index,
+                1
+            );
+        }
+    }
+}
+
+
+/* =========================================
+   GEGNER AKTUALISIEREN
+========================================= */
+
+function spiel3GegnerAktualisieren(
+    deltaZeit
+) {
+
+    for (
+        let index =
+            spiel3Gegner.length - 1;
+
+        index >= 0;
+
+        index--
+    ) {
+
+        const gegner =
+            spiel3Gegner[index];
+
+        gegner.y += spiel3Mal(
+            gegner.geschwindigkeit,
+            deltaZeit
+        );
+
+        gegner.rotation += spiel3Mal(
+            140,
+            deltaZeit
+        );
+
+        gegner.element.style.top =
+            gegner.y + "px";
+
+        gegner.element.style.transform =
+            "rotate(" +
+            gegner.rotation +
+            "deg)";
+
+        if (
+            spiel3Kollidiert(
+                gegner.element,
+                spiel3Spieler
+            )
+        ) {
+
+            gegner.element.remove();
+
+            spiel3Gegner.splice(
+                index,
+                1
+            );
+
+            spiel3SpielerGetroffen();
+
+            continue;
+        }
+
+        if (
+            gegner.y >
+            spiel3Feld.clientHeight
+        ) {
+
+            gegner.element.remove();
+
+            spiel3Gegner.splice(
+                index,
+                1
+            );
+
+            spiel3SpielerGetroffen();
+        }
+    }
+}
+
+
+/* =========================================
+   BOSSPROJEKTILE AKTUALISIEREN
+========================================= */
+
+function spiel3BossProjektileAktualisieren(
+    deltaZeit
+) {
+
+    for (
+        let index =
+            spiel3BossProjektile.length - 1;
+
+        index >= 0;
+
+        index--
+    ) {
+
+        const projektil =
+            spiel3BossProjektile[index];
+
+        projektil.y += spiel3Mal(
+            projektil.geschwindigkeit,
+            deltaZeit
+        );
+
+        projektil.element.style.top =
+            projektil.y + "px";
+
+        if (
+            spiel3Kollidiert(
+                projektil.element,
+                spiel3Spieler
+            )
+        ) {
+
+            projektil.element.remove();
+
+            spiel3BossProjektile.splice(
+                index,
+                1
+            );
+
+            spiel3SpielerGetroffen();
+
+            continue;
+        }
+
+        if (
+            projektil.y >
+            spiel3Feld.clientHeight
+        ) {
+
+            projektil.element.remove();
+
+            spiel3BossProjektile.splice(
+                index,
+                1
+            );
+        }
+    }
+}
+
+
+/* =========================================
+   HAUPTANIMATION
+========================================= */
+
+function spiel3Animation(zeitstempel) {
+
+    if (spiel3Laeuft === false) {
+        return;
+    }
+
+    if (spiel3LetzteZeit === 0) {
+        spiel3LetzteZeit = zeitstempel;
+    }
+
+    let deltaZeit =
+        (
+            zeitstempel -
+            spiel3LetzteZeit
+        ) / 1000;
+
+    if (deltaZeit > 0.05) {
+        deltaZeit = 0.05;
+    }
+
+    spiel3LetzteZeit = zeitstempel;
+
+    spiel3SpielerBewegen(deltaZeit);
+
+    if (
+        spiel3BossAktiv === false &&
+        zeitstempel -
+        spiel3LetzteSpawnZeit >
+        850
+    ) {
+
+        spiel3LetzteSpawnZeit =
+            zeitstempel;
+
+        spiel3GegnerErstellen();
+    }
+
+    spiel3ProjektileAktualisieren(
+        deltaZeit
+    );
+
+    spiel3GegnerAktualisieren(
+        deltaZeit
+    );
+
+    if (spiel3BossAktiv === true) {
+
+        spiel3BossBewegen(deltaZeit);
+
+        spiel3BossFeuern(zeitstempel);
+    }
+
+    spiel3BossProjektileAktualisieren(
+        deltaZeit
+    );
+
+    if (spiel3Laeuft === true) {
+
+        spiel3AnimationsId =
+            requestAnimationFrame(
+                spiel3Animation
+            );
+    }
+}
+
+
+/* =========================================
+   LEVEL 3 STARTEN
+========================================= */
+
+function spiel3Starten() {
+
+    if (spiel3Laeuft === true) {
+        return;
+    }
+
+    if (spiel3ElementeVorhanden() === false) {
+
+        console.error(
+            "Level 3 kann nicht gestartet werden."
+        );
+
+        return;
+    }
+
+    spiel3Zuruecksetzen();
+
+    spiel3Laeuft = true;
+    spiel3LetzteZeit = 0;
+
+    spiel3Meldung.textContent =
+        "FEINDLICHE MASCHINEN ERKANNT";
+
+    spiel3Start.textContent =
+        "LEVEL LÄUFT";
+
+    spiel3AnimationsId =
+        requestAnimationFrame(
+            spiel3Animation
+        );
+}
+
+
+/* =========================================
+   LEVEL 3 BEENDEN
+========================================= */
+
+function spiel3Beenden(gewonnen) {
+
+    spiel3Laeuft = false;
+    spiel3BewegungsRichtung = 0;
+
+    if (spiel3AnimationsId !== null) {
+
+        cancelAnimationFrame(
+            spiel3AnimationsId
+        );
+    }
+
+    spiel3ElementeEntfernen();
+
+    if (gewonnen === true) {
+
+        spiel3Meldung.textContent =
+            "BOSS DEFEATED – LEVEL 4 FREIGESCHALTET";
+
+        spiel3Start.textContent =
+            "ERNEUT SPIELEN";
+
+    } else {
+
+        spiel3Meldung.textContent =
+            "GAME OVER – " +
+            spiel3Punkte +
+            " Punkte";
+
+        spiel3Start.textContent =
+            "NOCH EINMAL";
+    }
+}
+
+
+/* =========================================
+   STARTKNOPF
+========================================= */
+
+if (spiel3Start !== null) {
+
+    spiel3Start.addEventListener(
+        "click",
+        function() {
+
+            spiel3Starten();
+        }
+    );
+}
+
+
+/* =========================================
+   TASTATURSTEUERUNG
+========================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (spiel3Laeuft === false) {
+            return;
+        }
+
+        const taste =
+            event.key.toLowerCase();
+
+        if (
+            event.key === "ArrowLeft" ||
+            taste === "a"
+        ) {
+
+            event.preventDefault();
+
+            spiel3BewegungsRichtung = -1;
+        }
+
+        if (
+            event.key === "ArrowRight" ||
+            taste === "d"
+        ) {
+
+            event.preventDefault();
+
+            spiel3BewegungsRichtung = 1;
+        }
+
+        if (event.code === "Space") {
+
+            event.preventDefault();
+
+            spiel3Feuern();
+        }
+    }
+);
+
+
+document.addEventListener(
+    "keyup",
+    function(event) {
+
+        const taste =
+            event.key.toLowerCase();
+
+        if (
+            event.key === "ArrowLeft" ||
+            taste === "a"
+        ) {
+
+            if (
+                spiel3BewegungsRichtung === -1
+            ) {
+                spiel3BewegungsRichtung = 0;
+            }
+        }
+
+        if (
+            event.key === "ArrowRight" ||
+            taste === "d"
+        ) {
+
+            if (
+                spiel3BewegungsRichtung === 1
+            ) {
+                spiel3BewegungsRichtung = 0;
+            }
+        }
+    }
+);
+
+
+/* =========================================
+   BILDSCHIRMTASTEN
+========================================= */
+
+function spiel3BewegungStoppen(event) {
+
+    event.preventDefault();
+
+    spiel3BewegungsRichtung = 0;
+}
+
+
+if (
+    spiel3Links !== null &&
+    spiel3Rechts !== null &&
+    spiel3Schiessen !== null
+) {
+
+    spiel3Links.addEventListener(
+        "pointerdown",
+        function(event) {
+
+            event.preventDefault();
+
+            if (spiel3Laeuft === true) {
+                spiel3BewegungsRichtung = -1;
+            }
+        }
+    );
+
+    spiel3Rechts.addEventListener(
+        "pointerdown",
+        function(event) {
+
+            event.preventDefault();
+
+            if (spiel3Laeuft === true) {
+                spiel3BewegungsRichtung = 1;
+            }
+        }
+    );
+
+    spiel3Links.addEventListener(
+        "pointerup",
+        spiel3BewegungStoppen
+    );
+
+    spiel3Rechts.addEventListener(
+        "pointerup",
+        spiel3BewegungStoppen
+    );
+
+    spiel3Links.addEventListener(
+        "pointerleave",
+        spiel3BewegungStoppen
+    );
+
+    spiel3Rechts.addEventListener(
+        "pointerleave",
+        spiel3BewegungStoppen
+    );
+
+    spiel3Links.addEventListener(
+        "pointercancel",
+        spiel3BewegungStoppen
+    );
+
+    spiel3Rechts.addEventListener(
+        "pointercancel",
+        spiel3BewegungStoppen
+    );
+
+    spiel3Schiessen.addEventListener(
+        "pointerdown",
+        function(event) {
+
+            event.preventDefault();
+
+            spiel3Feuern();
+        }
+    );
+}
