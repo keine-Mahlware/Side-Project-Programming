@@ -332,14 +332,183 @@
                 </section>
                 <section id="spiel4" class="spiel4-versteckt">
 
-                    <h2>🔓 LEVEL 4 FREIGESCHALTET</h2>
+                    <h2>⚡ REACTOR CONTROL ⚡</h2>
 
                     <p>
-                    Die Corrupted Control Unit wurde zerstört.
+                    Halte den Reaktor stabil.
+                    Zu lange kritische Werte führen zum Systemausfall.
                     </p>
 
-                    <button id="spiel4-start" type="button">
-                        LEVEL 4 STARTEN
+                    <div class="level4-statuszeile">
+
+                        <span>
+                            Restzeit:
+                            <strong id="level4-zeit">60</strong>
+                        </span>
+
+                        <span>
+                        Sichere Zeit:
+                        <strong id="level4-stabil-zeit">0</strong>
+                        </span>
+
+                        <span>
+                            Kritisch seit:
+                            <strong id="level4-kritisch-zeit">0</strong>
+                        </span>
+
+                    </div>
+
+
+                    <div class="level4-anzeigen">
+
+                        <!-- Temperatur -->
+
+                        <div class="level4-anzeige">
+
+                            <div class="level4-anzeige-kopf">
+                                    <span>Temperatur</span>
+
+                                    <strong id="level4-temperatur-text">
+                                    50 %
+                                </strong>
+                            </div>
+
+                            <div class="level4-balken">
+                                <div
+                                id="level4-temperatur-balken"
+                                class="level4-balken-fuellung"
+                                ></div>
+                            </div>
+
+                            <small>Sicherer Bereich: 25 bis 75</small>
+
+                        </div>
+
+
+                        <!-- Druck -->
+
+                        <div class="level4-anzeige">
+
+                            <div class="level4-anzeige-kopf">
+                                <span>Druck</span>
+
+                                <strong id="level4-druck-text">
+                                50 %
+                                </strong>
+                            </div>
+
+                            <div class="level4-balken">
+                                <div
+                                id="level4-druck-balken"
+                                class="level4-balken-fuellung"
+                                ></div>
+                            </div>
+
+                            <small>Sicherer Bereich: 20 bis 80</small>
+
+                        </div>
+
+
+                        <!-- Energie -->
+
+                        <div class="level4-anzeige">
+
+                                <div class="level4-anzeige-kopf">
+                                    <span>Energie</span>
+
+                                    <strong id="level4-energie-text">
+                                        50 %
+                                    </strong>
+                                </div>
+
+                                <div class="level4-balken">
+                                    <div
+                                    id="level4-energie-balken"
+                                    class="level4-balken-fuellung"
+                                    ></div>
+                                </div>
+
+                            <small>Sicherer Bereich: 30 bis 85</small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="level4-steuerung">
+
+                        <button id="level4-kuehlung" type="button">
+                        KÜHLUNG
+                        </button>
+
+                        <button id="level4-ventil" type="button">
+                        VENTIL ÖFFNEN
+                        </button>
+
+                        <button id="level4-leistung-plus" type="button">
+                        LEISTUNG +
+                        </button>
+
+                        <button id="level4-leistung-minus" type="button">
+                        LEISTUNG -
+                        </button>
+
+                        <button
+                            id="level4-notkuehlung"
+                            class="level4-notfall"
+                            type="button"
+                            >
+                            NOTKÜHLUNG
+                        </button>
+
+                    </div>
+
+
+                    <p id="level4-meldung">
+                        Reaktorkontrolle bereit
+                    </p>
+
+
+                    <div class="level4-ziele">
+
+                        <h3>Bedingungen für Level 5</h3>
+
+                         <p id="level4-ziel-abschluss">
+                        ❓ ???
+                        </p>
+
+                        <p id="level4-ziel-stabil">
+                        ❓ ???
+                        </p>
+
+                        <p id="level4-ziel-notkuehlung">
+                        ❓ ???
+                        </p>
+
+                        </div>
+
+
+                    <button id="level4-start" type="button">
+                    REAKTOR STARTEN
+                    </button>
+
+                </section>
+
+
+<!-- ==================================
+     LEVEL 5: PLATZHALTER
+=================================== -->
+
+                <section id="spiel5" class="spiel5-versteckt">
+
+                    <h2>🔓 LEVEL 5 FREIGESCHALTET</h2>
+
+                    <p>
+                    Alle Herausforderungen des Reaktors wurden erfüllt.
+                    </p>
+
+                    <button id="level5-start" type="button">
+                        coming soon
                     </button>
 
                 </section>
