@@ -589,7 +589,7 @@ body.dark h3 {
     transform: rotate(-30deg);
 }
 .roboter-simulation.fahre-p2 .greifer {
-    transform: rotate(-24deg);
+    transform: rotate(-23deg);
 }
 .greifer-links,
 .greifer-rechts {
@@ -1615,50 +1615,6 @@ body.dark h3 {
 }
 
 
-/* ==================================
-   SPIEL 4 FREISCHALTUNG
-================================== */
-
-.spiel4-versteckt {
-    display: none;
-}
-
-.spiel4-sichtbar {
-    display: block;
-
-    max-width: 650px;
-
-    margin: 50px auto;
-    padding: 30px;
-
-    text-align: center;
-    color: white;
-
-    background: #07130f;
-
-    border: 3px solid #00ff88;
-    border-radius: 18px;
-
-    box-shadow:
-        0 0 18px #00ff88,
-        0 0 50px rgba(0, 255, 136, 0.45);
-
-    animation: spiel4Freigeschaltet 1s ease-out;
-}
-
-@keyframes spiel4Freigeschaltet {
-    from {
-        opacity: 0;
-        transform: scale(0.4) rotate(-5deg);
-    }
-
-    to {
-        opacity: 1;
-        transform: scale(1) rotate(0);
-    }
-}
-
-
 /* Mobile Darstellung */
 
 @media (max-width: 700px) {
@@ -1675,4 +1631,391 @@ body.dark h3 {
         gap: 16px;
     }
 
+}
+/* ==================================
+   LEVEL 4: REACTOR CONTROL
+================================== */
+
+#spiel4.spiel4-versteckt {
+    display: none;
+}
+
+#spiel4.spiel4-sichtbar {
+    display: block;
+
+    max-width: 780px;
+    margin: 50px auto;
+    padding: 30px;
+
+    color: white;
+    text-align: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            #081b1c,
+            #030909
+        );
+
+    border: 3px solid #00e5ff;
+    border-radius: 18px;
+
+    box-shadow:
+        0 0 18px rgba(0, 229, 255, 0.8),
+        0 0 50px rgba(0, 229, 255, 0.25);
+
+    animation: level4Erscheint 0.9s ease-out;
+}
+
+@keyframes level4Erscheint {
+    from {
+        opacity: 0;
+        transform: scale(0.65);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+#spiel4 h2 {
+    color: #00e5ff;
+
+    letter-spacing: 4px;
+
+    text-shadow:
+        0 0 12px #00e5ff,
+        0 0 30px #007c91;
+}
+
+
+/* Statuszeile */
+
+.level4-statuszeile {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    gap: 30px;
+
+    margin: 25px 0;
+    padding: 15px;
+
+    background-color: #061112;
+
+    border: 2px solid #18484d;
+    border-radius: 10px;
+}
+
+.level4-statuszeile strong {
+    color: #00ffb3;
+}
+
+
+/* Drei Anlagenwerte */
+
+.level4-anzeigen {
+    display: grid;
+    gap: 20px;
+
+    margin: 30px 0;
+}
+
+.level4-anzeige {
+    padding: 18px;
+
+    text-align: left;
+
+    background-color: #071416;
+
+    border: 2px solid #17474d;
+    border-radius: 10px;
+}
+
+.level4-anzeige-kopf {
+    display: flex;
+    justify-content: space-between;
+
+    margin-bottom: 10px;
+
+    font-size: 18px;
+}
+
+.level4-anzeige small {
+    display: block;
+
+    margin-top: 8px;
+
+    color: #9bb8bb;
+}
+
+
+/* Balken */
+
+.level4-balken {
+    width: 100%;
+    height: 24px;
+
+    overflow: hidden;
+
+    background-color: #111;
+
+    border: 2px solid #243b3d;
+    border-radius: 12px;
+}
+
+.level4-balken-fuellung {
+    width: 50%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            #00c853,
+            #69f0ae
+        );
+
+    transition:
+        width 0.35s ease,
+        background 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+.level4-balken-fuellung.warnung {
+    background:
+        linear-gradient(
+            90deg,
+            #ff9800,
+            #ffd740
+        );
+
+    box-shadow:
+        0 0 14px #ff9800;
+}
+
+.level4-balken-fuellung.kritisch {
+    background:
+        linear-gradient(
+            90deg,
+            #b71c1c,
+            #ff1744
+        );
+
+    box-shadow:
+        0 0 18px #ff1744;
+
+    animation: level4Kritisch 0.35s infinite alternate;
+}
+
+@keyframes level4Kritisch {
+    from {
+        filter: brightness(1);
+    }
+
+    to {
+        filter: brightness(1.8);
+    }
+}
+
+
+/* Steuerknöpfe */
+
+.level4-steuerung {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    gap: 12px;
+
+    margin: 25px 0;
+}
+
+.level4-steuerung button,
+#level4-start {
+    padding: 13px 20px;
+
+    color: #00e5ff;
+    font-weight: bold;
+
+    background-color: #071719;
+
+    border: 2px solid #00e5ff;
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease,
+        background-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.level4-steuerung button:hover,
+#level4-start:hover {
+    color: #041011;
+    background-color: #00e5ff;
+
+    box-shadow: 0 0 18px #00e5ff;
+
+    transform: translateY(-2px);
+}
+
+.level4-steuerung button:active,
+#level4-start:active {
+    transform: scale(0.95);
+}
+
+
+/* Notkühlung */
+
+.level4-steuerung .level4-notfall {
+    color: #ff334f;
+
+    border-color: #ff334f;
+}
+
+.level4-steuerung .level4-notfall:hover {
+    color: white;
+    background-color: #ff1744;
+
+    box-shadow: 0 0 22px #ff1744;
+}
+
+.level4-steuerung .level4-notfall:disabled {
+    color: #777;
+    background-color: #222;
+
+    border-color: #555;
+
+    box-shadow: none;
+
+    cursor: not-allowed;
+}
+
+
+/* Systemmeldungen */
+
+#level4-meldung {
+    min-height: 30px;
+
+    margin: 22px;
+
+    color: #00ffb3;
+    font-size: 19px;
+    font-weight: bold;
+}
+
+
+/* Zielübersicht */
+
+.level4-ziele {
+    max-width: 500px;
+
+    margin: 25px auto;
+    padding: 20px;
+
+    text-align: left;
+
+    background-color: #050d0e;
+
+    border: 2px solid #1c4b50;
+    border-radius: 12px;
+}
+
+.level4-ziele h3 {
+    margin-top: 0;
+
+    color: #ffd740;
+    text-align: center;
+}
+
+.level4-ziele p {
+    margin: 10px 0;
+}
+
+
+/* Kritischer Gesamtzustand */
+
+#spiel4.level4-kritisch {
+    animation: level4RahmenWarnung 0.45s infinite alternate;
+}
+
+@keyframes level4RahmenWarnung {
+    from {
+        border-color: #ff334f;
+
+        box-shadow:
+            0 0 15px #ff334f;
+    }
+
+    to {
+        border-color: #ffcc33;
+
+        box-shadow:
+            0 0 35px #ff1744;
+    }
+}
+
+
+/* ==================================
+   LEVEL 5
+================================== */
+
+#spiel5.spiel5-versteckt {
+    display: none;
+}
+
+#spiel5.spiel5-sichtbar {
+    display: block;
+
+    max-width: 700px;
+
+    margin: 50px auto;
+    padding: 35px;
+
+    color: white;
+    text-align: center;
+
+    background-color: #110b1d;
+
+    border: 3px solid #b388ff;
+    border-radius: 18px;
+
+    box-shadow:
+        0 0 20px #7c4dff,
+        0 0 55px rgba(124, 77, 255, 0.5);
+
+    animation: level5Erscheint 1s ease-out;
+}
+
+@keyframes level5Erscheint {
+    from {
+        opacity: 0;
+        transform: translateY(80px) scale(0.6);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+/* Mobile Anpassung */
+
+@media (max-width: 650px) {
+    #spiel4.spiel4-sichtbar {
+        padding: 15px;
+    }
+
+    .level4-statuszeile {
+        gap: 14px;
+    }
+
+    .level4-steuerung button {
+        flex: 1 1 140px;
+    }
 }
