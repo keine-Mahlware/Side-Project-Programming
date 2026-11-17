@@ -3057,39 +3057,12 @@ function level4Gewonnen() {
 
     level4Laeuft = false;
 
-    level4ZielAbschluss.textContent =
-        "✅ Reaktor stabilisiert";
-
 
     const stabilBedingung =
         level4SichereZeit >= 30;
 
     const notkuehlungBedingung =
         level4NotkuehlungBenutzt === false;
-
-
-    if (stabilBedingung) {
-
-        level4ZielStabil.textContent =
-            "✅ Mindestens 30 sichere Sekunden";
-
-    } else {
-
-        level4ZielStabil.textContent =
-            "❌ Zu wenig sichere Zeit";
-    }
-
-
-    if (notkuehlungBedingung) {
-
-        level4ZielNotkuehlung.textContent =
-            "✅ Keine Notkühlung verwendet";
-
-    } else {
-
-        level4ZielNotkuehlung.textContent =
-            "❌ Notkühlung wurde verwendet";
-    }
 
 
     if (
@@ -3133,31 +3106,6 @@ function level4Verloren() {
 
     level4Start.textContent =
         "NEU STARTEN";
-
-    level4ZielAbschluss.textContent =
-        "❌ Reaktor nicht stabilisiert";
-
-    if (level4SichereZeit >= 30) {
-
-        level4ZielStabil.textContent =
-            "✅ Mindestens 30 sichere Sekunden";
-
-    } else {
-
-        level4ZielStabil.textContent =
-            "❌ Zu wenig sichere Zeit";
-    }
-
-    if (level4NotkuehlungBenutzt) {
-
-        level4ZielNotkuehlung.textContent =
-            "❌ Notkühlung wurde verwendet";
-
-    } else {
-
-        level4ZielNotkuehlung.textContent =
-            "✅ Keine Notkühlung verwendet";
-    }
 }
 
 
