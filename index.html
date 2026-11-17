@@ -107,6 +107,7 @@
                                                 <div class="unterarm"id="unterarm">
                                                     <div class="achse3">
                                                         <div class="greifer" id="greifer">
+                                                            <div id="master-krone">👑</div>
                                                             <div class="greifer-links"></div>
                                                             <div class="greifer-rechts"></div>
                                                         </div>
@@ -501,17 +502,146 @@
 
                 <section id="spiel5" class="spiel5-versteckt">
 
-                    <h2>🔓 LEVEL 5 FREIGESCHALTET</h2>
+    <h2>⚠ NETWORK BREACH ⚠</h2>
 
-                    <p>
-                    Alle Herausforderungen des Reaktors wurden erfüllt.
-                    </p>
+    <p>
+        Aktiviere alle Kontrollknoten in der richtigen
+        Reihenfolge und erreiche anschließend den Core.
+    </p>
 
-                    <button id="level5-start" type="button">
-                        coming soon
-                    </button>
+    <div class="level5-status">
 
-                </section>
+        <span>
+            Zeit:
+            <strong id="level5-zeit">120</strong>
+        </span>
+
+        <span>
+            Energie:
+            <strong id="level5-energie">100</strong>
+        </span>
+
+        <span>
+            Knoten:
+            <strong id="level5-knoten-status">0 / 3</strong>
+        </span>
+
+    </div>
+
+
+    <div class="level5-reihenfolge">
+
+        <span>Zugriffssequenz:</span>
+
+        <strong id="level5-sequenz">
+            GESPERRT
+        </strong>
+
+    </div>
+
+
+    <div class="level5-legende">
+
+        <span>🔷 Spieler</span>
+        <span>🔴 Virus</span>
+        <span>🔵 SPS</span>
+        <span>🟠 ROBOT</span>
+        <span>🟢 SAFETY</span>
+        <span>🔒 CORE</span>
+
+    </div>
+
+
+    <div
+        id="level5-feld"
+        aria-label="Netzwerk-Labyrinth"
+    ></div>
+
+
+    <p id="level5-meldung">
+        Netzwerkzugriff bereit
+    </p>
+
+
+    <div class="level5-steuerung">
+
+        <button
+            id="level5-oben"
+            type="button"
+            aria-label="Nach oben"
+        >
+            ▲
+        </button>
+
+        <div class="level5-steuerung-mitte">
+
+            <button
+                id="level5-links"
+                type="button"
+                aria-label="Nach links"
+            >
+                ◀
+            </button>
+
+            <button
+                id="level5-unten"
+                type="button"
+                aria-label="Nach unten"
+            >
+                ▼
+            </button>
+
+            <button
+                id="level5-rechts"
+                type="button"
+                aria-label="Nach rechts"
+            >
+                ▶
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <button id="level5-start" type="button">
+        VERBINDUNG HERSTELLEN
+    </button>
+
+</section>
+
+
+<!-- ==================================
+     ABSCHLUSSBEREICH
+=================================== -->
+
+<section
+    id="finale"
+    class="finale-versteckt"
+>
+
+    <h2>🏆 SYSTEM MASTER 🏆</h2>
+
+    <p>
+        Der Virus wurde isoliert und die Kontrolle
+        über die Produktionsanlage wiederhergestellt.
+    </p>
+
+    <div class="finale-liste">
+
+        <p>Level 1 ✅</p>
+        <p>Level 2 ✅</p>
+        <p>Level 3 ✅</p>
+        <p>Level 4 ✅</p>
+        <p>Level 5 ✅</p>
+
+    </div>
+
+    <strong>
+        SECRET CAMPAIGN COMPLETE
+    </strong>
+
+</section>
                 <button id="zurueck">Zurück</button>
 
                     
