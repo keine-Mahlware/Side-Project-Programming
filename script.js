@@ -419,11 +419,109 @@ naechsteSeite.addEventListener("click", async function() {
     levelTransition.classList.remove("aktiv");
 
 });
-zurueck.addEventListener("click", function() {
+zurueck.addEventListener(
+    "click",
+    hauptseiteZuruecksetzen
+);
+function hauptseiteZuruecksetzen() {
 
-        window.location.reload();
+    /* Seitenwechsel */
 
-});
+    document.body.classList.remove("seite-2");
+
+    seite2.style.display = "none";
+    seite1.style.display = "block";
+
+
+    /* Motor vollständig zurücksetzen */
+
+    anlageLaeuft = false;
+    motorDrehzahl = 0;
+
+    motorBrennt = false;
+    motorKlicks = 0;
+
+    clearTimeout(motorKlickTimer);
+    motorKlickTimer = null;
+
+
+    const flamme =
+        document.querySelector(".flamme");
+
+    if (flamme !== null) {
+
+        flamme.style.zIndex = "-1";
+
+        flamme.style.display = "none";
+    }
+
+
+    /* Anzeigen zurücksetzen */
+
+    stoerung = false;
+
+    leuchteBetrieb.style.backgroundColor =
+        "white";
+
+    leuchteStop.style.backgroundColor =
+        "yellow";
+
+    leuchteStoerung.style.backgroundColor =
+        "white";
+
+    leuchteQuit.style.backgroundColor =
+        "white";
+
+    anlagenStatus.textContent =
+        "Anlage bereit";
+
+    stoerungsStatus.textContent =
+        "Keine Störung";
+
+
+    /* Roboter zurücksetzen */
+
+    roboterKaputt = false;
+    roboterZyklusLaeuft = false;
+
+    roboter.classList.remove("explodiert");
+
+
+    /* Master-Belohnung behandeln */
+
+    if (
+        zurueck.classList.contains(
+            "kampagne-beenden"
+        )
+    ) {
+
+        roboter.classList.add(
+            "system-master"
+        );
+    }
+
+
+    /* Roboterzyklus wieder starten */
+
+    roboterZyklus();
+}
+
+    const flamme = document.querySelector(".flamme");
+
+    if (flamme != null) {
+        flamme.style.zIndex = "-1";
+    }
+
+    motorDrehzahl = 0;
+
+    roboterKaputt = false;
+    roboterZyklusLaeuft = false;
+
+    roboter.classList.remove("explodiert");
+
+    roboterZyklus();
+
+
 
 naechsteSeite.addEventListener("click", function() {
 
@@ -3147,3 +3245,1018 @@ level4Start.addEventListener(
 /* Erste Anzeige beim Laden */
 
 level4AnzeigeAktualisieren();
+
+/* =========================================
+   LEVEL 5: NETWORK BREACH
+========================================= */
+
+const level5Bereich =
+    document.getElementById("spiel5");
+
+const level5Feld =
+    document.getElementById("level5-feld");
+
+const level5ZeitAnzeige =
+    document.getElementById("level5-zeit");
+
+const level5EnergieAnzeige =
+    document.getElementById("level5-energie");
+
+const level5KnotenStatus =
+    document.getElementById("level5-knoten-status");
+
+const level5SequenzAnzeige =
+    document.getElementById("level5-sequenz");
+
+const level5Meldung =
+    document.getElementById("level5-meldung");
+
+const level5Start =
+    document.getElementById("level5-start");
+
+const level5Oben =
+    document.getElementById("level5-oben");
+
+const level5Unten =
+    document.getElementById("level5-unten");
+
+const level5Links =
+    document.getElementById("level5-links");
+
+const level5Rechts =
+    document.getElementById("level5-rechts");
+
+const finaleBereich =
+    document.getElementById("finale");
+
+
+let level5Laeuft = false;
+
+let level5Zeit = 120;
+let level5Energie = 100;
+
+let level5SpielerZeile = 7;
+let level5SpielerSpalte = 1;
+
+let level5VirusZeile = 1;
+let level5VirusSpalte = 7;
+
+let level5Timer = null;
+let level5VirusTimer = null;
+
+let level5AktuellerKnoten = 0;
+
+let level5Zellen = [];
+
+let level5AktivierteKnoten = [];
+
+let level5KnotenReihenfolge = [];
+
+
+/* =========================================
+   SPIELFELD
+
+   0 = begehbar
+   1 = Wand
+========================================= */
+
+const level5Karte = [
+
+    [1, 1, 1, 1, 1, 1, 1, 1, 1],
+
+    [1, 0, 0, 0, 1, 0, 0, 0, 1],
+
+    [1, 0, 1, 0, 0, 0, 1, 0, 1],
+
+    [1, 0, 0, 0, 1, 0, 0, 0, 1],
+
+    [1, 1, 0, 0, 0, 0, 0, 1, 1],
+
+    [1, 0, 0, 1, 0, 1, 0, 0, 1],
+
+    [1, 0, 1, 0, 0, 0, 1, 0, 1],
+
+    [1, 0, 0, 0, 1, 0, 0, 0, 1],
+
+    [1, 1, 1, 1, 1, 1, 1, 1, 1]
+];
+
+
+/* Positionen der Kontrollknoten */
+
+const level5Knoten = {
+
+    SPS: {
+        zeile: 1,
+        spalte: 1,
+        symbol: "🔵"
+    },
+
+    ROBOT: {
+        zeile: 3,
+        spalte: 7,
+        symbol: "🟠"
+    },
+
+    SAFETY: {
+        zeile: 7,
+        spalte: 7,
+        symbol: "🟢"
+    }
+};
+
+
+/* Position des Cores */
+
+const level5Core = {
+    zeile: 4,
+    spalte: 4
+};
+
+
+/* =========================================
+   MULTIPLIKATION OHNE OPERATOR
+========================================= */
+
+function level5Mal(wert1, wert2) {
+
+    if (wert1 === 0 || wert2 === 0) {
+        return 0;
+    }
+
+    return wert1 / (1 / wert2);
+}
+
+
+/* =========================================
+   INDEX EINER ZELLE BERECHNEN
+========================================= */
+
+function level5Index(zeile, spalte) {
+
+    return level5Mal(zeile, 9) + spalte;
+}
+
+
+/* =========================================
+   ZUFÄLLIGE REIHENFOLGE
+========================================= */
+
+function level5SequenzErstellen() {
+
+    const namen = [
+        "SPS",
+        "ROBOT",
+        "SAFETY"
+    ];
+
+    for (
+        let index = namen.length - 1;
+        index > 0;
+        index--
+    ) {
+
+        const zufall =
+            Math.floor(
+                Math.random() /
+                (1 / (index + 1))
+            );
+
+        const zwischenwert =
+            namen[index];
+
+        namen[index] =
+            namen[zufall];
+
+        namen[zufall] =
+            zwischenwert;
+    }
+
+    level5KnotenReihenfolge = namen;
+
+    level5SequenzAnzeige.textContent =
+        namen.join(" → ");
+}
+
+
+/* =========================================
+   SPIELFELD ERSTELLEN
+========================================= */
+
+function level5FeldErstellen() {
+
+    level5Feld.innerHTML = "";
+
+    level5Zellen = [];
+
+    for (
+        let zeile = 0;
+        zeile < 9;
+        zeile++
+    ) {
+
+        for (
+            let spalte = 0;
+            spalte < 9;
+            spalte++
+        ) {
+
+            const zelle =
+                document.createElement("div");
+
+            zelle.className =
+                "level5-zelle";
+
+            if (
+                level5Karte[zeile][spalte] === 1
+            ) {
+                zelle.classList.add("wand");
+            }
+
+            level5Feld.appendChild(zelle);
+
+            level5Zellen.push(zelle);
+        }
+    }
+}
+
+
+/* =========================================
+   PRÜFEN, OB EINE POSITION BEGEHBAR IST
+========================================= */
+
+function level5IstBegehbar(zeile, spalte) {
+
+    if (
+        zeile < 0 ||
+        zeile >= 9 ||
+        spalte < 0 ||
+        spalte >= 9
+    ) {
+        return false;
+    }
+
+    return (
+        level5Karte[zeile][spalte] === 0
+    );
+}
+
+
+/* =========================================
+   KNOTEN AN POSITION SUCHEN
+========================================= */
+
+function level5KnotenAnPosition(
+    zeile,
+    spalte
+) {
+
+    const namen = [
+        "SPS",
+        "ROBOT",
+        "SAFETY"
+    ];
+
+    for (
+        let index = 0;
+        index < namen.length;
+        index++
+    ) {
+
+        const name = namen[index];
+
+        const knoten =
+            level5Knoten[name];
+
+        if (
+            knoten.zeile === zeile &&
+            knoten.spalte === spalte
+        ) {
+            return name;
+        }
+    }
+
+    return null;
+}
+
+
+/* =========================================
+   DARSTELLUNG AKTUALISIEREN
+========================================= */
+
+function level5DarstellungAktualisieren() {
+
+    level5Zellen.forEach(function(zelle) {
+
+        zelle.classList.remove(
+            "spieler",
+            "virus",
+            "knoten-sps",
+            "knoten-robot",
+            "knoten-safety",
+            "aktiviert",
+            "core",
+            "core-offen"
+        );
+
+        if (
+            zelle.classList.contains("wand") ===
+            false
+        ) {
+            zelle.textContent = "";
+        }
+    });
+
+
+    const knotenNamen = [
+        "SPS",
+        "ROBOT",
+        "SAFETY"
+    ];
+
+    knotenNamen.forEach(function(name) {
+
+        const knoten =
+            level5Knoten[name];
+
+        const index =
+            level5Index(
+                knoten.zeile,
+                knoten.spalte
+            );
+
+        const zelle =
+            level5Zellen[index];
+
+        zelle.textContent =
+            knoten.symbol;
+
+        zelle.classList.add(
+            "knoten-" +
+            name.toLowerCase()
+        );
+
+        if (
+            level5AktivierteKnoten.includes(name)
+        ) {
+            zelle.classList.add(
+                "aktiviert"
+            );
+        }
+    });
+
+
+    const coreIndex =
+        level5Index(
+            level5Core.zeile,
+            level5Core.spalte
+        );
+
+    const coreZelle =
+        level5Zellen[coreIndex];
+
+    if (
+        level5AktuellerKnoten >= 3
+    ) {
+        coreZelle.textContent = "⭐";
+
+        coreZelle.classList.add(
+            "core-offen"
+        );
+
+    } else {
+
+        coreZelle.textContent = "🔒";
+
+        coreZelle.classList.add(
+            "core"
+        );
+    }
+
+
+    const virusIndex =
+        level5Index(
+            level5VirusZeile,
+            level5VirusSpalte
+        );
+
+    level5Zellen[virusIndex].textContent =
+        "🔴";
+
+    level5Zellen[virusIndex].classList.add(
+        "virus"
+    );
+
+
+    const spielerIndex =
+        level5Index(
+            level5SpielerZeile,
+            level5SpielerSpalte
+        );
+
+    level5Zellen[spielerIndex].textContent =
+        "🔷";
+
+    level5Zellen[spielerIndex].classList.add(
+        "spieler"
+    );
+
+
+    level5ZeitAnzeige.textContent =
+        level5Zeit;
+
+    level5EnergieAnzeige.textContent =
+        level5Energie;
+
+    level5KnotenStatus.textContent =
+        level5AktuellerKnoten + " / 3";
+
+
+    if (level5Energie <= 25) {
+
+        level5Bereich.classList.add(
+            "level5-kritisch"
+        );
+
+    } else {
+
+        level5Bereich.classList.remove(
+            "level5-kritisch"
+        );
+    }
+}
+
+
+/* =========================================
+   KNOTEN AKTIVIEREN
+========================================= */
+
+function level5KnotenPruefen() {
+
+    const knotenName =
+        level5KnotenAnPosition(
+            level5SpielerZeile,
+            level5SpielerSpalte
+        );
+
+    if (knotenName === null) {
+        return;
+    }
+
+    if (
+        level5AktivierteKnoten.includes(
+            knotenName
+        )
+    ) {
+        return;
+    }
+
+
+    const erwarteterKnoten =
+        level5KnotenReihenfolge[
+            level5AktuellerKnoten
+        ];
+
+
+    if (knotenName === erwarteterKnoten) {
+
+        level5AktivierteKnoten.push(
+            knotenName
+        );
+
+        level5AktuellerKnoten++;
+
+        level5Meldung.textContent =
+            knotenName +
+            " erfolgreich aktiviert";
+
+
+        if (level5AktuellerKnoten >= 3) {
+
+            level5Meldung.textContent =
+                "ALLE KNOTEN AKTIV – CORE GEÖFFNET";
+
+            level5VirusBeschleunigen();
+        }
+
+    } else {
+
+        level5Energie -= 15;
+
+        level5Meldung.textContent =
+            "FALSCHE SEQUENZ – 15 ENERGIE VERLOREN";
+    }
+}
+
+
+/* =========================================
+   SPIELER BEWEGEN
+========================================= */
+
+function level5SpielerBewegen(
+    zeilenAenderung,
+    spaltenAenderung
+) {
+
+    if (level5Laeuft === false) {
+        return;
+    }
+
+    const neueZeile =
+        level5SpielerZeile +
+        zeilenAenderung;
+
+    const neueSpalte =
+        level5SpielerSpalte +
+        spaltenAenderung;
+
+
+    if (
+        level5IstBegehbar(
+            neueZeile,
+            neueSpalte
+        ) === false
+    ) {
+        return;
+    }
+
+
+    level5SpielerZeile =
+        neueZeile;
+
+    level5SpielerSpalte =
+        neueSpalte;
+
+    level5Energie--;
+
+
+    level5KnotenPruefen();
+
+    level5CorePruefen();
+
+    level5NiederlagePruefen();
+
+    level5DarstellungAktualisieren();
+}
+
+
+/* =========================================
+   CORE PRÜFEN
+========================================= */
+
+function level5CorePruefen() {
+
+    const coreErreicht =
+        level5SpielerZeile ===
+            level5Core.zeile &&
+        level5SpielerSpalte ===
+            level5Core.spalte;
+
+    if (coreErreicht === false) {
+        return;
+    }
+
+
+    if (level5AktuellerKnoten < 3) {
+
+        level5Energie -= 10;
+
+        level5Meldung.textContent =
+            "CORE GESPERRT – 10 ENERGIE VERLOREN";
+
+        return;
+    }
+
+
+    level5Gewonnen();
+}
+
+
+/* =========================================
+   VIRUS BEWEGEN
+========================================= */
+
+function level5VirusBewegen() {
+
+    if (level5Laeuft === false) {
+        return;
+    }
+
+    const moeglichkeiten = [
+
+        {
+            zeile:
+                level5VirusZeile - 1,
+
+            spalte:
+                level5VirusSpalte
+        },
+
+        {
+            zeile:
+                level5VirusZeile + 1,
+
+            spalte:
+                level5VirusSpalte
+        },
+
+        {
+            zeile:
+                level5VirusZeile,
+
+            spalte:
+                level5VirusSpalte - 1
+        },
+
+        {
+            zeile:
+                level5VirusZeile,
+
+            spalte:
+                level5VirusSpalte + 1
+        }
+    ];
+
+
+    let bestePosition = null;
+    let besteDistanz = Infinity;
+
+
+    moeglichkeiten.forEach(
+        function(position) {
+
+            if (
+                level5IstBegehbar(
+                    position.zeile,
+                    position.spalte
+                ) === false
+            ) {
+                return;
+            }
+
+
+            const zeilenDistanz =
+                Math.abs(
+                    position.zeile -
+                    level5SpielerZeile
+                );
+
+            const spaltenDistanz =
+                Math.abs(
+                    position.spalte -
+                    level5SpielerSpalte
+                );
+
+            const gesamteDistanz =
+                zeilenDistanz +
+                spaltenDistanz;
+
+
+            if (
+                gesamteDistanz <
+                besteDistanz
+            ) {
+
+                besteDistanz =
+                    gesamteDistanz;
+
+                bestePosition =
+                    position;
+            }
+        }
+    );
+
+
+    if (bestePosition !== null) {
+
+        level5VirusZeile =
+            bestePosition.zeile;
+
+        level5VirusSpalte =
+            bestePosition.spalte;
+    }
+
+
+    level5NiederlagePruefen();
+
+    level5DarstellungAktualisieren();
+}
+
+
+/* =========================================
+   VIRUS BESCHLEUNIGEN
+========================================= */
+
+function level5VirusBeschleunigen() {
+
+    clearInterval(level5VirusTimer);
+
+    level5VirusTimer =
+        setInterval(
+            level5VirusBewegen,
+            400
+        );
+}
+
+
+/* =========================================
+   NIEDERLAGE PRÜFEN
+========================================= */
+
+function level5NiederlagePruefen() {
+
+    const virusBeruehrtSpieler =
+        level5SpielerZeile ===
+            level5VirusZeile &&
+        level5SpielerSpalte ===
+            level5VirusSpalte;
+
+
+    if (virusBeruehrtSpieler) {
+
+        level5Verloren(
+            "SYSTEM COMPROMISED – VIRUS HAT DICH ERREICHT"
+        );
+
+        return;
+    }
+
+
+    if (level5Energie <= 0) {
+
+        level5Verloren(
+            "ENERGIE ERSCHÖPFT – VERBINDUNG GETRENNT"
+        );
+    }
+}
+
+
+/* =========================================
+   LEVEL ZURÜCKSETZEN
+========================================= */
+
+function level5Zuruecksetzen() {
+
+    clearInterval(level5Timer);
+    clearInterval(level5VirusTimer);
+
+    level5Laeuft = false;
+
+    level5Zeit = 120;
+    level5Energie = 100;
+
+    level5SpielerZeile = 7;
+    level5SpielerSpalte = 1;
+
+    level5VirusZeile = 1;
+    level5VirusSpalte = 7;
+
+    level5AktuellerKnoten = 0;
+
+    level5AktivierteKnoten = [];
+
+    level5Bereich.classList.remove(
+        "level5-kritisch"
+    );
+
+    level5FeldErstellen();
+
+    level5SequenzErstellen();
+
+    level5DarstellungAktualisieren();
+}
+
+
+/* =========================================
+   LEVEL STARTEN
+========================================= */
+
+function level5Starten() {
+
+    if (level5Laeuft === true) {
+        return;
+    }
+
+    level5Zuruecksetzen();
+
+    level5Laeuft = true;
+
+    level5Meldung.textContent =
+        "VERBINDUNG AKTIV – VIRUS ERKANNT";
+
+    level5Start.textContent =
+        "VERBINDUNG AKTIV";
+
+
+    level5Timer =
+        setInterval(function() {
+
+            if (level5Laeuft === false) {
+                return;
+            }
+
+            level5Zeit--;
+
+            level5ZeitAnzeige.textContent =
+                level5Zeit;
+
+            if (level5Zeit <= 0) {
+
+                level5Verloren(
+                    "ZEIT ABGELAUFEN – VERBINDUNG GETRENNT"
+                );
+            }
+
+        }, 1000);
+
+
+    level5VirusTimer =
+        setInterval(
+            level5VirusBewegen,
+            700
+        );
+}
+
+
+/* =========================================
+   LEVEL VERLOREN
+========================================= */
+
+function level5Verloren(nachricht) {
+
+    if (level5Laeuft === false) {
+        return;
+    }
+
+    level5Laeuft = false;
+
+    clearInterval(level5Timer);
+    clearInterval(level5VirusTimer);
+
+    level5Bereich.classList.remove(
+        "level5-kritisch"
+    );
+
+    level5Meldung.textContent =
+        nachricht;
+
+    level5Start.textContent =
+        "ERNEUT VERBINDEN";
+}
+
+
+/* =========================================
+   LEVEL GEWONNEN
+========================================= */
+
+function level5Gewonnen() {
+
+    if (level5Laeuft === false) {
+        return;
+    }
+
+    level5Laeuft = false;
+
+    clearInterval(level5Timer);
+    clearInterval(level5VirusTimer);
+
+    level5Bereich.classList.remove(
+        "level5-kritisch"
+    );
+
+    level5Meldung.textContent =
+        "VIRUS ISOLIERT – FABRIKSTEUERUNG WIEDERHERGESTELLT";
+
+    level5Start.textContent =
+        "LEVEL ABGESCHLOSSEN";
+
+    finaleBereich.classList.remove(
+        "finale-versteckt"
+    );
+
+    finaleBereich.classList.add(
+        "finale-sichtbar"
+    );
+    roboter.classList.add("system-master");
+    zurueck.textContent = "BEENDEN";
+    zurueck.classList.add("kampagne-beenden");
+}
+
+
+/* =========================================
+   STARTKNOPF
+========================================= */
+
+level5Start.addEventListener(
+    "click",
+    level5Starten
+);
+
+
+/* =========================================
+   BILDSCHIRMTASTEN
+========================================= */
+
+level5Oben.addEventListener(
+    "click",
+    function() {
+
+        level5SpielerBewegen(-1, 0);
+    }
+);
+
+level5Unten.addEventListener(
+    "click",
+    function() {
+
+        level5SpielerBewegen(1, 0);
+    }
+);
+
+level5Links.addEventListener(
+    "click",
+    function() {
+
+        level5SpielerBewegen(0, -1);
+    }
+);
+
+level5Rechts.addEventListener(
+    "click",
+    function() {
+
+        level5SpielerBewegen(0, 1);
+    }
+);
+
+
+/* =========================================
+   TASTATURSTEUERUNG
+========================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (level5Laeuft === false) {
+            return;
+        }
+
+
+        const taste =
+            event.key.toLowerCase();
+
+
+        if (
+            event.key === "ArrowUp" ||
+            taste === "w"
+        ) {
+
+            event.preventDefault();
+
+            level5SpielerBewegen(-1, 0);
+        }
+
+
+        if (
+            event.key === "ArrowDown" ||
+            taste === "s"
+        ) {
+
+            event.preventDefault();
+
+            level5SpielerBewegen(1, 0);
+        }
+
+
+        if (
+            event.key === "ArrowLeft" ||
+            taste === "a"
+        ) {
+
+            event.preventDefault();
+
+            level5SpielerBewegen(0, -1);
+        }
+
+
+        if (
+            event.key === "ArrowRight" ||
+            taste === "d"
+        ) {
+
+            event.preventDefault();
+
+            level5SpielerBewegen(0, 1);
+        }
+    }
+);
+
+
+/* =========================================
+   ERSTE DARSTELLUNG
+========================================= */
+
+level5FeldErstellen();
+
+level5DarstellungAktualisieren();
