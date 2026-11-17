@@ -389,7 +389,7 @@ const spielMeldung =
 let spiel2Freigeschaltet = false;
 
 let punkte = 0;
-let zeit = 20;
+let zeit = 25;
 
 let spielLaeuft = false;
 
