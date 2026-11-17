@@ -494,7 +494,8 @@ spielStart.addEventListener("click", function() {
 
     punkte = 0;
 
-    zeit = 20;
+    zeit = 25;
+    
 
     letzteStoerung = -1;
 
