@@ -10,175 +10,241 @@
             <p> Die Robotik arbeitet Hand in Hand mit der SPS.</p>
 
             <div class="themen">
-            <nav>
+                <nav>
                 <a href="#sps">SPS</a>
                 <a href="#robotik">Robotik</a>
-            </nav>
+                </nav>
             </div>
 
             <button id="darkmode">Dark Mode</button>
 
             <div class="sps" id="sps">
-            <h2> Was ist eine SPS? </h2>
-            <p> Eine SPS ist eine speicherprogrammierbare Steuerung und wird zur Automatisierung von Maschinen und Anlagen verwendet.</p>
-            <h3> Typische Bestandteile einer SPS-Anlage </h3>
-            <ul> 
-                <li>CPU</li>
-                <li>Sensoren</li>
-                <li>Aktoren</li>
-                <li>Ein- und Ausgabemodule</li>
-                <li>Netzwerk/Kommunikation</li>
-            </ul>
-            <div class="bedienpult">
-                <h3>Anlagensteuerung</h3>
-                <div class="meldeleuchten">
-                    <div>
-                        <div id="lampe-betrieb" class="leuchte betrieb"><p class="beschriftung">Betrieb</p></div>
-                    </div>
+                <h2> Was ist eine SPS? </h2>
+                <p> Eine SPS ist eine speicherprogrammierbare Steuerung und wird zur Automatisierung von Maschinen und Anlagen verwendet.</p>
+                <h3> Typische Bestandteile einer SPS-Anlage </h3>
+                <ul> 
+                    <li>CPU</li>
+                    <li>Sensoren</li>
+                    <li>Aktoren</li>
+                    <li>Ein- und Ausgabemodule</li>
+                    <li>Netzwerk/Kommunikation</li>
+                </ul>
+                    <div class="bedienpult">
+                        <h3>Anlagensteuerung</h3>
+                            <div class="meldeleuchten">
+                                <div>
+                                    <div id="lampe-betrieb" class="leuchte betrieb">
+                                        <p class="beschriftung">Betrieb</p>
+                                    </div>
+                                </div>
 
-                    <div>
-                        <div id="lampe-stop" class="leuchte Stop"><p class="beschriftung">Stop</p></div>
+                                <div>
+                                    <div id="lampe-stop" class="leuchte Stop">
+                                        <p class="beschriftung">Stop</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div id="lampe-quit" class="leuchte Quit">
+                                        <p class="beschriftung">Quittieren</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div id="lampe-fehler" class="leuchte fehler">
+                                        <p class="beschriftung">Fehler</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <p id="anlagen-status">Anlage bereit</p>
+                            <p id="betriebsart">Betriebsart: HAND</p>
+                            <p id="stoerungs-status">Keine Störung</p>
+                                <div class="taster-gruppe">
+                                    <button id="hand-betrieb"class="wahl-taster">HAND</button>
+                                    <button id="auto-betrieb"class="wahl-taster">AUTO</button>
+                                </div>
+                                <div class="taster-gruppe">
+                                    <button id="start-button" class="taster start">Start</button>
+                                    <button id="stop-button"class="taster stop">Stop</button>
+                                    <div class=""sicherheit>
+                                        <button id="quit-button"class="taster quit">Quit</button>
+                                        <button id="not-aus"class="notaus ">Not Aus</button>
+                                    </div>
+                                    <div class="motor-bereich">
+                                        <div id="motor" class="motor">
+                                            <div class="motor-welle"></div>
+                                        </div>
+                                    <div class="flamme">🔥</div>
+                                    </div>
+                                </div>
                     </div>
-                    <div>
-                        <div id="lampe-quit" class="leuchte Quit"><p class="beschriftung">Quittieren</p></div>
-                    </div>
-                    <div>
-                        <div id="lampe-fehler" class="leuchte fehler"><p class="beschriftung">Fehler</p></div>
-                    </div>
-                </div>
-                <p id="anlagen-status">Anlage bereit</p>
-                <p id="betriebsart">Betriebsart: HAND</p>
-                <p id="stoerungs-status">Keine Störung</p>
-                <div class="taster-gruppe">
-                    <button id="hand-betrieb"class="wahl-taster">HAND</button>
-                    <button id="auto-betrieb"class="wahl-taster">AUTO</button>
-                </div>
-                <div class="taster-gruppe">
-                    <button id="start-button" class="taster start">Start</button>
-                    <button id="stop-button"class="taster stop">Stop</button>
-                    <div class=""sicherheit>
-                        <button id="quit-button"class="taster quit">Quit</button>
-                        <button id="not-aus"class="notaus ">Not Aus</button>
-                    </div>
-                    <div class="motor-bereich">
-                        <div id="motor" class="motor">
-                            <div class="motor-welle"></div>
-                        </div>
-                    <div class="flamme">🔥</div>
-                    </div>
-                    </div>
-                </div>
             </div>
             <button id="naechste-seite" class="tunnel-button">
                 <img src="tunnel.png" alt="Geheimer Eingang">
             </button>
             <div class="robotik" id="robotik">
                 <div class="roboter-text">
-                <h2> Was ist Robotik?</h2>
-                <p> Robotik beschäftigt sich mit der Entwicklung, Programmierung und Steuerung von Robotern. </p>
-                <h3> Typische Bestandteile eines Industrieroboters</h3>
-                <ol>
-                    <li>Roboterarm</li>
-                    <li>Steuerung</li>
-                    <li>Bediengerät</li>
-                    <li>Werkzeug</li>
-                    <li>Sensoren</li>
-                </ol>
+                    <h2> Was ist Robotik?</h2>
+                    <p> Robotik beschäftigt sich mit der Entwicklung, Programmierung und Steuerung von Robotern. </p>
+                    <h3> Typische Bestandteile eines Industrieroboters</h3>
+                    <ol>
+                        <li>Roboterarm</li>
+                        <li>Steuerung</li>
+                        <li>Bediengerät</li>
+                        <li>Werkzeug</li>
+                        <li>Sensoren</li>
+                    </ol>
                 </div>
                 <div class="roboter-bereich">
-            <div class="roboter-simulation" id="roboter-simulation">
-                <button class="reset-roboter" id="reset-roboter">Reset</button>
-                 <div class="position position-links">P1</div>
-                <div class="position position-rechts">P2</div>
-                <div class="wuerfel" id="wuerfel"></div>
-                <div class="roboter" id="roboter">
-                <div class="roboter-sockel">
-                    <div class="achse1">
-                        <div class="oberarm"id="oberarm">
-                            <div class="achse2">
-                                <div class="unterarm"id="unterarm">
-                                    <div class="achse3">
-                                        <div class="greifer" id="greifer">
-                                            <div class="greifer-links"></div>
-                                            <div class="greifer-rechts"></div>
+                    <div class="roboter-simulation" id="roboter-simulation">
+                        <button class="reset-roboter" id="reset-roboter">Reset</button>
+                        <div class="position position-links">P1</div>
+                        <div class="position position-rechts">P2</div>
+                        <div class="wuerfel" id="wuerfel"></div>
+                            <div class="roboter" id="roboter">
+                                <div class="roboter-sockel">
+                                    <div class="achse1">
+                                        <div class="oberarm"id="oberarm">
+                                            <div class="achse2">
+                                                <div class="unterarm"id="unterarm">
+                                                    <div class="achse3">
+                                                        <div class="greifer" id="greifer">
+                                                            <div class="greifer-links"></div>
+                                                            <div class="greifer-rechts"></div>
+                                                        </div>
+                                                    </div> 
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div> 
+                                    </div>   
                                 </div>
                             </div>
-                        </div>
-                    </div>   
+                    </div>
                 </div>
+                <h3> Mehr über Stäubli Robotik </h3>
+                <a href="https://www.staubli.com" target="_blank"> Stäubli Webseite öffnen</a>
+                <h3> Beispiel eines Industrieroboters </h3>
+                <div class="roboter-karte">
+                    <img class="roboter-bild" src="roboter.jpg" alt=" Ein Sechsachs Roboterarm von Stäubli" >
+                    <div class="roboter-info">
+                        <h3>Industrieroboter</h3>
+                        <p>Achsen : 6</p>
+                        <p>Status: Bereit</p>
+                        <p>Geschwindigkeit: 50%</p>
+                    </div>
                 </div>
-            </div>
-            </div>
-            <h3> Mehr über Stäubli Robotik </h3>
-            <a href="https://www.staubli.com" target="_blank"> Stäubli Webseite öffnen</a>
-            <h3> Beispiel eines Industrieroboters </h3>
-            <div class="roboter-karte">
-                <img class="roboter-bild" src="roboter.jpg" alt=" Ein Sechsachs Roboterarm von Stäubli" >
-                <div class="roboter-info">
-                    <h3>Industrieroboter</h3>
-                    <p>Achsen : 6</p>
-                    <p>Status: Bereit</p>
-                    <p>Geschwindigkeit: 50%</p>
-                </div>
-            </div>
             </div>
             <a class="top-button" href="#start">Nach oben</a>
 
         </div>
 
         <div id="seite2">
-             <div class="secret-level">
+            <div class="secret-level">
 
-        <h1>SECRET AREA</h1>
+                <h1>SECRET AREA</h1>
 
-        <p>
-            Du hast beide Easter Eggs gefunden.
-        </p>
+                <p>
+                Du hast beide Easter Eggs gefunden.
+                </p>
 
-        <div class="secret-inhalt">
+                <div class="secret-inhalt">
 
-        <h2>⚠ NOTFALLPROTOKOLL ⚠</h2>
+                    <h2>⚠ NOTFALLPROTOKOLL ⚠</h2> 
 
-        <p>
-            Die Anlage spielt verrückt! Quittiere die Störungen,
-            bevor die Zeit abläuft.
-        </p>
+                    <p>
+                    Die Anlage spielt verrückt! Quittiere die Störungen,
+                    bevor die Zeit abläuft.
+                    </p>
 
-        <div class="spiel-info">
-            <span>Zeit: <b id="spiel-zeit">25</b></span>
-            <span>Punkte: <b id="spiel-punkte">0</b></span>
-        </div>
+                    <div class="spiel-info">
+                        <span>Zeit: <b id="spiel-zeit">20</b></span>
+                        <span>Punkte: <b id="spiel-punkte">0</b></span>
+                    </div>  
 
-        <div class="stoerungen">
+                    <div class="stoerungen">
 
-            <button class="stoerung" id="stoerung1"></button>
-            <button class="stoerung" id="stoerung2"></button>
-            <button class="stoerung" id="stoerung3"></button>
+                        <button class="stoerung" id="stoerung1"></button>
+                        <button class="stoerung" id="stoerung2"></button>
+                        <button class="stoerung" id="stoerung3"></button>
 
             
-            <button class="stoerung" id="stoerung4"></button>
-            <button class="stoerung" id="stoerung5"></button>
-            <button class="stoerung" id="stoerung6"></button>
+                        <button class="stoerung" id="stoerung4"></button>
+                        <button class="stoerung" id="stoerung5"></button>
+                        <button class="stoerung" id="stoerung6"></button>
 
-        </div>
+                    </div>
 
-        <button id="spiel-start">SYSTEM STARTEN</button>
+                    <button id="spiel-start">SYSTEM STARTEN</button>
 
-        <p id="spiel-meldung">
-            System bereit
-        </p>
+                    <p id="spiel-meldung">
+                    System bereit
+                    </p>
 
-        </div>
-            <button id="zurueck">Zurück</button>
+                </div>
+                <section id="spiel2" class="spiel2-versteckt">
 
-        </div>
-        <div id="level-transition">
-            <div class="unlock-text">
-                <span>UNLOCKED</span>
+                    <h2>🔓 BONUS LEVEL</h2>
+
+                    <p>
+                    Weiche den herabfallenden Werkstücken aus!
+                    </p>
+
+                    <div class="spiel2-info">
+                        <span>
+                            Punkte:
+                            <strong id="spiel2-punkte">0</strong>
+                        </span>
+
+                        <span>
+                            Leben:
+                            <strong id="spiel2-leben">3</strong>
+                        </span>
+                    </div>
+
+                    <div id="spiel2-feld">
+
+                        <div id="spiel2-roboter">
+                            🤖
+                        </div>
+
+                    </div>
+
+                    <p id="spiel2-meldung">
+                    Bewege den Roboter mit A/D oder den Pfeiltasten.
+                    </p>
+
+                    <div class="spiel2-steuerung">
+
+                        <button
+                            id="spiel2-links"
+                            type="button"
+                            aria-label="Nach links bewegen"
+                        >
+                        ◀
+                        </button>
+
+                        <button id="spiel2-start" type="button">
+                        BONUS LEVEL STARTEN
+                        </button>
+
+                        <button
+                            id="spiel2-rechts"
+                            type="button"
+                            aria-label="Nach rechts bewegen"
+                        >
+                        ▶
+                        </button>
+
+                    </div>
+
+                </section>
+                <button id="zurueck">Zurück</button>
+
+                    
             </div>
-        </div>
-         <script src="script.js"></script>
+            <div id="level-transition">
+                <div class="unlock-text">
+                    <span>UNLOCKED</span>
+                </div>
+            </div>
+            <script src="script.js"></script>
     </body>
 </html>
