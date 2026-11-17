@@ -2542,3 +2542,85 @@ body.dark h3 {
         transform: translateY(0) rotate(0);
     }
 }
+.roboter.system-master #roboter-sockel {
+    position: absolute;
+
+    width: 140px;
+    height: 50px;
+
+    left: 225px;
+    bottom: 15px;
+
+    background-color: #bb8b06;
+    border: 4px solid #222;
+    border-radius: 10px;
+    z-index: 20;
+}
+
+
+/* Erstes Gelenk */
+.roboter.system-master #achse1 {
+    position: absolute;
+
+    width: 70px;
+    height: 70px;
+
+    left: 31px;
+    bottom: 40px;
+
+    background-color: #9c7303;
+    border: 5px solid #222;
+    border-radius: 50%;
+}
+
+
+/* Oberarm */
+.roboter.system-master #oberarm {
+    position: absolute;
+
+    width: 40px;
+    height: 160px;
+
+    left: 10px;
+    bottom: 35px;
+
+    background-color: #eeb108;
+    border: 4px solid #222;
+    border-radius: 15px;
+
+    transform-origin: bottom center;
+}
+
+
+/* Zweites Gelenk */
+.roboter.system-master #achse2 {
+    position: absolute;
+
+    width: 60px;
+    height: 60px;
+
+    left: -14px;
+    top: -30px;
+
+    background-color: #9c7303;
+    border: 4px solid #222;
+    border-radius: 50%;
+}
+
+
+/* Unterarm */
+.roboter.system-master #unterarm {
+    position: absolute;
+
+    width: 35px;
+    height: 130px;
+
+    left: 8px;
+    bottom: 30px;
+
+    background-color: #eeb108;
+    border: 4px solid #222;
+    border-radius: 12px;
+
+    transform-origin: bottom center;
+}
