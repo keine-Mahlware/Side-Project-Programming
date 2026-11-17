@@ -2019,3 +2019,526 @@ body.dark h3 {
         flex: 1 1 140px;
     }
 }
+/* ==================================
+   LEVEL 5: NETWORK BREACH
+================================== */
+
+#spiel5.spiel5-versteckt {
+    display: none;
+}
+
+#spiel5.spiel5-sichtbar {
+    display: block;
+
+    max-width: 820px;
+    margin: 50px auto;
+    padding: 30px;
+
+    color: white;
+    text-align: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            #07101c,
+            #020508
+        );
+
+    border: 3px solid #b388ff;
+    border-radius: 18px;
+
+    box-shadow:
+        0 0 20px #7c4dff,
+        0 0 55px rgba(124, 77, 255, 0.45);
+
+    animation: level5Erscheint 1s ease-out;
+}
+
+@keyframes level5Erscheint {
+    from {
+        opacity: 0;
+        transform: translateY(70px) scale(0.65);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+#spiel5 h2 {
+    color: #b388ff;
+
+    letter-spacing: 4px;
+
+    text-shadow:
+        0 0 12px #7c4dff,
+        0 0 30px #4a148c;
+}
+
+
+/* Statusanzeige */
+
+.level5-status {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    gap: 35px;
+
+    margin: 25px 0;
+    padding: 15px;
+
+    background-color: #080d18;
+
+    border: 2px solid #3b2b61;
+    border-radius: 10px;
+}
+
+.level5-status strong {
+    color: #00ffcc;
+}
+
+
+/* Zugriffssequenz */
+
+.level5-reihenfolge {
+    margin: 20px auto;
+    padding: 15px;
+
+    background-color: #100c1c;
+
+    border: 2px solid #7c4dff;
+    border-radius: 10px;
+}
+
+#level5-sequenz {
+    display: block;
+
+    margin-top: 8px;
+
+    color: #ffd740;
+    letter-spacing: 2px;
+}
+
+
+/* Legende */
+
+.level5-legende {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    gap: 12px;
+
+    margin: 20px 0;
+
+    font-size: 14px;
+}
+
+
+/* ==================================
+   NETZWERKRASTER
+================================== */
+
+#level5-feld {
+    display: grid;
+
+    grid-template-columns:
+        repeat(9, minmax(32px, 54px));
+
+    justify-content: center;
+
+    gap: 3px;
+
+    max-width: 540px;
+
+    margin: 25px auto;
+    padding: 10px;
+
+    background-color: #02050a;
+
+    border: 4px solid #332453;
+    border-radius: 12px;
+
+    box-shadow:
+        inset 0 0 35px #000,
+        0 0 18px rgba(124, 77, 255, 0.5);
+}
+
+
+/* Einzelnes Feld */
+
+.level5-zelle {
+    position: relative;
+
+    aspect-ratio: 1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    min-width: 0;
+
+    color: white;
+    font-size: 23px;
+
+    background-color: #0a1722;
+
+    border: 1px solid #214053;
+    border-radius: 5px;
+
+    transition:
+        background-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+/* Wand */
+
+.level5-zelle.wand {
+    background:
+        repeating-linear-gradient(
+            45deg,
+            #171a24,
+            #171a24 5px,
+            #7b7b7e 5px,
+            #242937 10px
+        );
+
+    border-color: #333949;
+
+    box-shadow:
+        inset 0 0 8px #000;
+}
+
+
+/* Spieler */
+
+.level5-zelle.spieler {
+    background-color: #072c3a;
+
+    box-shadow:
+        inset 0 0 12px #00b8ff,
+        0 0 12px #00b8ff;
+
+    transform: scale(1.05);
+}
+
+
+/* Virus */
+
+.level5-zelle.virus {
+    background-color: #3b0711;
+
+    box-shadow:
+        inset 0 0 14px red,
+        0 0 15px #ff1744;
+
+    animation:
+        level5VirusPuls 0.35s infinite alternate;
+}
+
+@keyframes level5VirusPuls {
+    from {
+        filter: brightness(1);
+    }
+
+    to {
+        filter: brightness(1.8);
+    }
+}
+
+
+/* Kontrollknoten */
+
+.level5-zelle.knoten-sps {
+    background-color: #082a52;
+
+    box-shadow:
+        inset 0 0 12px #2196f3;
+}
+
+.level5-zelle.knoten-robot {
+    background-color: #472000;
+
+    box-shadow:
+        inset 0 0 12px #ff9800;
+}
+
+.level5-zelle.knoten-safety {
+    background-color: #06351a;
+
+    box-shadow:
+        inset 0 0 12px #00c853;
+}
+
+
+/* Aktivierter Knoten */
+
+.level5-zelle.aktiviert {
+    filter: grayscale(0.7);
+
+    opacity: 0.55;
+
+    box-shadow:
+        inset 0 0 12px white;
+}
+
+
+/* Core */
+
+.level5-zelle.core {
+    background-color: #2b2135;
+
+    box-shadow:
+        inset 0 0 12px #777;
+}
+
+.level5-zelle.core-offen {
+    background-color: #4e3d00;
+
+    box-shadow:
+        inset 0 0 16px #ffd740,
+        0 0 16px #ffd740;
+
+    animation:
+        level5CorePuls 0.65s infinite alternate;
+}
+
+@keyframes level5CorePuls {
+    from {
+        filter: brightness(1);
+    }
+
+    to {
+        filter: brightness(1.7);
+        transform: scale(1.08);
+    }
+}
+
+
+/* Meldung */
+
+#level5-meldung {
+    min-height: 32px;
+
+    margin: 20px;
+
+    color: #00ffcc;
+
+    font-size: 19px;
+    font-weight: bold;
+}
+
+
+/* Steuerung */
+
+.level5-steuerung {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 8px;
+
+    margin: 20px;
+}
+
+.level5-steuerung-mitte {
+    display: flex;
+
+    gap: 8px;
+}
+
+.level5-steuerung button,
+#level5-start {
+    min-width: 68px;
+
+    padding: 13px 18px;
+
+    color: #b388ff;
+    font-weight: bold;
+
+    background-color: #0e0918;
+
+    border: 2px solid #7c4dff;
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease,
+        background-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.level5-steuerung button:hover,
+#level5-start:hover {
+    color: white;
+    background-color: #7c4dff;
+
+    box-shadow: 0 0 18px #7c4dff;
+
+    transform: translateY(-2px);
+}
+
+.level5-steuerung button:active,
+#level5-start:active {
+    transform: scale(0.93);
+}
+
+
+/* Kritischer Zustand */
+
+#spiel5.level5-kritisch {
+    animation:
+        level5Kritisch 0.4s infinite alternate;
+}
+
+@keyframes level5Kritisch {
+    from {
+        border-color: #ff1744;
+
+        box-shadow:
+            0 0 15px #ff1744;
+    }
+
+    to {
+        border-color: #ffd740;
+
+        box-shadow:
+            0 0 35px red;
+    }
+}
+
+
+/* ==================================
+   FINALE
+================================== */
+
+.finale-versteckt {
+    display: none;
+}
+
+.finale-sichtbar {
+    display: block;
+
+    max-width: 700px;
+
+    margin: 60px auto;
+    padding: 40px;
+
+    color: white;
+    text-align: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            #2b2100,
+            #080600
+        );
+
+    border: 4px solid #ffd740;
+    border-radius: 20px;
+
+    box-shadow:
+        0 0 25px #ffd740,
+        0 0 70px rgba(255, 215, 64, 0.5);
+
+    animation:
+        finaleErscheint 1.4s ease-out;
+}
+
+@keyframes finaleErscheint {
+    from {
+        opacity: 0;
+        transform: scale(0.3) rotate(-4deg);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) rotate(0);
+    }
+}
+
+.finale-sichtbar h2 {
+    color: #ffd740;
+
+    letter-spacing: 5px;
+
+    text-shadow:
+        0 0 15px #ffd740,
+        0 0 35px #ff9800;
+}
+
+.finale-liste {
+    max-width: 260px;
+
+    margin: 25px auto;
+    padding: 15px;
+
+    text-align: left;
+
+    background-color: rgba(0, 0, 0, 0.35);
+
+    border-radius: 10px;
+}
+
+
+/* Kleinere Bildschirme */
+
+@media (max-width: 600px) {
+    #spiel5.spiel5-sichtbar {
+        padding: 12px;
+    }
+
+    #level5-feld {
+        grid-template-columns:
+            repeat(9, minmax(25px, 40px));
+
+        gap: 2px;
+
+        padding: 6px;
+    }
+
+    .level5-zelle {
+        font-size: 18px;
+    }
+
+    .level5-status {
+        gap: 14px;
+    }
+}
+#master-krone {
+    display: none;
+
+    position: absolute;
+
+    top: -45px;
+    left: 15px;
+
+    font-size: 42px;
+
+    z-index: 100;
+}
+#roboter.system-master #master-krone {
+    display: block;
+
+    animation: kroneErscheint 1s ease-out;
+}
+
+@keyframes kroneErscheint {
+
+    from {
+        opacity: 0;
+        transform: translateY(-30px) rotate(-15deg);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) rotate(0);
+    }
+}
