@@ -181,7 +181,7 @@
                 </div>
                 <section id="spiel2" class="spiel2-versteckt">
 
-                    <h2>🔓 BONUS LEVEL</h2>
+                    <h2>🔓 LEVEL 2</h2>
 
                     <p>
                     Weiche den herabfallenden Werkstücken aus!
@@ -222,7 +222,7 @@
                         </button>
 
                         <button id="spiel2-start" type="button">
-                        BONUS LEVEL STARTEN
+                         LEVEL 2 STARTEN
                         </button>
 
                         <button
@@ -234,6 +234,113 @@
                         </button>
 
                     </div>
+
+                </section>
+                <section id="spiel3" class="spiel3-versteckt">
+
+                    <h2>⚠ COMBAT PROTOCOL ⚠</h2>
+
+                    <p>
+                    Zerstöre die fehlerhaften Maschinen und besiege
+                    die Corrupted Control Unit.
+                    </p>
+
+                    <div class="spiel3-info">
+
+                        <span>
+                            Punkte:
+                            <strong id="spiel3-punkte">0</strong>
+                        </span>
+
+                        <span>
+                            Leben:
+                            <strong id="spiel3-leben">3</strong>
+                        </span>
+
+                        <span>
+                            Boss:
+                            <strong id="spiel3-boss-leben">GESPERRT</strong>
+                        </span>
+
+                    </div>
+
+                    <div id="spiel3-feld">
+
+                        <!-- Boss -->
+
+                        <div id="spiel3-boss">
+
+                            <div class="boss-name">
+                                CORRUPTED CONTROL UNIT
+                            </div>
+
+                            <div class="boss-lebensbalken">
+                                <div id="boss-lebensanzeige"></div>
+                            </div>
+
+                            <div class="boss-koerper">
+                            ☠
+                            </div>
+
+                        </div>
+
+
+                        <!-- Spieler -->
+
+                        <div id="spiel3-spieler">
+                            🤖
+                        </div>
+
+                    </div>
+
+                    <p id="spiel3-meldung">
+                    Erreiche 100 Punkte in Spiel 2.
+                    </p>
+
+                    <div class="spiel3-steuerung">
+
+                        <button
+                        id="spiel3-links"
+                        type="button"
+                        aria-label="Nach links bewegen"
+                        >
+                         ◀
+                        </button>
+
+                        <button id="spiel3-start" type="button">
+                        LEVEL 3 STARTEN
+                        </button>
+
+                        <button
+                        id="spiel3-schiessen"
+                        type="button"
+                        aria-label="Schießen"
+                        >
+                        FEUER
+                        </button>
+
+                        <button
+                        id="spiel3-rechts"
+                        type="button"
+                        aria-label="Nach rechts bewegen"
+                        >
+                         ▶
+                        </button>
+
+                    </div>
+
+                </section>
+                <section id="spiel4" class="spiel4-versteckt">
+
+                    <h2>🔓 LEVEL 4 FREIGESCHALTET</h2>
+
+                    <p>
+                    Die Corrupted Control Unit wurde zerstört.
+                    </p>
+
+                    <button id="spiel4-start" type="button">
+                        LEVEL 4 STARTEN
+                    </button>
 
                 </section>
                 <button id="zurueck">Zurück</button>
