@@ -33,7 +33,9 @@ let anlageLaeuft = false;
 let stoerung = false;
 let motorDrehzahl = 0;
 let motorWinkel = 0;
-let motorTimer;
+let motorKlickTimer = null;
+let motorKlicks = 0;
+let motorBrennt = false;
 
 notausButton.addEventListener("click", function(){
     stoerung = true;
@@ -82,26 +84,74 @@ startButton.addEventListener("click", function() {
         leuchteStoerung.style.backgroundColor = "red"
         anlagenStatus.textContent = "Start nicht möglich: Betriebsart HAND"
     }
-    if (anlageLaeuft == false && autoBetriebs == true && stoerung == false ) {
+    if (anlageLaeuft == false && autoBetriebs == true && stoerung == false && motorBrennt == false ) {
         anlageLaeuft = true;
         leuchteBetrieb.style.backgroundColor = "green"
         leuchteStop.style.backgroundColor = "white"
         anlagenStatus.textContent = "Anlage gestartet"
         motorDrehzahl = 10;
-        clearTimeout(motorTimer);
+        motor.addEventListener("click", function() {
 
-        motorTimer = setTimeout(function() {
-            document.querySelector(".flamme").style.zIndex = "50";
-            motorEasterEggGefunden = true;
-            pruefeEasterEggs();
-        }, 15000); //5000 ms = 5s / 120000 ms = 2 Minuten
-     }
+    if (anlageLaeuft === false) {
+        return;
+    }
+
+    if (motorBrennt === true) {
+        return;
+    }
+
+    motorKlicks++;
+
+    console.log("Motor Klicks: " + motorKlicks);
+
+
+    // Beim ersten Klick startet das Zeitfenster
+    if (motorKlicks === 1) {
+
+        motorKlickTimer = setTimeout(function() {
+
+            motorKlicks = 0;
+            motorKlickTimer = null;
+
+            console.log("Motor Klicks zurückgesetzt");
+
+        }, 4000);
+    }
+
+
+    // 5 Klicks innerhalb von 4 Sekunden
+    if (motorKlicks >= 5) {
+
+        clearTimeout(motorKlickTimer);
+
+        motorKlickTimer = null;
+        motorKlicks = 0;
+
+        motorBrennt = true;
+        motorEasterEggGefunden = true;
+
+        document.querySelector(".flamme").style.zIndex = "50";
+
+        anlageLaeuft = false;
+
+        leuchteBetrieb.style.backgroundColor = "white";
+        leuchteStop.style.backgroundColor = "yellow";
+        leuchteStoerung.style.backgroundColor = "red";
+
+        anlagenStatus.textContent = "Motor überhitzt";
+        stoerungsStatus.textContent = "Motorstörung";
+
+        motorStoppen();
+
+        pruefeEasterEggs();
+        }
+        });
+    }
+
     if (anlageLaeuft == false && autoBetriebs == true && stoerung == true ) {
         anlagenStatus.textContent = "Bitte Störung beseitigen & quittieren"
     }
-        
-
-})
+})  
 handButton.addEventListener("click",function(){
     if (autoBetriebs == true && anlageLaeuft == true) {
         autoBetriebs = false;
@@ -123,9 +173,15 @@ function motorStoppen() {
         setTimeout(motorStoppen, 10) 
     } else {
         motorDrehzahl = 0;
-        clearTimeout(motorTimer);
+        motorKlicksZuruecksetzen();
 
-        document.querySelector(".flamme").style.zIndex = "-1";
+     if (motorBrennt == false) {
+
+            document.querySelector(
+                ".flamme"
+            ).style.zIndex = "-1";
+
+    }
     }
 }
 function motorAnimation() {
@@ -134,6 +190,19 @@ function motorAnimation() {
     requestAnimationFrame(motorAnimation);
 
 }
+function motorKlicksZuruecksetzen() {
+
+    if (motorBrennt === true) {
+        return;
+    }
+
+    motorKlicks = 0;
+
+    clearTimeout(motorKlickTimer);
+
+    motorKlickTimer = null;
+}
+
 motorAnimation();
 
 const roboterSimulation =   document.getElementById("roboter-simulation");
@@ -1227,8 +1296,8 @@ let spiel3LetzterTreffer = 0;
 let spiel3BossAktiv = false;
 let spiel3BossBesiegt = false;
 
-let spiel3BossLeben = 20;
-const spiel3BossMaxLeben = 20;
+let spiel3BossLeben = 30;
+const spiel3BossMaxLeben = 30;
 
 let spiel3BossPosition = 0;
 let spiel3BossRichtung = 1;
@@ -1559,7 +1628,7 @@ function spiel3GegnerErstellen() {
         y: -55,
         rotation: 0,
         geschwindigkeit:
-            125 +
+            100 +
             zufaelligeGeschwindigkeit
     });
 }
@@ -2468,3 +2537,665 @@ if (
         }
     );
 }
+/* =========================================
+   LEVEL 4: REACTOR CONTROL
+========================================= */
+
+const level4ZeitAnzeige =
+    document.getElementById("level4-zeit");
+
+const level4StabilZeitAnzeige =
+    document.getElementById("level4-stabil-zeit");
+
+const level4KritischZeitAnzeige =
+    document.getElementById("level4-kritisch-zeit");
+
+const level4TemperaturText =
+    document.getElementById("level4-temperatur-text");
+
+const level4DruckText =
+    document.getElementById("level4-druck-text");
+
+const level4EnergieText =
+    document.getElementById("level4-energie-text");
+
+const level4TemperaturBalken =
+    document.getElementById("level4-temperatur-balken");
+
+const level4DruckBalken =
+    document.getElementById("level4-druck-balken");
+
+const level4EnergieBalken =
+    document.getElementById("level4-energie-balken");
+
+const level4Kuehlung =
+    document.getElementById("level4-kuehlung");
+
+const level4Ventil =
+    document.getElementById("level4-ventil");
+
+const level4LeistungPlus =
+    document.getElementById("level4-leistung-plus");
+
+const level4LeistungMinus =
+    document.getElementById("level4-leistung-minus");
+
+const level4Notkuehlung =
+    document.getElementById("level4-notkuehlung");
+
+const level4Start =
+    document.getElementById("level4-start");
+
+const level4Meldung =
+    document.getElementById("level4-meldung");
+
+const level4ZielAbschluss =
+    document.getElementById("level4-ziel-abschluss");
+
+const level4ZielStabil =
+    document.getElementById("level4-ziel-stabil");
+
+const level4ZielNotkuehlung =
+    document.getElementById("level4-ziel-notkuehlung");
+
+const spiel5Bereich =
+    document.getElementById("spiel5");
+
+
+let level4Laeuft = false;
+let level4Timer = null;
+
+let level4Restzeit = 60;
+let level4SichereZeit = 0;
+let level4KritischeZeit = 0;
+
+let level4Temperatur = 50;
+let level4Druck = 50;
+let level4Energie = 50;
+
+let level4NotkuehlungBenutzt = false;
+let level5Freigeschaltet = false;
+
+
+/* =========================================
+   WERT BEGRENZEN
+========================================= */
+
+function level4Begrenzen(wert) {
+
+    if (wert < 0) {
+        return 0;
+    }
+
+    if (wert > 100) {
+        return 100;
+    }
+
+    return wert;
+}
+
+
+/* =========================================
+   KLEINE ZUFÄLLIGE VERÄNDERUNG
+========================================= */
+
+function level4Zufall(minimum, maximum) {
+
+    const bereich =
+        maximum - minimum;
+
+    return minimum +
+        Math.random() / (1 / bereich);
+}
+
+
+/* =========================================
+   EINZELNEN BALKEN AKTUALISIEREN
+========================================= */
+
+function level4BalkenAktualisieren(
+    balken,
+    wert,
+    minimum,
+    maximum
+) {
+
+    balken.style.width =
+        wert + "%";
+
+    balken.classList.remove(
+        "warnung",
+        "kritisch"
+    );
+
+    if (
+        wert < minimum ||
+        wert > maximum
+    ) {
+        balken.classList.add(
+            "kritisch"
+        );
+
+        return;
+    }
+
+    if (
+        wert < minimum + 10 ||
+        wert > maximum - 10
+    ) {
+        balken.classList.add(
+            "warnung"
+        );
+    }
+}
+
+
+/* =========================================
+   ANZEIGEN AKTUALISIEREN
+========================================= */
+
+function level4AnzeigeAktualisieren() {
+
+    level4Temperatur =
+        level4Begrenzen(
+            level4Temperatur
+        );
+
+    level4Druck =
+        level4Begrenzen(
+            level4Druck
+        );
+
+    level4Energie =
+        level4Begrenzen(
+            level4Energie
+        );
+
+
+    level4TemperaturText.textContent =
+        Math.round(level4Temperatur) + " %";
+
+    level4DruckText.textContent =
+        Math.round(level4Druck) + " %";
+
+    level4EnergieText.textContent =
+        Math.round(level4Energie) + " %";
+
+
+    level4ZeitAnzeige.textContent =
+        level4Restzeit;
+
+    level4StabilZeitAnzeige.textContent =
+        level4SichereZeit;
+
+    level4KritischZeitAnzeige.textContent =
+        level4KritischeZeit;
+
+
+    level4BalkenAktualisieren(
+        level4TemperaturBalken,
+        level4Temperatur,
+        25,
+        75
+    );
+
+    level4BalkenAktualisieren(
+        level4DruckBalken,
+        level4Druck,
+        20,
+        80
+    );
+
+    level4BalkenAktualisieren(
+        level4EnergieBalken,
+        level4Energie,
+        30,
+        85
+    );
+}
+
+
+/* =========================================
+   KRITISCHEN ZUSTAND PRÜFEN
+========================================= */
+
+function level4IstKritisch() {
+
+    const temperaturKritisch =
+        level4Temperatur < 25 ||
+        level4Temperatur > 75;
+
+    const druckKritisch =
+        level4Druck < 20 ||
+        level4Druck > 80;
+
+    const energieKritisch =
+        level4Energie < 30 ||
+        level4Energie > 85;
+
+    return (
+        temperaturKritisch ||
+        druckKritisch ||
+        energieKritisch
+    );
+}
+
+
+/* =========================================
+   LEVEL ZURÜCKSETZEN
+========================================= */
+
+function level4Zuruecksetzen() {
+
+    clearInterval(level4Timer);
+
+    level4Laeuft = false;
+
+    level4Restzeit = 60;
+    level4SichereZeit = 0;
+    level4KritischeZeit = 0;
+
+    level4Temperatur = 50;
+    level4Druck = 50;
+    level4Energie = 50;
+
+    level4NotkuehlungBenutzt = false;
+
+    level4Notkuehlung.disabled = false;
+
+    spiel4Bereich.classList.remove(
+        "level4-kritisch"
+    );
+
+    level4ZielAbschluss.textContent =
+    "❓ ???";
+
+    level4ZielStabil.textContent =
+    "❓ ???";
+
+    level4ZielNotkuehlung.textContent =
+    "❓ ???";
+    level4AnzeigeAktualisieren();
+}
+
+
+/* =========================================
+   WERTE AUTOMATISCH VERÄNDERN
+========================================= */
+
+function level4SystemVerändern() {
+
+    level4Temperatur +=
+        level4Zufall(1, 5);
+
+    level4Druck +=
+        level4Zufall(-3, 5);
+
+    level4Energie +=
+        level4Zufall(-4, 3);
+
+
+    if (level4Energie > 70) {
+
+        level4Temperatur +=
+            level4Zufall(1, 3);
+    }
+
+
+    if (level4Temperatur > 65) {
+
+        level4Druck +=
+            level4Zufall(1, 3);
+    }
+}
+
+
+/* =========================================
+   LEVEL 4 STARTEN
+========================================= */
+
+function level4Starten() {
+
+    if (level4Laeuft === true) {
+        return;
+    }
+
+    level4Zuruecksetzen();
+
+    level4Laeuft = true;
+
+    level4Start.textContent =
+        "REAKTOR LÄUFT";
+
+    level4Meldung.textContent =
+        "REAKTOR ONLINE – SYSTEM ÜBERWACHEN";
+
+    level4Timer =
+        setInterval(function() {
+
+            if (level4Laeuft === false) {
+                return;
+            }
+
+            level4Restzeit--;
+
+            level4SystemVerändern();
+
+
+            if (level4IstKritisch()) {
+
+                level4KritischeZeit++;
+
+                spiel4Bereich.classList.add(
+                    "level4-kritisch"
+                );
+
+                level4Meldung.textContent =
+                    "⚠ SYSTEM CRITICAL ⚠";
+
+            } else {
+
+                level4SichereZeit++;
+
+                level4KritischeZeit = 0;
+
+                spiel4Bereich.classList.remove(
+                    "level4-kritisch"
+                );
+
+                level4Meldung.textContent =
+                    "SYSTEM STABIL";
+            }
+
+
+            level4AnzeigeAktualisieren();
+
+
+            if (level4KritischeZeit >= 5) {
+
+                level4Verloren();
+
+                return;
+            }
+
+
+            if (level4Restzeit <= 0) {
+
+                level4Gewonnen();
+            }
+
+        }, 1000);
+}
+
+
+/* =========================================
+   BEDIENELEMENTE
+========================================= */
+
+level4Kuehlung.addEventListener(
+    "click",
+    function() {
+
+        if (level4Laeuft === false) {
+            return;
+        }
+
+        level4Temperatur -= 12;
+        level4Energie -= 5;
+        level4Druck -= 2;
+
+        level4Meldung.textContent =
+            "Kühlung aktiviert";
+
+        level4AnzeigeAktualisieren();
+    }
+);
+
+
+level4Ventil.addEventListener(
+    "click",
+    function() {
+
+        if (level4Laeuft === false) {
+            return;
+        }
+
+        level4Druck -= 13;
+        level4Temperatur += 2;
+
+        level4Meldung.textContent =
+            "Druckventil geöffnet";
+
+        level4AnzeigeAktualisieren();
+    }
+);
+
+
+level4LeistungPlus.addEventListener(
+    "click",
+    function() {
+
+        if (level4Laeuft === false) {
+            return;
+        }
+
+        level4Energie += 11;
+        level4Temperatur += 7;
+        level4Druck += 3;
+
+        level4Meldung.textContent =
+            "Reaktorleistung erhöht";
+
+        level4AnzeigeAktualisieren();
+    }
+);
+
+
+level4LeistungMinus.addEventListener(
+    "click",
+    function() {
+
+        if (level4Laeuft === false) {
+            return;
+        }
+
+        level4Energie -= 10;
+        level4Temperatur -= 3;
+        level4Druck -= 2;
+
+        level4Meldung.textContent =
+            "Reaktorleistung reduziert";
+
+        level4AnzeigeAktualisieren();
+    }
+);
+
+
+level4Notkuehlung.addEventListener(
+    "click",
+    function() {
+
+        if (
+            level4Laeuft === false ||
+            level4NotkuehlungBenutzt === true
+        ) {
+            return;
+        }
+
+        level4NotkuehlungBenutzt = true;
+
+        level4Temperatur = 45;
+        level4Druck = 45;
+        level4Energie = 45;
+
+        level4KritischeZeit = 0;
+
+        level4Notkuehlung.disabled = true;
+
+        spiel4Bereich.classList.remove(
+            "level4-kritisch"
+        );
+
+        level4ZielNotkuehlung.textContent =
+            "❌ Notkühlung wurde verwendet";
+
+        level4Meldung.textContent =
+            "NOTKÜHLUNG AKTIVIERT";
+
+        level4AnzeigeAktualisieren();
+    }
+);
+
+
+/* =========================================
+   LEVEL GEWONNEN
+========================================= */
+
+function level4Gewonnen() {
+
+    clearInterval(level4Timer);
+
+    level4Laeuft = false;
+
+    level4ZielAbschluss.textContent =
+        "✅ Reaktor stabilisiert";
+
+
+    const stabilBedingung =
+        level4SichereZeit >= 30;
+
+    const notkuehlungBedingung =
+        level4NotkuehlungBenutzt === false;
+
+
+    if (stabilBedingung) {
+
+        level4ZielStabil.textContent =
+            "✅ Mindestens 30 sichere Sekunden";
+
+    } else {
+
+        level4ZielStabil.textContent =
+            "❌ Zu wenig sichere Zeit";
+    }
+
+
+    if (notkuehlungBedingung) {
+
+        level4ZielNotkuehlung.textContent =
+            "✅ Keine Notkühlung verwendet";
+
+    } else {
+
+        level4ZielNotkuehlung.textContent =
+            "❌ Notkühlung wurde verwendet";
+    }
+
+
+    if (
+        stabilBedingung &&
+        notkuehlungBedingung
+    ) {
+
+        level4Meldung.textContent =
+            "PERFECT CONTROL – LEVEL 5 FREIGESCHALTET";
+
+        level5Freischalten();
+
+    } else {
+
+        level4Meldung.textContent =
+            "REAKTOR GERETTET – LEVEL-5-ZIELE NICHT ERFÜLLT";
+    }
+
+
+    level4Start.textContent =
+        "ERNEUT VERSUCHEN";
+}
+
+
+/* =========================================
+   LEVEL VERLOREN
+========================================= */
+
+function level4Verloren() {
+
+    clearInterval(level4Timer);
+
+    level4Laeuft = false;
+
+    spiel4Bereich.classList.remove(
+        "level4-kritisch"
+    );
+
+    level4Meldung.textContent =
+        "💥 REACTOR FAILURE – SYSTEM OFFLINE";
+
+    level4Start.textContent =
+        "NEU STARTEN";
+
+    level4ZielAbschluss.textContent =
+        "❌ Reaktor nicht stabilisiert";
+
+    if (level4SichereZeit >= 30) {
+
+        level4ZielStabil.textContent =
+            "✅ Mindestens 30 sichere Sekunden";
+
+    } else {
+
+        level4ZielStabil.textContent =
+            "❌ Zu wenig sichere Zeit";
+    }
+
+    if (level4NotkuehlungBenutzt) {
+
+        level4ZielNotkuehlung.textContent =
+            "❌ Notkühlung wurde verwendet";
+
+    } else {
+
+        level4ZielNotkuehlung.textContent =
+            "✅ Keine Notkühlung verwendet";
+    }
+}
+
+
+/* =========================================
+   LEVEL 5 FREISCHALTEN
+========================================= */
+
+function level5Freischalten() {
+
+    if (level5Freigeschaltet === true) {
+        return;
+    }
+
+    level5Freigeschaltet = true;
+
+    spiel5Bereich.classList.remove(
+        "spiel5-versteckt"
+    );
+
+    spiel5Bereich.classList.add(
+        "spiel5-sichtbar"
+    );
+}
+
+
+/* =========================================
+   STARTKNOPF
+========================================= */
+
+level4Start.addEventListener(
+    "click",
+    function() {
+
+        level4Starten();
+    }
+);
+
+
+/* Erste Anzeige beim Laden */
+
+level4AnzeigeAktualisieren();
