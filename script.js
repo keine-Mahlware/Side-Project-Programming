@@ -329,8 +329,6 @@ function pruefeEasterEggs() {
 }
 const naechsteSeite = document.getElementById("naechste-seite");
 const levelTransition = document.getElementById("level-transition");
-const seite1 = document.getElementById("seite1");
-const seite2 = document.getElementById("seite2");
 const zurueck = document.getElementById("zurueck");
 
 naechsteSeite.addEventListener("click", async function() {
@@ -352,26 +350,11 @@ naechsteSeite.addEventListener("click", async function() {
 });
 zurueck.addEventListener("click", function() {
 
-    document.body.classList.remove("seite-2");
+        window.location.reload();
 
 });
 
 
-
-
-
-naechsteSeite.addEventListener("click", function() {
-
-    seite1.style.display = "none";
-    seite2.style.display = "block";
-
-});
-zurueck.addEventListener("click", function() {
-    
-    levelTransition.classList.add("aktiv");
-   window.location.reload()
-
-});
 
 const stoerungen =
     document.querySelectorAll(".stoerung");
@@ -389,6 +372,8 @@ const spielMeldung =
     document.getElementById("spiel-meldung");
 
 
+let spiel2Freigeschaltet = false;
+
 let punkte = 0;
 let zeit = 20;
 
@@ -399,7 +384,6 @@ let aktiveStoerung = null;
 let letzteStoerung = -1;
 
 let spielTimer = null;
-
 
 /* ===============================
    NEUE ZUFÄLLIGE STÖRUNG
@@ -463,7 +447,11 @@ stoerungen.forEach(function(stoerung) {
 
             spielPunkte.textContent = punkte;
 
+            if (punkte >= 40 && spiel2Freigeschaltet == false) {
 
+            spiel2Freigeschaltet = true;
+            spiel2Freischalten();
+            }
             // Aktuelle Lampe ausschalten
             stoerung.classList.remove("aktiv");
 
@@ -494,8 +482,7 @@ spielStart.addEventListener("click", function() {
 
     punkte = 0;
 
-    zeit = 25;
-    
+    zeit = 20;
 
     letzteStoerung = -1;
 
@@ -560,3 +547,588 @@ spielStart.addEventListener("click", function() {
     }, 1000);
 
 });
+
+/* ==================================
+   SPIEL 2: ROBOTER-AUSWEICHSPIEL
+================================== */
+
+const spiel2Bereich =
+    document.getElementById("spiel2");
+
+const spiel2Feld =
+    document.getElementById("spiel2-feld");
+
+const spiel2Roboter =
+    document.getElementById("spiel2-roboter");
+
+const spiel2Start =
+    document.getElementById("spiel2-start");
+
+const spiel2PunkteAnzeige =
+    document.getElementById("spiel2-punkte");
+
+const spiel2LebenAnzeige =
+    document.getElementById("spiel2-leben");
+
+const spiel2Meldung =
+    document.getElementById("spiel2-meldung");
+
+const spiel2Links =
+    document.getElementById("spiel2-links");
+
+const spiel2Rechts =
+    document.getElementById("spiel2-rechts");
+
+
+let spiel2Laeuft = false;
+
+let spiel2Punkte = 0;
+let spiel2Leben = 3;
+
+let roboterPosition = 0;
+let bewegungsRichtung = 0;
+
+let hindernisse = [];
+
+let hindernisTimer = null;
+let spiel2AnimationsId = null;
+
+let letzterAnimationsZeitpunkt = 0;
+let letzterTrefferZeitpunkt = 0;
+
+let fallGeschwindigkeit = 170;
+let spawnZeit = 900;
+
+
+/* ==================================
+   SPIEL 2 FREISCHALTEN
+================================== */
+
+function spiel2Freischalten() {
+
+    spiel2Bereich.classList.remove(
+        "spiel2-versteckt"
+    );
+
+    spiel2Bereich.classList.add(
+        "spiel2-sichtbar"
+    );
+
+    spiel2Meldung.textContent =
+        "🔓 BONUS LEVEL FREIGESCHALTET!";
+}
+function spiel2Zuruecksetzen() {
+
+    spiel2Punkte = 0;
+    spiel2Leben = 3;
+
+    fallGeschwindigkeit = 170;
+    spawnZeit = 900;
+
+    spiel2PunkteAnzeige.textContent =
+        spiel2Punkte;
+
+    spiel2LebenAnzeige.textContent =
+        spiel2Leben;
+
+
+    /* Alte Werkstücke entfernen */
+
+    hindernisse.forEach(function(hindernis) {
+
+        hindernis.element.remove();
+
+    });
+
+    hindernisse = [];
+
+
+    /* Roboter mittig positionieren */
+
+    const feldBreite =
+        spiel2Feld.clientWidth;
+
+    const roboterBreite =
+        spiel2Roboter.offsetWidth;
+
+    roboterPosition =
+        (feldBreite - roboterBreite) / 2;
+
+    spiel2Roboter.style.left =
+        roboterPosition + "px";
+
+
+    bewegungsRichtung = 0;
+    letzterTrefferZeitpunkt = 0;
+}
+function hindernisErstellen() {
+
+    if (spiel2Laeuft == false) {
+        return;
+    }
+
+    const hindernis =
+        document.createElement("div");
+
+    hindernis.className =
+        "spiel2-hindernis";
+
+    hindernis.textContent = "⚙";
+
+
+    const hindernisBreite = 42;
+
+    const maximalePosition =
+        spiel2Feld.clientWidth -
+        hindernisBreite;
+
+    const zufaelligePosition =
+        Math.random() * maximalePosition;
+
+
+    hindernis.style.left =
+        zufaelligePosition + "px";
+
+    hindernis.style.top =
+        "-50px";
+
+
+    spiel2Feld.appendChild(hindernis);
+
+
+    hindernisse.push({
+
+        element: hindernis,
+
+        y: -50,
+
+        rotation: 0,
+
+        geschwindigkeit:
+            fallGeschwindigkeit +
+            Math.random() * 60
+
+    });
+}
+function kollidiert(element1, element2) {
+
+    const rechteck1 =
+        element1.getBoundingClientRect();
+
+    const rechteck2 =
+        element2.getBoundingClientRect();
+
+
+    return !(
+        rechteck1.right < rechteck2.left ||
+        rechteck1.left > rechteck2.right ||
+        rechteck1.bottom < rechteck2.top ||
+        rechteck1.top > rechteck2.bottom
+    );
+}
+function roboterBewegen(deltaZeit) {
+
+    const geschwindigkeit = 330;
+
+    roboterPosition +=
+        bewegungsRichtung *
+        geschwindigkeit *
+        deltaZeit;
+
+
+    const maximalePosition =
+        spiel2Feld.clientWidth -
+        spiel2Roboter.offsetWidth;
+
+
+    if (roboterPosition < 0) {
+        roboterPosition = 0;
+    }
+
+    if (roboterPosition > maximalePosition) {
+        roboterPosition = maximalePosition;
+    }
+
+
+    spiel2Roboter.style.left =
+        roboterPosition + "px";
+}
+
+function roboterGetroffen() {
+
+    const jetzt = performance.now();
+
+
+    /* Verhindert mehrere Treffer
+       durch dasselbe Werkstück */
+
+    if (
+        jetzt - letzterTrefferZeitpunkt <
+        700
+    ) {
+        return;
+    }
+
+
+    letzterTrefferZeitpunkt = jetzt;
+
+    spiel2Leben--;
+
+    spiel2LebenAnzeige.textContent =
+        spiel2Leben;
+
+
+    spiel2Roboter.classList.remove(
+        "getroffen"
+    );
+
+    void spiel2Roboter.offsetWidth;
+
+    spiel2Roboter.classList.add(
+        "getroffen"
+    );
+
+
+    spiel2Meldung.textContent =
+        "⚠ KOLLISION! Noch " +
+        spiel2Leben +
+        " Leben";
+
+
+    if (spiel2Leben <= 0) {
+        spiel2Beenden();
+    }
+}
+function spiel2Animation(zeitstempel) {
+
+    if (spiel2Laeuft == false) {
+        return;
+    }
+
+
+    if (letzterAnimationsZeitpunkt === 0) {
+
+        letzterAnimationsZeitpunkt =
+            zeitstempel;
+
+    }
+
+
+    let deltaZeit =
+        (zeitstempel -
+        letzterAnimationsZeitpunkt) /
+        1000;
+
+
+    /* Verhindert große Sprünge,
+       wenn der Browser-Tab kurz inaktiv war */
+
+    if (deltaZeit > 0.05) {
+        deltaZeit = 0.05;
+    }
+
+
+    letzterAnimationsZeitpunkt =
+        zeitstempel;
+
+
+    roboterBewegen(deltaZeit);
+
+
+    for (
+        let index = hindernisse.length - 1;
+        index >= 0;
+        index--
+    ) {
+
+        const hindernis =
+            hindernisse[index];
+
+
+        hindernis.y +=
+            hindernis.geschwindigkeit *
+            deltaZeit;
+
+        hindernis.rotation +=
+            180 * deltaZeit;
+
+
+        hindernis.element.style.top =
+            hindernis.y + "px";
+
+        hindernis.element.style.transform =
+            "rotate(" +
+            hindernis.rotation +
+            "deg)";
+
+
+        /* Kollision */
+
+        if (
+            kollidiert(
+                hindernis.element,
+                spiel2Roboter
+            )
+        ) {
+
+            roboterGetroffen();
+
+            hindernis.element.remove();
+
+            hindernisse.splice(index, 1);
+
+            continue;
+        }
+
+
+        /* Werkstück erfolgreich ausgewichen */
+
+        if (
+            hindernis.y >
+            spiel2Feld.clientHeight
+        ) {
+
+            spiel2Punkte++;
+
+            spiel2PunkteAnzeige.textContent =
+                spiel2Punkte;
+
+
+            hindernis.element.remove();
+
+            hindernisse.splice(index, 1);
+
+
+            /* Spiel wird langsam schneller */
+
+            if (spiel2Punkte % 5 === 0) {
+
+                fallGeschwindigkeit += 20;
+
+                spiel2Meldung.textContent =
+                    "⚡ Geschwindigkeit erhöht!";
+
+            }
+        }
+    }
+
+
+    spiel2AnimationsId =
+        requestAnimationFrame(
+            spiel2Animation
+        );
+}
+function spawnTimerStarten() {
+
+    clearInterval(hindernisTimer);
+
+
+    hindernisTimer =
+        setInterval(function() {
+
+            hindernisErstellen();
+
+        }, spawnZeit);
+}
+function spiel2Starten() {
+
+    if (spiel2Laeuft == true) {
+        return;
+    }
+
+
+    spiel2Zuruecksetzen();
+
+    spiel2Laeuft = true;
+
+    letzterAnimationsZeitpunkt = 0;
+
+
+    spiel2Meldung.textContent =
+        "⚠ WERKSTÜCKE FALLEN ⚠";
+
+    spiel2Start.textContent =
+        "SPIEL LÄUFT";
+
+
+    hindernisErstellen();
+
+    spawnTimerStarten();
+
+
+    spiel2AnimationsId =
+        requestAnimationFrame(
+            spiel2Animation
+        );
+}
+function spiel2Beenden() {
+
+    spiel2Laeuft = false;
+
+    bewegungsRichtung = 0;
+
+
+    clearInterval(hindernisTimer);
+
+    cancelAnimationFrame(
+        spiel2AnimationsId
+    );
+
+
+    hindernisse.forEach(function(hindernis) {
+
+        hindernis.element.remove();
+
+    });
+
+    hindernisse = [];
+
+
+    spiel2Meldung.textContent =
+        "GAME OVER – " +
+        spiel2Punkte +
+        " Punkte";
+
+    spiel2Start.textContent =
+        "NOCH EINMAL";
+}
+spiel2Start.addEventListener(
+    "click",
+    function() {
+
+        spiel2Starten();
+
+    }
+);
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (spiel2Laeuft == false) {
+            return;
+        }
+
+
+        if (
+            event.key === "ArrowLeft" ||
+            event.key.toLowerCase() === "a"
+        ) {
+
+            event.preventDefault();
+
+            bewegungsRichtung = -1;
+
+        }
+
+
+        if (
+            event.key === "ArrowRight" ||
+            event.key.toLowerCase() === "d"
+        ) {
+
+            event.preventDefault();
+
+            bewegungsRichtung = 1;
+
+        }
+
+    }
+);
+
+
+document.addEventListener(
+    "keyup",
+    function(event) {
+
+        if (
+            event.key === "ArrowLeft" ||
+            event.key.toLowerCase() === "a"
+        ) {
+
+            if (bewegungsRichtung === -1) {
+                bewegungsRichtung = 0;
+            }
+
+        }
+
+
+        if (
+            event.key === "ArrowRight" ||
+            event.key.toLowerCase() === "d"
+        ) {
+
+            if (bewegungsRichtung === 1) {
+                bewegungsRichtung = 0;
+            }
+
+        }
+
+    }
+);
+function bewegungLinksStarten(event) {
+
+    event.preventDefault();
+
+    if (spiel2Laeuft) {
+        bewegungsRichtung = -1;
+    }
+}
+
+
+function bewegungRechtsStarten(event) {
+
+    event.preventDefault();
+
+    if (spiel2Laeuft) {
+        bewegungsRichtung = 1;
+    }
+}
+
+
+function bewegungStoppen(event) {
+
+    event.preventDefault();
+
+    bewegungsRichtung = 0;
+}
+
+
+spiel2Links.addEventListener(
+    "pointerdown",
+    bewegungLinksStarten
+);
+
+spiel2Rechts.addEventListener(
+    "pointerdown",
+    bewegungRechtsStarten
+);
+
+spiel2Links.addEventListener(
+    "pointerup",
+    bewegungStoppen
+);
+
+spiel2Rechts.addEventListener(
+    "pointerup",
+    bewegungStoppen
+);
+
+spiel2Links.addEventListener(
+    "pointerleave",
+    bewegungStoppen
+);
+
+spiel2Rechts.addEventListener(
+    "pointerleave",
+    bewegungStoppen
+);
+
+spiel2Links.addEventListener(
+    "pointercancel",
+    bewegungStoppen
+);
+
+spiel2Rechts.addEventListener(
+    "pointercancel",
+    bewegungStoppen
+);
