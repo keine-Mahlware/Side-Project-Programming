@@ -3295,11 +3295,11 @@ let level5Laeuft = false;
 let level5Zeit = 120;
 let level5Energie = 100;
 
-let level5SpielerZeile = 7;
+let level5SpielerZeile = 16;
 let level5SpielerSpalte = 1;
 
 let level5VirusZeile = 1;
-let level5VirusSpalte = 7;
+let level5VirusSpalte = 16;
 
 let level5Timer = null;
 let level5VirusTimer = null;
@@ -3322,23 +3322,42 @@ let level5KnotenReihenfolge = [];
 
 const level5Karte = [
 
-    [1, 1, 1, 1, 1, 1, 1, 1, 1],
 
-    [1, 0, 0, 0, 1, 0, 0, 0, 1],
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
 
-    [1, 0, 1, 0, 0, 0, 1, 0, 1],
+    [1,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,1],
 
-    [1, 0, 0, 0, 1, 0, 0, 0, 1],
+    [1,0,1,0,1,0,1,1,1,0,1,0,1,1,1,1,0,1],
 
-    [1, 1, 0, 0, 0, 0, 0, 1, 1],
+    [1,0,1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,1],
 
-    [1, 0, 0, 1, 0, 1, 0, 0, 1],
+    [1,0,1,1,1,1,1,0,1,1,1,0,1,0,1,1,0,1],
 
-    [1, 0, 1, 0, 0, 0, 1, 0, 1],
+    [1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,1,0,1],
 
-    [1, 0, 0, 0, 1, 0, 0, 0, 1],
+    [1,1,1,1,1,0,1,1,1,1,0,1,1,1,0,1,0,1],
 
-    [1, 1, 1, 1, 1, 1, 1, 1, 1]
+    [1,0,0,0,1,0,0,0,0,1,0,0,0,0,0,1,0,1],
+
+    [1,0,1,0,1,1,1,1,0,1,1,1,1,1,0,1,0,1],
+
+    [1,0,1,0,0,0,0,1,0,0,0,0,0,1,0,0,0,1],
+
+    [1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,1,0,1],
+
+    [1,0,0,0,0,1,0,0,0,0,0,1,0,0,0,1,0,1],
+
+    [1,1,1,1,0,1,1,1,1,1,0,1,1,1,0,1,0,1],
+
+    [1,0,0,1,0,0,0,0,0,1,0,0,0,1,0,0,0,1],
+
+    [1,0,1,1,1,1,1,1,0,1,1,1,0,1,1,1,0,1],
+
+    [1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,1],
+
+    [1,0,1,1,1,1,0,0,0,1,1,1,1,1,0,0,0,1],
+
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 ];
 
 
@@ -3346,21 +3365,21 @@ const level5Karte = [
 
 const level5Knoten = {
 
-    SPS: {
+       SPS: {
         zeile: 1,
         spalte: 1,
         symbol: "🔵"
     },
 
     ROBOT: {
-        zeile: 3,
-        spalte: 7,
+        zeile: 9,
+        spalte: 10,
         symbol: "🟠"
     },
 
     SAFETY: {
-        zeile: 7,
-        spalte: 7,
+        zeile: 16,
+        spalte: 16,
         symbol: "🟢"
     }
 };
@@ -3369,8 +3388,8 @@ const level5Knoten = {
 /* Position des Cores */
 
 const level5Core = {
-    zeile: 4,
-    spalte: 4
+    zeile: 9,
+    spalte: 8
 };
 
 
@@ -3394,7 +3413,7 @@ function level5Mal(wert1, wert2) {
 
 function level5Index(zeile, spalte) {
 
-    return level5Mal(zeile, 9) + spalte;
+    return level5Mal(zeile, 18) + spalte;
 }
 
 
