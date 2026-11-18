@@ -3298,8 +3298,8 @@ let level5Energie = 450;
 let level5SpielerZeile = 16;
 let level5SpielerSpalte = 1;
 
-let level5VirusZeile = 1;
-let level5VirusSpalte = 16;
+let level5VirusZeile = 6;
+let level5VirusSpalte = 9;
 
 let level5Timer = null;
 let level5VirusTimer = null;
