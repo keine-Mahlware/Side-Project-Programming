@@ -3861,98 +3861,141 @@ function level5VirusBewegen() {
         return;
     }
 
-    const moeglichkeiten = [
 
-        {
-            zeile:
-                level5VirusZeile - 1,
+    const start = {
+        zeile: level5VirusZeile,
+        spalte: level5VirusSpalte,
+        ersterSchritt: null
+    };
 
-            spalte:
-                level5VirusSpalte
-        },
 
-        {
-            zeile:
-                level5VirusZeile + 1,
+    const warteschlange = [start];
 
-            spalte:
-                level5VirusSpalte
-        },
+    const besucht = new Set();
 
-        {
-            zeile:
-                level5VirusZeile,
+    besucht.add(
+        start.zeile + "," + start.spalte
+    );
 
-            spalte:
-                level5VirusSpalte - 1
-        },
 
-        {
-            zeile:
-                level5VirusZeile,
+    let gefundenerSchritt = null;
 
-            spalte:
-                level5VirusSpalte + 1
+
+    while (warteschlange.length > 0) {
+
+        const aktuell =
+            warteschlange.shift();
+
+
+        /* Spieler gefunden */
+
+        if (
+            aktuell.zeile === level5SpielerZeile &&
+            aktuell.spalte === level5SpielerSpalte
+        ) {
+
+            gefundenerSchritt =
+                aktuell.ersterSchritt;
+
+            break;
         }
-    ];
 
 
-    let bestePosition = null;
-    let besteDistanz = Infinity;
+        const nachbarn = [
+
+            {
+                zeile: aktuell.zeile - 1,
+                spalte: aktuell.spalte
+            },
+
+            {
+                zeile: aktuell.zeile + 1,
+                spalte: aktuell.spalte
+            },
+
+            {
+                zeile: aktuell.zeile,
+                spalte: aktuell.spalte - 1
+            },
+
+            {
+                zeile: aktuell.zeile,
+                spalte: aktuell.spalte + 1
+            }
+
+        ];
 
 
-    moeglichkeiten.forEach(
-        function(position) {
+        nachbarn.forEach(function(nachbar) {
 
             if (
                 level5IstBegehbar(
-                    position.zeile,
-                    position.spalte
+                    nachbar.zeile,
+                    nachbar.spalte
                 ) === false
             ) {
                 return;
             }
 
 
-            const zeilenDistanz =
-                Math.abs(
-                    position.zeile -
-                    level5SpielerZeile
-                );
-
-            const spaltenDistanz =
-                Math.abs(
-                    position.spalte -
-                    level5SpielerSpalte
-                );
-
-            const gesamteDistanz =
-                zeilenDistanz +
-                spaltenDistanz;
+            const schluessel =
+                nachbar.zeile +
+                "," +
+                nachbar.spalte;
 
 
-            if (
-                gesamteDistanz <
-                besteDistanz
-            ) {
-
-                besteDistanz =
-                    gesamteDistanz;
-
-                bestePosition =
-                    position;
+            if (besucht.has(schluessel)) {
+                return;
             }
-        }
-    );
 
 
-    if (bestePosition !== null) {
+            besucht.add(schluessel);
+
+
+            let ersterSchritt =
+                aktuell.ersterSchritt;
+
+
+            /*
+                Beim ersten Schritt merken wir uns,
+                in welche Richtung der Virus loslaufen muss.
+            */
+
+            if (ersterSchritt === null) {
+
+                ersterSchritt = {
+                    zeile: nachbar.zeile,
+                    spalte: nachbar.spalte
+                };
+
+            }
+
+
+            warteschlange.push({
+
+                zeile: nachbar.zeile,
+
+                spalte: nachbar.spalte,
+
+                ersterSchritt: ersterSchritt
+
+            });
+
+        });
+
+    }
+
+
+    /* Virus bewegt sich einen Schritt */
+
+    if (gefundenerSchritt !== null) {
 
         level5VirusZeile =
-            bestePosition.zeile;
+            gefundenerSchritt.zeile;
 
         level5VirusSpalte =
-            bestePosition.spalte;
+            gefundenerSchritt.spalte;
+
     }
 
 
@@ -3960,7 +4003,6 @@ function level5VirusBewegen() {
 
     level5DarstellungAktualisieren();
 }
-
 
 /* =========================================
    VIRUS BESCHLEUNIGEN
