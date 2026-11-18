@@ -3298,8 +3298,8 @@ let level5Energie = 450;
 let level5SpielerZeile = 16;
 let level5SpielerSpalte = 1;
 
-let level5VirusZeile = 9;
-let level5VirusSpalte = 8;
+let level5VirusZeile = 1;
+let level5VirusSpalte = 16;
 
 let level5Timer = null;
 let level5VirusTimer = null;
@@ -4069,8 +4069,8 @@ function level5Zuruecksetzen() {
     level5SpielerZeile = 16;
     level5SpielerSpalte = 1;
 
-    level5VirusZeile = 9;
-    level5VirusSpalte = 8;
+    level5VirusZeile = 1;
+    level5VirusSpalte = 16;
 
     level5AktuellerKnoten = 0;
 
