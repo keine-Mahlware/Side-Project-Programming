@@ -3293,7 +3293,7 @@ const finaleBereich =
 let level5Laeuft = false;
 
 let level5Zeit = 120;
-let level5Energie = 400;
+let level5Energie = 450;
 
 let level5SpielerZeile = 16;
 let level5SpielerSpalte = 1;
@@ -4015,7 +4015,7 @@ function level5VirusBeschleunigen() {
     level5VirusTimer =
         setInterval(
             level5VirusBewegen,
-            200
+            150
         );
 }
 
@@ -4064,7 +4064,7 @@ function level5Zuruecksetzen() {
     level5Laeuft = false;
 
     level5Zeit = 120;
-    level5Energie = 100;
+    level5Energie = 450;
 
     level5SpielerZeile = 16;
     level5SpielerSpalte = 1;
@@ -4134,7 +4134,7 @@ function level5Starten() {
     level5VirusTimer =
         setInterval(
             level5VirusBewegen,
-            300
+            250
         );
 }
 
