@@ -4069,8 +4069,8 @@ function level5Zuruecksetzen() {
     level5SpielerZeile = 16;
     level5SpielerSpalte = 1;
 
-    level5VirusZeile = 1;
-    level5VirusSpalte = 16;
+    level5VirusZeile = 6;
+    level5VirusSpalte = 9;
 
     level5AktuellerKnoten = 0;
 
