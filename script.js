@@ -3293,7 +3293,7 @@ const finaleBereich =
 let level5Laeuft = false;
 
 let level5Zeit = 120;
-let level5Energie = 150;
+let level5Energie = 200;
 
 let level5SpielerZeile = 16;
 let level5SpielerSpalte = 1;
