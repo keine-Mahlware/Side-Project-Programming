@@ -3372,8 +3372,8 @@ const level5Knoten = {
     },
 
     ROBOT: {
-        zeile: 9,
-        spalte: 10,
+        zeile: 3,
+        spalte: 14,
         symbol: "🟠"
     },
 
