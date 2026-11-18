@@ -3299,7 +3299,7 @@ let level5SpielerZeile = 16;
 let level5SpielerSpalte = 1;
 
 let level5VirusZeile = 6;
-let level5VirusSpalte = 9;
+let level5VirusSpalte = 8;
 
 let level5Timer = null;
 let level5VirusTimer = null;
@@ -4070,7 +4070,7 @@ function level5Zuruecksetzen() {
     level5SpielerSpalte = 1;
 
     level5VirusZeile = 6;
-    level5VirusSpalte = 9;
+    level5VirusSpalte = 8;
 
     level5AktuellerKnoten = 0;
 
