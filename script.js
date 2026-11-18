@@ -3470,13 +3470,13 @@ function level5FeldErstellen() {
 
     for (
         let zeile = 0;
-        zeile < 9;
+        zeile < 18;
         zeile++
     ) {
 
         for (
             let spalte = 0;
-            spalte < 9;
+            spalte < 18;
             spalte++
         ) {
 
@@ -3508,9 +3508,9 @@ function level5IstBegehbar(zeile, spalte) {
 
     if (
         zeile < 0 ||
-        zeile >= 9 ||
+        zeile >= 18 ||
         spalte < 0 ||
-        spalte >= 9
+        spalte >= 18
     ) {
         return false;
     }
