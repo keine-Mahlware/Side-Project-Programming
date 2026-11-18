@@ -2146,13 +2146,13 @@ body.dark h3 {
     display: grid;
 
     grid-template-columns:
-        repeat(9, minmax(32px, 54px));
+        repeat(18, 28px);
 
     justify-content: center;
 
-    gap: 3px;
+    gap: 2px;
 
-    max-width: 540px;
+    max-width: none;
 
     margin: 25px auto;
     padding: 10px;
