@@ -3973,7 +3973,7 @@ function level5VirusBeschleunigen() {
     level5VirusTimer =
         setInterval(
             level5VirusBewegen,
-            800
+            200
         );
 }
 
@@ -4092,7 +4092,7 @@ function level5Starten() {
     level5VirusTimer =
         setInterval(
             level5VirusBewegen,
-            400
+            300
         );
 }
 
