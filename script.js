@@ -1394,8 +1394,8 @@ let spiel3LetzterTreffer = 0;
 let spiel3BossAktiv = false;
 let spiel3BossBesiegt = false;
 
-let spiel3BossLeben = 30;
-const spiel3BossMaxLeben = 30;
+let spiel3BossLeben = 50;
+const spiel3BossMaxLeben = 50;
 
 let spiel3BossPosition = 0;
 let spiel3BossRichtung = 1;
@@ -1841,7 +1841,7 @@ function spiel3BossBewegen(deltaZeit) {
 
     let geschwindigkeit = 105;
 
-    if (spiel3BossLeben <= 13) {
+    if (spiel3BossLeben <= 30) {
 
         geschwindigkeit = 150;
 
@@ -1850,7 +1850,7 @@ function spiel3BossBewegen(deltaZeit) {
         );
     }
 
-    if (spiel3BossLeben <= 6) {
+    if (spiel3BossLeben <= 15) {
 
         geschwindigkeit = 220;
 
@@ -1907,11 +1907,11 @@ function spiel3BossFeuern(zeitstempel) {
 
     let schussPause = 1150;
 
-    if (spiel3BossLeben <= 13) {
+    if (spiel3BossLeben <= 30) {
         schussPause = 800;
     }
 
-    if (spiel3BossLeben <= 6) {
+    if (spiel3BossLeben <= 15) {
         schussPause = 480;
     }
 
@@ -2126,7 +2126,7 @@ function spiel3ProjektileAktualisieren(
                 projektilEntfernt = true;
 
                 if (
-                    spiel3Punkte >= 20 &&
+                    spiel3Punkte >= 50 &&
                     spiel3BossAktiv === false &&
                     spiel3BossBesiegt === false
                 ) {
