@@ -812,3 +812,319 @@ p {
 .bfs-feld.gelaende.weg {
     background-color: #d29922;
 }
+.baum-algorithmus {
+    margin-top: 30px;
+    padding: 25px;
+
+    background-color: #0d1117;
+
+    border: 1px solid #30363d;
+    border-radius: 12px;
+
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+#baum-zahl {
+    padding: 10px;
+
+    background-color: #161b22;
+    color: white;
+
+    border: 1px solid #30363d;
+    border-radius: 6px;
+}
+
+#baum-einfuegen,
+#baum-suchen,
+#baum-reset {
+    padding: 10px 16px;
+    margin-left: 8px;
+
+    color: white;
+
+    border: none;
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+#baum-einfuegen {
+    background-color: #238636;
+}
+
+#baum-suchen {
+    background-color: #1f6feb;
+}
+
+#baum-reset {
+    background-color: #da3633;
+}
+
+#baum-container {
+    margin-top: 40px;
+    min-height: 400px;
+
+    position: relative;
+}
+
+.baum-knoten {
+    width: 50px;
+    height: 50px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #21262d;
+    color: white;
+
+    border: 2px solid #58a6ff;
+    border-radius: 50%;
+
+    font-weight: bold;
+
+    box-shadow:
+        0 0 12px rgba(88, 166, 255, 0.4);
+
+    transition: 0.3s;
+
+    position: absolute;
+    z-index: 2;
+}
+
+.baum-knoten.pruefen {
+    background-color: #d29922;
+
+    transform: scale(1.15);
+
+    box-shadow:
+        0 0 18px rgba(210, 153, 34, 0.8);
+}
+
+.baum-knoten.gefunden {
+    background-color: #238636;
+
+    transform: scale(1.2);
+
+    box-shadow:
+        0 0 20px rgba(46, 200, 80, 0.8);
+}
+.sudoku-algorithmus {
+    margin-top: 30px;
+    padding: 25px;
+
+    background-color: #0d1117;
+
+    border: 1px solid #30363d;
+    border-radius: 12px;
+
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+#sudoku-start,
+#sudoku-reset {
+    padding: 10px 18px;
+    margin-right: 10px;
+
+    color: white;
+
+    border: none;
+    border-radius: 6px;
+
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#sudoku-start {
+    background-color: #238636;
+}
+
+#sudoku-reset {
+    background-color: #da3633;
+}
+
+#sudoku-start:hover,
+#sudoku-reset:hover {
+    transform: translateY(-2px);
+}
+
+
+/* =========================
+   SUDOKU
+========================= */
+
+#sudoku-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(9, 45px);
+
+    grid-template-rows:
+        repeat(9, 45px);
+
+    width: max-content;
+
+    margin-top: 30px;
+
+    border: 3px solid #58a6ff;
+}
+
+
+/* =========================
+   FELDER
+========================= */
+
+.sudoku-feld {
+    width: 45px;
+    height: 45px;
+
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: #161b22;
+    color: white;
+
+    border: 1px solid #30363d;
+
+    font-size: 18px;
+    font-weight: bold;
+
+    transition: 0.2s;
+}
+.sudoku-feld:nth-child(3n) {
+    border-right: 3px solid #58a6ff;
+}
+
+.sudoku-feld:nth-child(9n) {
+    border-right: none;
+}
+
+.sudoku-feld:nth-child(n+19):nth-child(-n+27),
+.sudoku-feld:nth-child(n+46):nth-child(-n+54) {
+    border-bottom: 3px solid #58a6ff;
+}
+.sudoku-feld.vorgegeben {
+    background-color: #21262d;
+    color: #58a6ff;
+}
+.sudoku-feld.testen {
+    background-color: #d29922;
+
+    transform: scale(1.08);
+
+    box-shadow:
+        0 0 15px rgba(210, 153, 34, 0.7);
+}
+.sudoku-feld.gueltig {
+    background-color: #238636;
+
+    box-shadow:
+        0 0 12px rgba(46, 200, 80, 0.6);
+}
+.sudoku-feld.backtracking {
+    background-color: #da3633;
+
+    transform: scale(0.9);
+
+    box-shadow:
+        0 0 15px rgba(248, 81, 73, 0.7);
+}
+.queens-algorithmus {
+    margin-top: 30px;
+    padding: 25px;
+
+    background-color: #0d1117;
+
+    border: 1px solid #30363d;
+    border-radius: 12px;
+
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+#queens-start,
+#queens-reset {
+    padding: 10px 18px;
+    margin-right: 10px;
+
+    color: white;
+
+    border: none;
+    border-radius: 6px;
+
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#queens-start {
+    background-color: #8957e5;
+}
+
+#queens-reset {
+    background-color: #da3633;
+}
+
+#queens-grid {
+    display: grid;
+
+    grid-template-columns: repeat(8, 50px);
+    grid-template-rows: repeat(8, 50px);
+
+    width: max-content;
+
+    margin-top: 30px;
+
+    border: 3px solid #30363d;
+}
+
+.queens-feld {
+    width: 50px;
+    height: 50px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 32px;
+
+    transition: 0.2s;
+}
+
+.queens-feld.hell {
+    background-color: #c9d1d9;
+}
+
+.queens-feld.dunkel {
+    background-color: #484f58;
+}
+
+.queens-feld.testen {
+    background-color: #d29922;
+}
+
+.queens-feld.backtracking {
+    background-color: #da3633;
+}
+
+.queens-feld.dame {
+    color: #ffffff;
+
+    text-shadow:
+        0 0 10px #8957e5,
+        0 0 20px #8957e5;
+
+    transform: scale(1.12);
+}
+
+.queens-feld.geloest {
+    background-color: #238636;
+}

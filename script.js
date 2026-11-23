@@ -1290,3 +1290,1263 @@ bfsReset.addEventListener("click", function() {
     terrainModusButton.textContent =
         "Gelände-Modus: AUS";
 });
+// ========================================
+// BINÄRER SUCHBAUM
+// ========================================
+
+const baumEingabe = document.getElementById("baum-zahl");
+const baumEinfuegen = document.getElementById("baum-einfuegen");
+const baumSuchen = document.getElementById("baum-suchen");
+const baumReset = document.getElementById("baum-reset");
+const baumContainer = document.getElementById("baum-container");
+
+let baumWurzel = null;
+
+
+// ========================================
+// KNOTEN ERSTELLEN
+// ========================================
+
+function erstelleKnoten(wert) {
+
+    return {
+        wert: wert,
+        links: null,
+        rechts: null
+    };
+}
+
+
+// ========================================
+// WERT EINFÜGEN
+// ========================================
+
+function wertEinfuegen(wert) {
+
+    const neuerKnoten = erstelleKnoten(wert);
+
+    // Baum ist noch leer
+    if (baumWurzel === null) {
+
+        baumWurzel = neuerKnoten;
+        return;
+    }
+
+    let aktuell = baumWurzel;
+
+    while (true) {
+
+        // Kleinere Zahl nach links
+        if (wert < aktuell.wert) {
+
+            if (aktuell.links === null) {
+
+                aktuell.links = neuerKnoten;
+                break;
+
+            } else {
+
+                aktuell = aktuell.links;
+            }
+        }
+
+        // Größere Zahl nach rechts
+        else if (wert > aktuell.wert) {
+
+            if (aktuell.rechts === null) {
+
+                aktuell.rechts = neuerKnoten;
+                break;
+
+            } else {
+
+                aktuell = aktuell.rechts;
+            }
+        }
+
+        // Zahl existiert bereits
+        else {
+
+            console.log("Diese Zahl existiert bereits im Baum.");
+            return;
+        }
+    }
+}
+
+
+// ========================================
+// BAUM ZEICHNEN
+// ========================================
+
+function baumZeichnen() {
+
+    baumContainer.innerHTML = "";
+
+    if (baumWurzel === null) {
+        return;
+    }
+
+    knotenZeichnen(
+        baumWurzel,
+        50,
+        30,
+        25
+    );
+}
+
+
+// ========================================
+// KNOTEN REKURSIV ZEICHNEN
+// ========================================
+
+function knotenZeichnen(
+    knoten,
+    x,
+    y,
+    abstand
+) {
+
+    if (knoten === null) {
+        return;
+    }
+
+    const element =
+        document.createElement("div");
+
+    element.classList.add("baum-knoten");
+
+    element.textContent = knoten.wert;
+
+    element.dataset.wert = knoten.wert;
+
+    element.style.position = "absolute";
+
+    element.style.left =
+        `calc(${x}% - 25px)`;
+
+    element.style.top =
+        `${y}px`;
+
+    baumContainer.appendChild(element);
+
+
+    // ====================================
+    // LINKER AST
+    // ====================================
+
+    if (knoten.links !== null) {
+
+        verbindungZeichnen(
+            x,
+            y,
+            x - abstand,
+            y + 80
+        );
+
+        knotenZeichnen(
+            knoten.links,
+            x - abstand,
+            y + 80,
+            abstand / 2
+        );
+    }
+
+
+    // ====================================
+    // RECHTER AST
+    // ====================================
+
+    if (knoten.rechts !== null) {
+
+        verbindungZeichnen(
+            x,
+            y,
+            x + abstand,
+            y + 80
+        );
+
+        knotenZeichnen(
+            knoten.rechts,
+            x + abstand,
+            y + 80,
+            abstand / 2
+        );
+    }
+}
+
+
+// ========================================
+// VERBINDUNGSLINIEN ZEICHNEN
+// ========================================
+
+function verbindungZeichnen(
+    x1,
+    y1,
+    x2,
+    y2
+) {
+
+    const linie =
+        document.createElement("div");
+
+    linie.style.position = "absolute";
+
+    const containerBreite =
+        baumContainer.clientWidth;
+
+    const startX =
+        containerBreite * x1 / 100;
+
+    const endeX =
+        containerBreite * x2 / 100;
+
+    const startY = y1 + 25;
+    const endeY = y2 + 25;
+
+    const deltaX = endeX - startX;
+    const deltaY = endeY - startY;
+
+    const laenge =
+        Math.sqrt(
+            deltaX * deltaX +
+            deltaY * deltaY
+        );
+
+    const winkel =
+        Math.atan2(deltaY, deltaX) *
+        180 / Math.PI;
+
+    linie.style.width = `${laenge}px`;
+    linie.style.height = "2px";
+
+    linie.style.backgroundColor =
+        "#30363d";
+
+    linie.style.left = `${startX}px`;
+    linie.style.top = `${startY}px`;
+
+    linie.style.transformOrigin =
+        "0 0";
+
+    linie.style.transform =
+        `rotate(${winkel}deg)`;
+
+    linie.style.zIndex = "0";
+
+    baumContainer.appendChild(linie);
+}
+
+
+// ========================================
+// HTML-KNOTEN FINDEN
+// ========================================
+
+function findeKnotenElement(wert) {
+
+    const elemente =
+        document.querySelectorAll(
+            ".baum-knoten"
+        );
+
+    for (const element of elemente) {
+
+        if (
+            Number(element.dataset.wert) === wert
+        ) {
+
+            return element;
+        }
+    }
+
+    return null;
+}
+
+
+// ========================================
+// ANIMIERTE SUCHE
+// ========================================
+
+async function wertSuchen(wert) {
+
+    let aktuell = baumWurzel;
+
+    while (aktuell !== null) {
+
+        const element =
+            findeKnotenElement(
+                aktuell.wert
+            );
+
+        if (element !== null) {
+
+            element.classList.add(
+                "pruefen"
+            );
+
+            await warten(500);
+        }
+
+
+        // =================================
+        // GEFUNDEN
+        // =================================
+
+        if (wert === aktuell.wert) {
+
+            if (element !== null) {
+
+                element.classList.remove(
+                    "pruefen"
+                );
+
+                element.classList.add(
+                    "gefunden"
+                );
+            }
+
+            console.log(
+                "Wert gefunden:",
+                wert
+            );
+
+            return;
+        }
+
+
+        if (element !== null) {
+
+            element.classList.remove(
+                "pruefen"
+            );
+        }
+
+
+        // =================================
+        // LINKS ODER RECHTS?
+        // =================================
+
+        if (wert < aktuell.wert) {
+
+            aktuell = aktuell.links;
+
+        } else {
+
+            aktuell = aktuell.rechts;
+        }
+    }
+
+
+    console.log(
+        "Wert nicht im Baum gefunden:",
+        wert
+    );
+}
+
+
+// ========================================
+// ALTE SUCHMARKIERUNG ENTFERNEN
+// ========================================
+
+function baumMarkierungenEntfernen() {
+
+    const knoten =
+        document.querySelectorAll(
+            ".baum-knoten"
+        );
+
+    knoten.forEach(function(element) {
+
+        element.classList.remove(
+            "pruefen",
+            "gefunden"
+        );
+    });
+}
+
+
+// ========================================
+// BUTTON: EINFÜGEN
+// ========================================
+
+baumEinfuegen.addEventListener(
+    "click",
+    function() {
+
+        const wert =
+            Number(baumEingabe.value);
+
+        if (baumEingabe.value === "") {
+
+            console.log(
+                "Bitte eine Zahl eingeben."
+            );
+
+            return;
+        }
+
+        wertEinfuegen(wert);
+
+        baumZeichnen();
+
+        baumEingabe.value = "";
+    }
+);
+
+
+// ========================================
+// BUTTON: SUCHEN
+// ========================================
+
+baumSuchen.addEventListener(
+    "click",
+    async function() {
+
+        if (baumEingabe.value === "") {
+
+            console.log(
+                "Bitte eine Zahl eingeben."
+            );
+
+            return;
+        }
+
+        const wert =
+            Number(baumEingabe.value);
+
+        baumMarkierungenEntfernen();
+
+        baumSuchen.disabled = true;
+        baumEinfuegen.disabled = true;
+
+        try {
+
+            await wertSuchen(wert);
+
+        } finally {
+
+            baumSuchen.disabled = false;
+            baumEinfuegen.disabled = false;
+        }
+    }
+);
+
+
+// ========================================
+// BUTTON: RESET
+// ========================================
+
+baumReset.addEventListener(
+    "click",
+    function() {
+
+        baumWurzel = null;
+
+        baumContainer.innerHTML = "";
+
+        baumEingabe.value = "";
+    }
+);
+
+
+// ========================================
+// OPTIONALER STARTBAUM
+// ========================================
+
+const startWerte = [
+    10,
+    5,
+    15,
+    2,
+    7,
+    12,
+    18
+];
+
+for (const wert of startWerte) {
+
+    wertEinfuegen(wert);
+}
+
+baumZeichnen();
+
+// ========================================
+// SUDOKU BACKTRACKING
+// ========================================
+
+const sudokuGrid = document.getElementById("sudoku-grid");
+const sudokuStart = document.getElementById("sudoku-start");
+const sudokuReset = document.getElementById("sudoku-reset");
+
+// Vorgegebenes Sudoku
+const sudokuAusgang = [
+    [5, 3, 0, 0, 7, 0, 0, 0, 0],
+    [6, 0, 0, 1, 9, 5, 0, 0, 0],
+    [0, 9, 8, 0, 0, 0, 0, 6, 0],
+
+    [8, 0, 0, 0, 6, 0, 0, 0, 3],
+    [4, 0, 0, 8, 0, 3, 0, 0, 1],
+    [7, 0, 0, 0, 2, 0, 0, 0, 6],
+
+    [0, 6, 0, 0, 0, 0, 2, 8, 0],
+    [0, 0, 0, 4, 1, 9, 0, 0, 5],
+    [0, 0, 0, 0, 8, 0, 0, 7, 9]
+];
+
+let sudokuDaten = sudokuKopieren(sudokuAusgang);
+let sudokuFelder = [];
+let sudokuLaeuft = false;
+
+
+// ========================================
+// SUDOKU KOPIEREN
+// ========================================
+
+function sudokuKopieren(sudoku) {
+
+    return sudoku.map(function(zeile) {
+        return [...zeile];
+    });
+}
+
+
+// ========================================
+// RASTER ERZEUGEN
+// ========================================
+
+function sudokuRasterErzeugen() {
+
+    sudokuGrid.innerHTML = "";
+    sudokuFelder = [];
+
+    for (let zeile = 0; zeile < 9; zeile++) {
+
+        sudokuFelder[zeile] = [];
+
+        for (let spalte = 0; spalte < 9; spalte++) {
+
+            const feld = document.createElement("div");
+
+            feld.classList.add("sudoku-feld");
+
+            feld.dataset.zeile = zeile;
+            feld.dataset.spalte = spalte;
+
+            sudokuGrid.appendChild(feld);
+
+            sudokuFelder[zeile][spalte] = feld;
+        }
+    }
+
+    sudokuAnzeigen();
+}
+
+
+// ========================================
+// SUDOKU ANZEIGEN
+// ========================================
+
+function sudokuAnzeigen() {
+
+    for (let zeile = 0; zeile < 9; zeile++) {
+
+        for (let spalte = 0; spalte < 9; spalte++) {
+
+            const feld = sudokuFelder[zeile][spalte];
+            const wert = sudokuDaten[zeile][spalte];
+
+            feld.classList.remove(
+                "vorgegeben",
+                "testen",
+                "gueltig",
+                "backtracking"
+            );
+
+            if (wert === 0) {
+
+                feld.textContent = "";
+
+            } else {
+
+                feld.textContent = wert;
+            }
+
+            // Ursprünglich vorgegebene Zahlen markieren
+            if (sudokuAusgang[zeile][spalte] !== 0) {
+
+                feld.classList.add("vorgegeben");
+            }
+        }
+    }
+}
+
+
+// ========================================
+// PRÜFEN, OB ZAHL GÜLTIG IST
+// ========================================
+
+function sudokuZahlIstGueltig(
+    zeile,
+    spalte,
+    zahl
+) {
+
+    // Zeile prüfen
+    for (let i = 0; i < 9; i++) {
+
+        if (sudokuDaten[zeile][i] === zahl) {
+            return false;
+        }
+    }
+
+    // Spalte prüfen
+    for (let i = 0; i < 9; i++) {
+
+        if (sudokuDaten[i][spalte] === zahl) {
+            return false;
+        }
+    }
+
+    // Startkoordinaten des 3x3-Blocks
+    const blockStartZeile =
+        Math.floor(zeile / 3) * 3;
+
+    const blockStartSpalte =
+        Math.floor(spalte / 3) * 3;
+
+    // 3x3-Block prüfen
+    for (
+        let blockZeile = blockStartZeile;
+        blockZeile < blockStartZeile + 3;
+        blockZeile++
+    ) {
+
+        for (
+            let blockSpalte = blockStartSpalte;
+            blockSpalte < blockStartSpalte + 3;
+            blockSpalte++
+        ) {
+
+            if (
+                sudokuDaten[blockZeile][blockSpalte]
+                === zahl
+            ) {
+
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+
+// ========================================
+// NÄCHSTES LEERES FELD FINDEN
+// ========================================
+
+function sudokuLeeresFeldFinden() {
+
+    for (let zeile = 0; zeile < 9; zeile++) {
+
+        for (let spalte = 0; spalte < 9; spalte++) {
+
+            if (sudokuDaten[zeile][spalte] === 0) {
+
+                return {
+                    zeile: zeile,
+                    spalte: spalte
+                };
+            }
+        }
+    }
+
+    // Kein leeres Feld mehr vorhanden
+    return null;
+}
+
+
+// ========================================
+// ANIMIERTER BACKTRACKING-ALGORITHMUS
+// ========================================
+
+async function sudokuLoesen() {
+
+    const leeresFeld = sudokuLeeresFeldFinden();
+
+    // Kein leeres Feld mehr:
+    // Das Sudoku ist gelöst
+    if (leeresFeld === null) {
+        return true;
+    }
+
+    const zeile = leeresFeld.zeile;
+    const spalte = leeresFeld.spalte;
+
+    const feld = sudokuFelder[zeile][spalte];
+
+    for (let zahl = 1; zahl <= 9; zahl++) {
+
+        // Zuerst ohne Wartezeit prüfen
+        if (!sudokuZahlIstGueltig(zeile, spalte, zahl)) {
+            continue;
+        }
+
+        // Nur gültige Kandidaten animieren
+        feld.textContent = zahl;
+        feld.classList.add("testen");
+
+        await warten(5);
+
+        sudokuDaten[zeile][spalte] = zahl;
+
+        feld.classList.remove("testen");
+        feld.classList.add("gueltig");
+
+        const restGeloest = await sudokuLoesen();
+
+        if (restGeloest) {
+            return true;
+        }
+
+        // Sackgasse: Zahl zurücknehmen
+        sudokuDaten[zeile][spalte] = 0;
+
+        feld.classList.remove(
+            "testen",
+            "gueltig"
+        );
+
+        feld.classList.add("backtracking");
+
+        await warten(10);
+
+        feld.textContent = "";
+
+        feld.classList.remove("backtracking");
+    }
+
+    // Keine Zahl funktioniert an dieser Position
+    feld.textContent = "";
+
+    feld.classList.remove(
+        "testen",
+        "gueltig",
+        "backtracking"
+    );
+
+    return false;
+}
+
+// ========================================
+// GELÖSTE FELDER MARKIEREN
+// ========================================
+
+function sudokuAlsGeloestMarkieren() {
+
+    for (let zeile = 0; zeile < 9; zeile++) {
+
+        for (let spalte = 0; spalte < 9; spalte++) {
+
+            const feld =
+                sudokuFelder[zeile][spalte];
+
+            feld.classList.remove(
+                "testen",
+                "backtracking"
+            );
+
+            // Vorgegebene Zahlen behalten ihre Farbe
+            if (
+                sudokuAusgang[zeile][spalte] === 0
+            ) {
+
+                feld.classList.add("gueltig");
+            }
+        }
+    }
+}
+
+
+// ========================================
+// BUTTON: SUDOKU LÖSEN
+// ========================================
+
+sudokuStart.addEventListener(
+    "click",
+    async function() {
+
+        if (sudokuLaeuft) {
+            return;
+        }
+
+        sudokuLaeuft = true;
+
+        sudokuStart.disabled = true;
+        sudokuReset.disabled = true;
+
+        try {
+
+            // Immer mit dem Ausgangsrätsel beginnen
+            sudokuDaten =
+                sudokuKopieren(sudokuAusgang);
+
+            sudokuAnzeigen();
+
+            const geloest =
+                await sudokuLoesen();
+
+            if (geloest) {
+
+                sudokuAlsGeloestMarkieren();
+
+                console.log(
+                    "Sudoku wurde gelöst."
+                );
+
+            } else {
+
+                console.log(
+                    "Für dieses Sudoku wurde keine Lösung gefunden."
+                );
+            }
+
+        } finally {
+
+            sudokuLaeuft = false;
+
+            sudokuStart.disabled = false;
+            sudokuReset.disabled = false;
+        }
+    }
+);
+
+
+// ========================================
+// BUTTON: ZURÜCKSETZEN
+// ========================================
+
+sudokuReset.addEventListener(
+    "click",
+    function() {
+
+        if (sudokuLaeuft) {
+            return;
+        }
+
+        sudokuDaten =
+            sudokuKopieren(sudokuAusgang);
+
+        sudokuAnzeigen();
+
+        console.log(
+            "Sudoku wurde zurückgesetzt."
+        );
+    }
+);
+
+
+// ========================================
+// SUDOKU BEIM LADEN ERZEUGEN
+// ========================================
+
+sudokuRasterErzeugen();
+// ========================================
+// N-QUEENS BACKTRACKING
+// ========================================
+
+const queensGrid = document.getElementById("queens-grid");
+const queensStart = document.getElementById("queens-start");
+const queensReset = document.getElementById("queens-reset");
+
+const queensGroesse = 8;
+
+let queensFelder = [];
+let queensPositionen = [];
+let queensLaeuft = false;
+
+
+// ========================================
+// SCHACHBRETT ERZEUGEN
+// ========================================
+
+function queensBrettErzeugen() {
+
+    queensGrid.innerHTML = "";
+    queensFelder = [];
+    queensPositionen = [];
+
+    for (let zeile = 0; zeile < queensGroesse; zeile++) {
+
+        queensFelder[zeile] = [];
+
+        for (let spalte = 0; spalte < queensGroesse; spalte++) {
+
+            const feld = document.createElement("div");
+
+            feld.classList.add("queens-feld");
+
+            // Schachbrett-Muster
+            if ((zeile + spalte) % 2 === 0) {
+
+                feld.classList.add("hell");
+
+            } else {
+
+                feld.classList.add("dunkel");
+            }
+
+            feld.dataset.zeile = zeile;
+            feld.dataset.spalte = spalte;
+
+            queensGrid.appendChild(feld);
+
+            queensFelder[zeile][spalte] = feld;
+        }
+    }
+}
+
+
+// ========================================
+// PRÜFEN, OB EINE DAME GESETZT WERDEN DARF
+// ========================================
+
+function queensPositionGueltig(zeile, spalte) {
+
+    // Wir müssen nur bereits gesetzte Damen prüfen.
+    // queensPositionen[index] enthält die Zeile
+    // der Dame in dieser Spalte.
+
+    for (
+        let alteSpalte = 0;
+        alteSpalte < queensPositionen.length;
+        alteSpalte++
+    ) {
+
+        const alteZeile =
+            queensPositionen[alteSpalte];
+
+
+        // =================================
+        // GLEICHE ZEILE?
+        // =================================
+
+        if (alteZeile === zeile) {
+
+            return false;
+        }
+
+
+        // =================================
+        // GLEICHE DIAGONALE?
+        // =================================
+
+        const zeilenAbstand =
+            Math.abs(zeile - alteZeile);
+
+        const spaltenAbstand =
+            Math.abs(spalte - alteSpalte);
+
+        if (zeilenAbstand === spaltenAbstand) {
+
+            return false;
+        }
+    }
+
+    return true;
+}
+
+
+// ========================================
+// DAME ANZEIGEN
+// ========================================
+
+function queensDameSetzen(zeile, spalte) {
+
+    const feld =
+        queensFelder[zeile][spalte];
+
+    feld.textContent = "♛";
+
+    feld.classList.add("dame");
+}
+
+
+// ========================================
+// DAME ENTFERNEN
+// ========================================
+
+function queensDameEntfernen(zeile, spalte) {
+
+    const feld =
+        queensFelder[zeile][spalte];
+
+    feld.textContent = "";
+
+    feld.classList.remove(
+        "dame",
+        "testen",
+        "backtracking",
+        "geloest"
+    );
+}
+
+
+// ========================================
+// BACKTRACKING
+// ========================================
+
+async function queensLoesen(spalte) {
+
+    // Wenn wir hinter der letzten Spalte
+    // angekommen sind, wurden alle 8 Damen gesetzt.
+    if (spalte >= queensGroesse) {
+
+        return true;
+    }
+
+
+    // Jede Zeile dieser Spalte ausprobieren
+    for (
+        let zeile = 0;
+        zeile < queensGroesse;
+        zeile++
+    ) {
+
+        const feld =
+            queensFelder[zeile][spalte];
+
+
+        // =================================
+        // POSITION WIRD AUSPROBIERT
+        // =================================
+
+        feld.classList.add("testen");
+
+        await warten(60);
+
+
+        // =================================
+        // IST DIE POSITION GÜLTIG?
+        // =================================
+
+        if (queensPositionGueltig(zeile, spalte)) {
+
+            feld.classList.remove("testen");
+
+            queensDameSetzen(
+                zeile,
+                spalte
+            );
+
+
+            // Position merken
+            queensPositionen.push(
+                zeile
+            );
+
+
+            await warten(25);
+
+
+            // =================================
+            // NÄCHSTE SPALTE REKURSIV LÖSEN
+            // =================================
+
+            const restGeloest =
+                await queensLoesen(
+                    spalte + 1
+                );
+
+
+            // =================================
+            // LÖSUNG GEFUNDEN
+            // =================================
+
+            if (restGeloest) {
+
+                return true;
+            }
+
+
+            // =================================
+            // BACKTRACKING
+            // =================================
+
+            // Diese Dame führt später
+            // zu einer Sackgasse.
+
+            queensPositionen.pop();
+
+            feld.classList.add(
+                "backtracking"
+            );
+
+            await warten(50);
+
+            queensDameEntfernen(
+                zeile,
+                spalte
+            );
+        }
+
+
+        feld.classList.remove(
+            "testen"
+        );
+    }
+
+
+    // Keine Position in dieser Spalte funktioniert.
+    // Zur vorherigen Rekursion zurückkehren.
+    return false;
+}
+
+
+// ========================================
+// ENDGÜLTIGE LÖSUNG MARKIEREN
+// ========================================
+
+function queensLoesungMarkieren() {
+
+    for (
+        let spalte = 0;
+        spalte < queensPositionen.length;
+        spalte++
+    ) {
+
+        const zeile =
+            queensPositionen[spalte];
+
+        const feld =
+            queensFelder[zeile][spalte];
+
+        feld.classList.remove(
+            "testen",
+            "backtracking"
+        );
+
+        feld.classList.add(
+            "geloest"
+        );
+    }
+}
+
+
+// ========================================
+// BRETT ZURÜCKSETZEN
+// ========================================
+
+function queensZuruecksetzen() {
+
+    queensPositionen = [];
+
+    for (
+        let zeile = 0;
+        zeile < queensGroesse;
+        zeile++
+    ) {
+
+        for (
+            let spalte = 0;
+            spalte < queensGroesse;
+            spalte++
+        ) {
+
+            const feld =
+                queensFelder[zeile][spalte];
+
+            feld.textContent = "";
+
+            feld.classList.remove(
+                "dame",
+                "testen",
+                "backtracking",
+                "geloest"
+            );
+        }
+    }
+}
+
+
+// ========================================
+// START-BUTTON
+// ========================================
+
+queensStart.addEventListener(
+    "click",
+    async function() {
+
+        if (queensLaeuft) {
+
+            return;
+        }
+
+
+        queensLaeuft = true;
+
+        queensStart.disabled = true;
+        queensReset.disabled = true;
+
+
+        try {
+
+            queensZuruecksetzen();
+
+
+            const geloest =
+                await queensLoesen(0);
+
+
+            if (geloest) {
+
+                queensLoesungMarkieren();
+
+                console.log(
+                    "N-Queens wurde gelöst."
+                );
+
+            } else {
+
+                console.log(
+                    "Keine Lösung gefunden."
+                );
+            }
+
+        } finally {
+
+            queensLaeuft = false;
+
+            queensStart.disabled = false;
+            queensReset.disabled = false;
+        }
+    }
+);
+
+
+// ========================================
+// RESET-BUTTON
+// ========================================
+
+queensReset.addEventListener(
+    "click",
+    function() {
+
+        if (queensLaeuft) {
+
+            return;
+        }
+
+        queensZuruecksetzen();
+
+        console.log(
+            "N-Queens wurde zurückgesetzt."
+        );
+    }
+);
+
+
+// ========================================
+// BRETT BEIM LADEN ERZEUGEN
+// ========================================
+
+queensBrettErzeugen();
