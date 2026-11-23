@@ -1,656 +1,243 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html>
     <head>
-        <Title> SPS & Robotik </Title>
+        <meta charset="UTF-8">
+        <title>Algorithm Lab</title>
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <div id="seite1">
-            <h1 id="start"> SPS & Robotik Grundlagen</h1>
-            <p> Die Robotik arbeitet Hand in Hand mit der SPS.</p>
-
-            <div class="themen">
-                <nav>
-                <a href="#sps">SPS</a>
-                <a href="#robotik">Robotik</a>
-                </nav>
-            </div>
-
-            <button id="darkmode">Dark Mode</button>
-
-            <div class="sps" id="sps">
-                <h2> Was ist eine SPS? </h2>
-                <p> Eine SPS ist eine speicherprogrammierbare Steuerung und wird zur Automatisierung von Maschinen und Anlagen verwendet.</p>
-                <h3> Typische Bestandteile einer SPS-Anlage </h3>
-                <ul> 
-                    <li>CPU</li>
-                    <li>Sensoren</li>
-                    <li>Aktoren</li>
-                    <li>Ein- und Ausgabemodule</li>
-                    <li>Netzwerk/Kommunikation</li>
-                </ul>
-                    <div class="bedienpult">
-                        <h3>Anlagensteuerung</h3>
-                            <div class="meldeleuchten">
-                                <div>
-                                    <div id="lampe-betrieb" class="leuchte betrieb">
-                                        <p class="beschriftung">Betrieb</p>
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <div id="lampe-stop" class="leuchte Stop">
-                                        <p class="beschriftung">Stop</p>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div id="lampe-quit" class="leuchte Quit">
-                                        <p class="beschriftung">Quittieren</p>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div id="lampe-fehler" class="leuchte fehler">
-                                        <p class="beschriftung">Fehler</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <p id="anlagen-status">Anlage bereit</p>
-                            <p id="betriebsart">Betriebsart: HAND</p>
-                            <p id="stoerungs-status">Keine Störung</p>
-                                <div class="taster-gruppe">
-                                    <button id="hand-betrieb"class="wahl-taster">HAND</button>
-                                    <button id="auto-betrieb"class="wahl-taster">AUTO</button>
-                                </div>
-                                <div class="taster-gruppe">
-                                    <button id="start-button" class="taster start">Start</button>
-                                    <button id="stop-button"class="taster stop">Stop</button>
-                                    <div class=""sicherheit>
-                                        <button id="quit-button"class="taster quit">Quit</button>
-                                        <button id="not-aus"class="notaus ">Not Aus</button>
-                                    </div>
-                                    <div class="motor-bereich">
-                                        <div id="motor" class="motor">
-                                            <div class="motor-welle"></div>
-                                        </div>
-                                    <div class="flamme">🔥</div>
-                                    </div>
-                                </div>
-                    </div>
-            </div>
-            <button id="naechste-seite" class="tunnel-button">
-                <img src="tunnel.png" alt="Geheimer Eingang">
-            </button>
-            <div class="robotik" id="robotik">
-                <div class="roboter-text">
-                    <h2> Was ist Robotik?</h2>
-                    <p> Robotik beschäftigt sich mit der Entwicklung, Programmierung und Steuerung von Robotern. </p>
-                    <h3> Typische Bestandteile eines Industrieroboters</h3>
-                    <ol>
-                        <li>Roboterarm</li>
-                        <li>Steuerung</li>
-                        <li>Bediengerät</li>
-                        <li>Werkzeug</li>
-                        <li>Sensoren</li>
-                    </ol>
-                </div>
-                <div class="roboter-bereich">
-                    <div class="roboter-simulation" id="roboter-simulation">
-                        <button class="reset-roboter" id="reset-roboter">Reset</button>
-                        <div class="position position-links">P1</div>
-                        <div class="position position-rechts">P2</div>
-                        <div class="wuerfel" id="wuerfel"></div>
-                            <div class="roboter" id="roboter">
-                                <div class="roboter-sockel">
-                                    <div class="achse1">
-                                        <div class="oberarm"id="oberarm">
-                                            <div class="achse2">
-                                                <div class="unterarm"id="unterarm">
-                                                    <div class="achse3">
-                                                        <div class="greifer" id="greifer">
-                                                            <div id="master-krone">👑</div>
-                                                            <div class="greifer-links"></div>
-                                                            <div class="greifer-rechts"></div>
-                                                        </div>
-                                                    </div> 
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>   
-                                </div>
-                            </div>
-                    </div>
-                </div>
-                <h3> Mehr über Stäubli Robotik </h3>
-                <a href="https://www.staubli.com" target="_blank"> Stäubli Webseite öffnen</a>
-                <h3> Beispiel eines Industrieroboters </h3>
-                <div class="roboter-karte">
-                    <img class="roboter-bild" src="roboter.jpg" alt=" Ein Sechsachs Roboterarm von Stäubli" >
-                    <div class="roboter-info">
-                        <h3>Industrieroboter</h3>
-                        <p>Achsen : 6</p>
-                        <p>Status: Bereit</p>
-                        <p>Geschwindigkeit: 50%</p>
-                    </div>
-                </div>
-            </div>
-            <a class="top-button" href="#start">Nach oben</a>
-
+        <h1>Algorithm Lab</h1>
+        <p>Algorithmen können hier verstanden und visualisiert werden</p>
+        <section class="linear-algorithmus">
+        <h2> Linear Search</h2>
+        <p>Die Zahlen Liste kann so aussehen wie sie will, solange die gesuchte Zahl vorhanden ist finden wir sie.</p>
+        <p>Linear Search sucht von links nach recht, also so wie wir Lesen</p>
+        <input type="number" id="suchZahl" placeholder="Zahl eingeben">
+        <button id="linear-suchen">Linear Search starten</button>
+        <div class="zahlen-container">
+            <div class="zahl">8</div>
+            <div class="zahl">1</div>
+            <div class="zahl">16</div>
+            <div class="zahl">13</div>
+            <div class="zahl">3</div>
+            <div class="zahl">12</div>
+            <div class="zahl">5</div>
+            <div class="zahl">17</div>
+            <div class="zahl">4</div>
+            <div class="zahl">9</div>
+            <div class="zahl">2</div>
+            <div class="zahl">6</div>
+            <div class="zahl">10</div>
+            <div class="zahl">14</div>
+            <div class="zahl">20</div>
+            <div class="zahl">19</div>
+            <div class="zahl">7</div>
+            <div class="zahl">11</div>
+            <div class="zahl">15</div>
+            <div class="zahl">18</div>
         </div>
-
-        <div id="seite2">
-            <div class="secret-level">
-
-                <h1>SECRET AREA</h1>
-
-                <p>
-                Du hast beide Easter Eggs gefunden.
-                </p>
-
-                <div class="secret-inhalt">
-
-                    <h2>⚠ NOTFALLPROTOKOLL ⚠</h2> 
-
-                    <p>
-                    Die Anlage spielt verrückt! Quittiere die Störungen,
-                    bevor die Zeit abläuft.
-                    </p>
-
-                    <div class="spiel-info">
-                        <span>Zeit: <b id="spiel-zeit">25</b></span>
-                        <span>Punkte: <b id="spiel-punkte">0</b></span>
-                    </div>  
-
-                    <div class="stoerungen">
-
-                        <button class="stoerung" id="stoerung1"></button>
-                        <button class="stoerung" id="stoerung2"></button>
-                        <button class="stoerung" id="stoerung3"></button>
-
-            
-                        <button class="stoerung" id="stoerung4"></button>
-                        <button class="stoerung" id="stoerung5"></button>
-                        <button class="stoerung" id="stoerung6"></button>
-
-                    </div>
-
-                    <button id="spiel-start">SYSTEM STARTEN</button>
-
-                    <p id="spiel-meldung">
-                    System bereit
-                    </p>
-
-                </div>
-                <section id="spiel2" class="spiel2-versteckt">
-
-                    <h2>🔓 LEVEL 2</h2>
-
-                    <p>
-                    Weiche den herabfallenden Werkstücken aus!
-                    </p>
-
-                    <div class="spiel2-info">
-                        <span>
-                            Punkte:
-                            <strong id="spiel2-punkte">0</strong>
-                        </span>
-
-                        <span>
-                            Leben:
-                            <strong id="spiel2-leben">3</strong>
-                        </span>
-                    </div>
-
-                    <div id="spiel2-feld">
-
-                        <div id="spiel2-roboter">
-                            🤖
-                        </div>
-
-                    </div>
-
-                    <p id="spiel2-meldung">
-                    Bewege den Roboter mit A/D oder den Pfeiltasten.
-                    </p>
-
-                    <div class="spiel2-steuerung">
-
-                        <button
-                            id="spiel2-links"
-                            type="button"
-                            aria-label="Nach links bewegen"
-                        >
-                        ◀
-                        </button>
-
-                        <button id="spiel2-start" type="button">
-                         LEVEL 2 STARTEN
-                        </button>
-
-                        <button
-                            id="spiel2-rechts"
-                            type="button"
-                            aria-label="Nach rechts bewegen"
-                        >
-                        ▶
-                        </button>
-
-                    </div>
-
-                </section>
-                <section id="spiel3" class="spiel3-versteckt">
-
-                    <h2>⚠ COMBAT PROTOCOL ⚠</h2>
-
-                    <p>
-                    Zerstöre die fehlerhaften Maschinen und besiege
-                    die Corrupted Control Unit.
-                    </p>
-
-                    <div class="spiel3-info">
-
-                        <span>
-                            Punkte:
-                            <strong id="spiel3-punkte">0</strong>
-                        </span>
-
-                        <span>
-                            Leben:
-                            <strong id="spiel3-leben">3</strong>
-                        </span>
-
-                        <span>
-                            Boss:
-                            <strong id="spiel3-boss-leben">GESPERRT</strong>
-                        </span>
-
-                    </div>
-
-                    <div id="spiel3-feld">
-
-                        <!-- Boss -->
-
-                        <div id="spiel3-boss">
-
-                            <div class="boss-name">
-                                CORRUPTED CONTROL UNIT
-                            </div>
-
-                            <div class="boss-lebensbalken">
-                                <div id="boss-lebensanzeige"></div>
-                            </div>
-
-                            <div class="boss-koerper">
-                            ☠
-                            </div>
-
-                        </div>
-
-
-                        <!-- Spieler -->
-
-                        <div id="spiel3-spieler">
-                            🤖
-                        </div>
-
-                    </div>
-
-                    <p id="spiel3-meldung">
-                    Erreiche 100 Punkte in Spiel 2.
-                    </p>
-
-                    <div class="spiel3-steuerung">
-
-                        <button
-                        id="spiel3-links"
-                        type="button"
-                        aria-label="Nach links bewegen"
-                        >
-                         ◀
-                        </button>
-
-                        <button id="spiel3-start" type="button">
-                        LEVEL 3 STARTEN
-                        </button>
-
-                        <button
-                        id="spiel3-schiessen"
-                        type="button"
-                        aria-label="Schießen"
-                        >
-                        FEUER
-                        </button>
-
-                        <button
-                        id="spiel3-rechts"
-                        type="button"
-                        aria-label="Nach rechts bewegen"
-                        >
-                         ▶
-                        </button>
-
-                    </div>
-
-                </section>
-                <section id="spiel4" class="spiel4-versteckt">
-
-                    <h2>⚡ REACTOR CONTROL ⚡</h2>
-
-                    <p>
-                    Halte den Reaktor stabil.
-                    Zu lange kritische Werte führen zum Systemausfall.
-                    </p>
-
-                    <div class="level4-statuszeile">
-
-                        <span>
-                            Restzeit:
-                            <strong id="level4-zeit">60</strong>
-                        </span>
-
-                        <span>
-                        Sichere Zeit:
-                        <strong id="level4-stabil-zeit">0</strong>
-                        </span>
-
-                        <span>
-                            Kritisch seit:
-                            <strong id="level4-kritisch-zeit">0</strong>
-                        </span>
-
-                    </div>
-
-
-                    <div class="level4-anzeigen">
-
-                        <!-- Temperatur -->
-
-                        <div class="level4-anzeige">
-
-                            <div class="level4-anzeige-kopf">
-                                    <span>Temperatur</span>
-
-                                    <strong id="level4-temperatur-text">
-                                    50 %
-                                </strong>
-                            </div>
-
-                            <div class="level4-balken">
-                                <div
-                                id="level4-temperatur-balken"
-                                class="level4-balken-fuellung"
-                                ></div>
-                            </div>
-
-                            <small>Sicherer Bereich: 25 bis 75</small>
-
-                        </div>
-
-
-                        <!-- Druck -->
-
-                        <div class="level4-anzeige">
-
-                            <div class="level4-anzeige-kopf">
-                                <span>Druck</span>
-
-                                <strong id="level4-druck-text">
-                                50 %
-                                </strong>
-                            </div>
-
-                            <div class="level4-balken">
-                                <div
-                                id="level4-druck-balken"
-                                class="level4-balken-fuellung"
-                                ></div>
-                            </div>
-
-                            <small>Sicherer Bereich: 20 bis 80</small>
-
-                        </div>
-
-
-                        <!-- Energie -->
-
-                        <div class="level4-anzeige">
-
-                                <div class="level4-anzeige-kopf">
-                                    <span>Energie</span>
-
-                                    <strong id="level4-energie-text">
-                                        50 %
-                                    </strong>
-                                </div>
-
-                                <div class="level4-balken">
-                                    <div
-                                    id="level4-energie-balken"
-                                    class="level4-balken-fuellung"
-                                    ></div>
-                                </div>
-
-                            <small>Sicherer Bereich: 30 bis 85</small>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="level4-steuerung">
-
-                        <button id="level4-kuehlung" type="button">
-                        KÜHLUNG
-                        </button>
-
-                        <button id="level4-ventil" type="button">
-                        VENTIL ÖFFNEN
-                        </button>
-
-                        <button id="level4-leistung-plus" type="button">
-                        LEISTUNG +
-                        </button>
-
-                        <button id="level4-leistung-minus" type="button">
-                        LEISTUNG -
-                        </button>
-
-                        <button
-                            id="level4-notkuehlung"
-                            class="level4-notfall"
-                            type="button"
-                            >
-                            NOTKÜHLUNG
-                        </button>
-
-                    </div>
-
-
-                    <p id="level4-meldung">
-                        Reaktorkontrolle bereit
-                    </p>
-
-
-                    <div class="level4-ziele">
-
-                        <h3>Bedingungen für Level 5</h3>
-
-                         <p id="level4-ziel-abschluss">
-                        ❓ ???
-                        </p>
-
-                        <p id="level4-ziel-stabil">
-                        ❓ ???
-                        </p>
-
-                        <p id="level4-ziel-notkuehlung">
-                        ❓ ???
-                        </p>
-
-                        </div>
-
-
-                    <button id="level4-start" type="button">
-                    REAKTOR STARTEN
-                    </button>
-
-                </section>
-
-
-<!-- ==================================
-     LEVEL 5: PLATZHALTER
-=================================== -->
-
-                <section id="spiel5" class="spiel5-versteckt">
-
-    <h2>⚠ NETWORK BREACH ⚠</h2>
-
-    <p>
-        Aktiviere alle Kontrollknoten in der richtigen
-        Reihenfolge und erreiche anschließend den Core.
-    </p>
-
-    <div class="level5-status">
-
-        <span>
-            Zeit:
-            <strong id="level5-zeit">120</strong>
-        </span>
-
-        <span>
-            Energie:
-            <strong id="level5-energie">100</strong>
-        </span>
-
-        <span>
-            Knoten:
-            <strong id="level5-knoten-status">0 / 3</strong>
-        </span>
-
-    </div>
-
-
-    <div class="level5-reihenfolge">
-
-        <span>Zugriffssequenz:</span>
-
-        <strong id="level5-sequenz">
-            GESPERRT
-        </strong>
-
-    </div>
-
-
-    <div class="level5-legende">
-
-        <span>🔷 Spieler</span>
-        <span>🔴 Virus</span>
-        <span>🔵 SPS</span>
-        <span>🟠 ROBOT</span>
-        <span>🟢 SAFETY</span>
-        <span>🔒 CORE</span>
-
-    </div>
-
-
-    <div
-        id="level5-feld"
-        aria-label="Netzwerk-Labyrinth"
-    ></div>
-
-
-    <p id="level5-meldung">
-        Netzwerkzugriff bereit
-    </p>
-
-
-    <div class="level5-steuerung">
-
-        <button
-            id="level5-oben"
-            type="button"
-            aria-label="Nach oben"
+    </section>
+    <section class="binary-algorithmus">
+        <h2>Binary Search</h2>
+        <p>Die Zahlen Liste muss Sortiert sein sonst funktioniert es nicht!</p>
+        <p>Binary Search halbiert bei jedem Schritt den Suchbereich</p>
+        <input
+        type="nuber"
+        id="binarySuchZahl"
+        placeholder="Zahl eingeben"
+        min="1"
+        max="20"
         >
-            ▲
+        <button id="binary-suchen">
+            Binary Search starten
         </button>
-
-        <div class="level5-steuerung-mitte">
-
-            <button
-                id="level5-links"
-                type="button"
-                aria-label="Nach links"
-            >
-                ◀
-            </button>
-
-            <button
-                id="level5-unten"
-                type="button"
-                aria-label="Nach unten"
-            >
-                ▼
-            </button>
-
-            <button
-                id="level5-rechts"
-                type="button"
-                aria-label="Nach rechts"
-            >
-                ▶
-            </button>
-
+        <div class="binary-container">
+        <div class="binary-zahl">1</div>
+        <div class="binary-zahl">2</div>
+        <div class="binary-zahl">3</div>
+        <div class="binary-zahl">4</div>
+        <div class="binary-zahl">5</div>
+        <div class="binary-zahl">6</div>
+        <div class="binary-zahl">7</div>
+        <div class="binary-zahl">8</div>
+        <div class="binary-zahl">9</div>
+        <div class="binary-zahl">10</div>
+        <div class="binary-zahl">11</div>
+        <div class="binary-zahl">12</div>
+        <div class="binary-zahl">13</div>
+        <div class="binary-zahl">14</div>
+        <div class="binary-zahl">15</div>
+        <div class="binary-zahl">16</div>
+        <div class="binary-zahl">17</div>
+        <div class="binary-zahl">18</div>
+        <div class="binary-zahl">19</div>
+        <div class="binary-zahl">20</div>
         </div>
-
-    </div>
-
-
-    <button id="level5-start" type="button">
-        VERBINDUNG HERSTELLEN
-    </button>
-
-</section>
-
-
-<!-- ==================================
-     ABSCHLUSSBEREICH
-=================================== -->
-
-<section
-    id="finale"
-    class="finale-versteckt"
->
-
-    <h2>🏆 SYSTEM MASTER 🏆</h2>
+    </section>
+    <section class="bubble-sort-algorithmus">
+        <h2>Bubble Sort</h2>
+        <p>Der Bubble Sort ist ein Sortieralgorithmus,
+             der immer zwei benachbarte Zahlen vergleicht und ihre Plätze tauscht,
+             wenn die linke Zahl größer als die rechte Zahl ist.</p>
+             <button id="bubble-start">Bubble Sort starten</button>
+             <div class="bubble-container">
+                <div class="bubble-zahl">15</div>
+                <div class="bubble-zahl">3</div>
+                <div class="bubble-zahl">20</div>
+                <div class="bubble-zahl">8</div>
+                <div class="bubble-zahl">1</div>
+                <div class="bubble-zahl">17</div>
+                <div class="bubble-zahl">4</div>
+                <div class="bubble-zahl">13</div>
+                <div class="bubble-zahl">12</div>
+                <div class="bubble-zahl">9</div>
+                <div class="bubble-zahl">6</div>
+                <div class="bubble-zahl">10</div>
+                <div class="bubble-zahl">7</div>
+                <div class="bubble-zahl">11</div>
+                <div class="bubble-zahl">2</div>
+                <div class="bubble-zahl">5</div>
+                <div class="bubble-zahl">14</div>
+                <div class="bubble-zahl">18</div>
+                <div class="bubble-zahl">19</div>
+                <div class="bubble-zahl">16</div>
+             </div>
+    </section>
+    <section class="selection-sort-algorithmus">
+        <h2> Selection Sort</h2>
+        <p> Wählt einen Wert aus und bringt ihn an die richtige stelle</p>
+        <button id="selection-start">Selection Sort starten</button>
+        <div class="selection-container">
+            <div class="selection-zahl">3</div>
+            <div class="selection-zahl">7</div>
+            <div class="selection-zahl">19</div>
+            <div class="selection-zahl">4</div>
+            <div class="selection-zahl">16</div>
+            <div class="selection-zahl">12</div>
+            <div class="selection-zahl">9</div>
+            <div class="selection-zahl">18</div>
+            <div class="selection-zahl">5</div>
+            <div class="selection-zahl">2</div>
+            <div class="selection-zahl">10</div>
+            <div class="selection-zahl">14</div>
+            <div class="selection-zahl">20</div>
+            <div class="selection-zahl">13</div>
+            <div class="selection-zahl">8</div>
+            <div class="selection-zahl">15</div>
+            <div class="selection-zahl">6</div>
+            <div class="selection-zahl">17</div>
+            <div class="selection-zahl">11</div>
+            <div class="selection-zahl">1</div>
+        </div>
+    </section>
+    <section class="insertion-sort-algorithmus">
+        <h2> Insertion Sort</h2>
+        <p>Whält eine beliebige Zahl aus nimmt sie als sortiert, dann sortiert es alle anderen zahlen nach dieser einen Zahl.</p>
+        <button id="insertion-start">Insertion Sort starten</button>
+        <div class="insertion-container">
+            <div class="insertion-zahl">3</div>
+            <div class="insertion-zahl">10</div>
+            <div class="insertion-zahl">14</div>
+            <div class="insertion-zahl">1</div>
+            <div class="insertion-zahl">18</div>
+            <div class="insertion-zahl">13</div>
+            <div class="insertion-zahl">2</div>
+            <div class="insertion-zahl">9</div>
+            <div class="insertion-zahl">17</div>
+            <div class="insertion-zahl">5</div>
+            <div class="insertion-zahl">12</div>
+            <div class="insertion-zahl">8</div>
+            <div class="insertion-zahl">16</div>
+            <div class="insertion-zahl">4</div>
+            <div class="insertion-zahl">19</div>
+            <div class="insertion-zahl">11</div>
+            <div class="insertion-zahl">7</div>
+            <div class="insertion-zahl">15</div>
+            <div class="insertion-zahl">20</div>
+            <div class="insertion-zahl">6</div>
+        </div>
+    </section>
+    <section class="merge-sort-algorithmus">
+    <h2>Merge Sort</h2>
 
     <p>
-        Der Virus wurde isoliert und die Kontrolle
-        über die Produktionsanlage wiederhergestellt.
+        Teilt die Zahlen immer wieder in kleinere Bereiche und
+        führt diese anschließend sortiert zusammen.
     </p>
 
-    <div class="finale-liste">
+    <button id="merge-start">Merge Sort starten</button>
 
-        <p>Level 1 ✅</p>
-        <p>Level 2 ✅</p>
-        <p>Level 3 ✅</p>
-        <p>Level 4 ✅</p>
-        <p>Level 5 ✅</p>
-
+    <div class="merge-container">
+        <div class="merge-zahl">12</div>
+        <div class="merge-zahl">4</div>
+        <div class="merge-zahl">17</div>
+        <div class="merge-zahl">1</div>
+        <div class="merge-zahl">9</div>
+        <div class="merge-zahl">15</div>
+        <div class="merge-zahl">6</div>
+        <div class="merge-zahl">20</div>
+        <div class="merge-zahl">3</div>
+        <div class="merge-zahl">11</div>
+        <div class="merge-zahl">8</div>
+        <div class="merge-zahl">18</div>
+        <div class="merge-zahl">2</div>
+        <div class="merge-zahl">14</div>
+        <div class="merge-zahl">7</div>
+        <div class="merge-zahl">16</div>
+        <div class="merge-zahl">5</div>
+        <div class="merge-zahl">13</div>
+        <div class="merge-zahl">19</div>
+        <div class="merge-zahl">10</div>
     </div>
-
-    <strong>
-        SECRET CAMPAIGN COMPLETE
-    </strong>
-
 </section>
-                <button id="zurueck">Zurück</button>
+<section class="quick-sort-algorithmus">
+    <h2>Quick Sort</h2>
 
-                    
-            </div>
-            <div id="level-transition">
-                <div class="unlock-text">
-                    <span>UNLOCKED</span>
-                </div>
-            </div>
-            <script src="script.js"></script>
+    <p>
+        Wählt einen Pivot und teilt die Zahlen in kleinere
+        und größere Werte auf.
+    </p>
+
+    <button id="quick-start">Quick Sort starten</button>
+
+    <div class="quick-container">
+        <div class="quick-zahl">14</div>
+        <div class="quick-zahl">3</div>
+        <div class="quick-zahl">18</div>
+        <div class="quick-zahl">7</div>
+        <div class="quick-zahl">11</div>
+        <div class="quick-zahl">1</div>
+        <div class="quick-zahl">20</div>
+        <div class="quick-zahl">5</div>
+        <div class="quick-zahl">16</div>
+        <div class="quick-zahl">9</div>
+        <div class="quick-zahl">2</div>
+        <div class="quick-zahl">13</div>
+        <div class="quick-zahl">6</div>
+        <div class="quick-zahl">19</div>
+        <div class="quick-zahl">10</div>
+        <div class="quick-zahl">4</div>
+        <div class="quick-zahl">17</div>
+        <div class="quick-zahl">8</div>
+        <div class="quick-zahl">12</div>
+        <div class="quick-zahl">15</div>
+    </div>
+</section>
+<section class="bfs-algorithmus">
+    <h2>Breadth-First Search</h2>
+
+    <p>
+        BFS durchsucht ein Feld schichtweise und kann den kürzesten Weg finden.
+    </p>
+
+    <button id="bfs-start">BFS starten</button> 
+    <button id="dfs-start">DFS starten</button>
+    <button id="dijkstra-start">Dijkstra starten</button>
+    <button id="terrain-modus">Gelände-Modus</button>
+    <button id="bfs-reset">Zurücksetzen</button>
+
+    <div id="bfs-grid"></div>
+</section>
+    <script src="script.js"></script>
     </body>
 </html>
