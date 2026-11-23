@@ -1394,8 +1394,8 @@ let spiel3LetzterTreffer = 0;
 let spiel3BossAktiv = false;
 let spiel3BossBesiegt = false;
 
-let spiel3BossLeben = 50;
-const spiel3BossMaxLeben = 50;
+let spiel3BossLeben = 30;
+const spiel3BossMaxLeben = 30;
 
 let spiel3BossPosition = 0;
 let spiel3BossRichtung = 1;
@@ -1841,7 +1841,7 @@ function spiel3BossBewegen(deltaZeit) {
 
     let geschwindigkeit = 105;
 
-    if (spiel3BossLeben <= 30) {
+    if (spiel3BossLeben <= 13) {
 
         geschwindigkeit = 150;
 
@@ -1850,7 +1850,7 @@ function spiel3BossBewegen(deltaZeit) {
         );
     }
 
-    if (spiel3BossLeben <= 15) {
+    if (spiel3BossLeben <= 6) {
 
         geschwindigkeit = 220;
 
@@ -1907,11 +1907,11 @@ function spiel3BossFeuern(zeitstempel) {
 
     let schussPause = 1150;
 
-    if (spiel3BossLeben <= 30) {
+    if (spiel3BossLeben <= 13) {
         schussPause = 800;
     }
 
-    if (spiel3BossLeben <= 15) {
+    if (spiel3BossLeben <= 6) {
         schussPause = 480;
     }
 
@@ -2126,7 +2126,7 @@ function spiel3ProjektileAktualisieren(
                 projektilEntfernt = true;
 
                 if (
-                    spiel3Punkte >= 50 &&
+                    spiel3Punkte >= 20 &&
                     spiel3BossAktiv === false &&
                     spiel3BossBesiegt === false
                 ) {
@@ -3293,13 +3293,13 @@ const finaleBereich =
 let level5Laeuft = false;
 
 let level5Zeit = 120;
-let level5Energie = 125;
+let level5Energie = 100;
 
-let level5SpielerZeile = 16;
+let level5SpielerZeile = 7;
 let level5SpielerSpalte = 1;
 
 let level5VirusZeile = 1;
-let level5VirusSpalte = 16;
+let level5VirusSpalte = 7;
 
 let level5Timer = null;
 let level5VirusTimer = null;
@@ -3322,49 +3322,31 @@ let level5KnotenReihenfolge = [];
 
 const level5Karte = [
 
-    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1],
 
-    [1,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,1],
+    [1, 0, 0, 0, 1, 0, 0, 0, 1],
 
-    [1,0,1,0,1,0,1,1,1,0,1,0,1,1,1,1,0,1],
+    [1, 0, 1, 0, 0, 0, 1, 0, 1],
 
-    [1,0,1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,1],
+    [1, 0, 0, 0, 1, 0, 0, 0, 1],
 
-    [1,0,1,1,1,1,1,0,1,1,1,0,1,0,1,1,0,1],
+    [1, 1, 0, 0, 0, 0, 0, 1, 1],
 
-    [1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,1,0,1],
+    [1, 0, 0, 1, 0, 1, 0, 0, 1],
 
-    [1,1,1,1,1,0,1,1,1,1,0,1,1,1,0,1,0,1],
+    [1, 0, 1, 0, 0, 0, 1, 0, 1],
 
-    [1,0,0,0,1,0,0,0,0,1,0,0,0,0,0,1,0,1],
+    [1, 0, 0, 0, 1, 0, 0, 0, 1],
 
-    [1,0,1,0,1,1,1,1,0,1,1,1,1,1,0,1,0,1],
-
-    [1,0,1,0,0,0,0,1,0,0,0,0,0,1,0,0,0,1],
-
-    [1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,1,0,1],
-
-    [1,0,0,0,0,1,0,0,0,0,0,1,0,0,0,1,0,1],
-
-    [1,1,1,1,0,1,1,1,1,1,0,1,1,1,0,1,0,1],
-
-    [1,0,0,1,0,0,0,0,0,1,0,0,0,1,0,0,0,1],
-
-    [1,0,1,1,1,1,1,1,0,1,1,1,0,1,1,1,0,1],
-
-    [1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,1],
-
-    [1,0,1,1,1,1,0,0,0,1,1,1,1,1,0,0,0,1],
-
-    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
-
+    [1, 1, 1, 1, 1, 1, 1, 1, 1]
 ];
+
 
 /* Positionen der Kontrollknoten */
 
 const level5Knoten = {
 
-       SPS: {
+    SPS: {
         zeile: 1,
         spalte: 1,
         symbol: "🔵"
@@ -3372,13 +3354,13 @@ const level5Knoten = {
 
     ROBOT: {
         zeile: 3,
-        spalte: 14,
+        spalte: 7,
         symbol: "🟠"
     },
 
     SAFETY: {
-        zeile: 16,
-        spalte: 16,
+        zeile: 7,
+        spalte: 7,
         symbol: "🟢"
     }
 };
@@ -3387,8 +3369,8 @@ const level5Knoten = {
 /* Position des Cores */
 
 const level5Core = {
-    zeile: 9,
-    spalte: 8
+    zeile: 4,
+    spalte: 4
 };
 
 
@@ -3412,7 +3394,7 @@ function level5Mal(wert1, wert2) {
 
 function level5Index(zeile, spalte) {
 
-    return level5Mal(zeile, 18) + spalte;
+    return level5Mal(zeile, 9) + spalte;
 }
 
 
@@ -3469,13 +3451,13 @@ function level5FeldErstellen() {
 
     for (
         let zeile = 0;
-        zeile < 18;
+        zeile < 9;
         zeile++
     ) {
 
         for (
             let spalte = 0;
-            spalte < 18;
+            spalte < 9;
             spalte++
         ) {
 
@@ -3486,7 +3468,7 @@ function level5FeldErstellen() {
                 "level5-zelle";
 
             if (
-                Level5Karte[zeile][spalte] === 1
+                level5Karte[zeile][spalte] === 1
             ) {
                 zelle.classList.add("wand");
             }
@@ -3507,15 +3489,15 @@ function level5IstBegehbar(zeile, spalte) {
 
     if (
         zeile < 0 ||
-        zeile >= 18 ||
+        zeile >= 9 ||
         spalte < 0 ||
-        spalte >= 18
+        spalte >= 9
     ) {
         return false;
     }
 
     return (
-        Level5Karte[zeile][spalte] === 0
+        level5Karte[zeile][spalte] === 0
     );
 }
 
@@ -3860,141 +3842,98 @@ function level5VirusBewegen() {
         return;
     }
 
+    const moeglichkeiten = [
 
-    const start = {
-        zeile: level5VirusZeile,
-        spalte: level5VirusSpalte,
-        ersterSchritt: null
-    };
+        {
+            zeile:
+                level5VirusZeile - 1,
 
+            spalte:
+                level5VirusSpalte
+        },
 
-    const warteschlange = [start];
+        {
+            zeile:
+                level5VirusZeile + 1,
 
-    const besucht = new Set();
+            spalte:
+                level5VirusSpalte
+        },
 
-    besucht.add(
-        start.zeile + "," + start.spalte
-    );
+        {
+            zeile:
+                level5VirusZeile,
 
+            spalte:
+                level5VirusSpalte - 1
+        },
 
-    let gefundenerSchritt = null;
+        {
+            zeile:
+                level5VirusZeile,
 
-
-    while (warteschlange.length > 0) {
-
-        const aktuell =
-            warteschlange.shift();
-
-
-        /* Spieler gefunden */
-
-        if (
-            aktuell.zeile === level5SpielerZeile &&
-            aktuell.spalte === level5SpielerSpalte
-        ) {
-
-            gefundenerSchritt =
-                aktuell.ersterSchritt;
-
-            break;
+            spalte:
+                level5VirusSpalte + 1
         }
+    ];
 
 
-        const nachbarn = [
-
-            {
-                zeile: aktuell.zeile - 1,
-                spalte: aktuell.spalte
-            },
-
-            {
-                zeile: aktuell.zeile + 1,
-                spalte: aktuell.spalte
-            },
-
-            {
-                zeile: aktuell.zeile,
-                spalte: aktuell.spalte - 1
-            },
-
-            {
-                zeile: aktuell.zeile,
-                spalte: aktuell.spalte + 1
-            }
-
-        ];
+    let bestePosition = null;
+    let besteDistanz = Infinity;
 
 
-        nachbarn.forEach(function(nachbar) {
+    moeglichkeiten.forEach(
+        function(position) {
 
             if (
                 level5IstBegehbar(
-                    nachbar.zeile,
-                    nachbar.spalte
+                    position.zeile,
+                    position.spalte
                 ) === false
             ) {
                 return;
             }
 
 
-            const schluessel =
-                nachbar.zeile +
-                "," +
-                nachbar.spalte;
+            const zeilenDistanz =
+                Math.abs(
+                    position.zeile -
+                    level5SpielerZeile
+                );
+
+            const spaltenDistanz =
+                Math.abs(
+                    position.spalte -
+                    level5SpielerSpalte
+                );
+
+            const gesamteDistanz =
+                zeilenDistanz +
+                spaltenDistanz;
 
 
-            if (besucht.has(schluessel)) {
-                return;
+            if (
+                gesamteDistanz <
+                besteDistanz
+            ) {
+
+                besteDistanz =
+                    gesamteDistanz;
+
+                bestePosition =
+                    position;
             }
+        }
+    );
 
 
-            besucht.add(schluessel);
-
-
-            let ersterSchritt =
-                aktuell.ersterSchritt;
-
-
-            /*
-                Beim ersten Schritt merken wir uns,
-                in welche Richtung der Virus loslaufen muss.
-            */
-
-            if (ersterSchritt === null) {
-
-                ersterSchritt = {
-                    zeile: nachbar.zeile,
-                    spalte: nachbar.spalte
-                };
-
-            }
-
-
-            warteschlange.push({
-
-                zeile: nachbar.zeile,
-
-                spalte: nachbar.spalte,
-
-                ersterSchritt: ersterSchritt
-
-            });
-
-        });
-
-    }
-
-
-    /* Virus bewegt sich einen Schritt */
-
-    if (gefundenerSchritt !== null) {
+    if (bestePosition !== null) {
 
         level5VirusZeile =
-            gefundenerSchritt.zeile;
+            bestePosition.zeile;
 
         level5VirusSpalte =
-            gefundenerSchritt.spalte;
-
+            bestePosition.spalte;
     }
 
 
@@ -4002,6 +3941,7 @@ function level5VirusBewegen() {
 
     level5DarstellungAktualisieren();
 }
+
 
 /* =========================================
    VIRUS BESCHLEUNIGEN
@@ -4014,7 +3954,7 @@ function level5VirusBeschleunigen() {
     level5VirusTimer =
         setInterval(
             level5VirusBewegen,
-            150
+            400
         );
 }
 
@@ -4056,20 +3996,20 @@ function level5NiederlagePruefen() {
 ========================================= */
 
 function level5Zuruecksetzen() {
-    neueKarte();
+
     clearInterval(level5Timer);
     clearInterval(level5VirusTimer);
 
     level5Laeuft = false;
 
     level5Zeit = 120;
-    level5Energie = 125;
+    level5Energie = 100;
 
-    level5SpielerZeile = 16;
+    level5SpielerZeile = 7;
     level5SpielerSpalte = 1;
 
     level5VirusZeile = 1;
-    level5VirusSpalte = 16;
+    level5VirusSpalte = 7;
 
     level5AktuellerKnoten = 0;
 
@@ -4096,7 +4036,7 @@ function level5Starten() {
     if (level5Laeuft === true) {
         return;
     }
-    
+
     level5Zuruecksetzen();
 
     level5Laeuft = true;
@@ -4121,7 +4061,7 @@ function level5Starten() {
                 level5Zeit;
 
             if (level5Zeit <= 0) {
-                
+
                 level5Verloren(
                     "ZEIT ABGELAUFEN – VERBINDUNG GETRENNT"
                 );
@@ -4133,7 +4073,7 @@ function level5Starten() {
     level5VirusTimer =
         setInterval(
             level5VirusBewegen,
-            250
+            700
         );
 }
 
