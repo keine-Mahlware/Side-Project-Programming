@@ -1128,3 +1128,3596 @@ p {
 .queens-feld.geloest {
     background-color: #238636;
 }
+.kmeans-algorithmus {
+    margin-top: 30px;
+    padding: 25px;
+
+    background-color: #0d1117;
+
+    border: 1px solid #30363d;
+    border-radius: 12px;
+
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+#kmeans-flaeche {
+    position: relative;
+
+    width: 700px;
+    max-width: 100%;
+    height: 450px;
+
+    margin-top: 30px;
+
+    background-color: #161b22;
+
+    border: 2px solid #30363d;
+    border-radius: 10px;
+
+    cursor: crosshair;
+
+    overflow: hidden;
+}
+
+.kmeans-punkt {
+    position: absolute;
+
+    width: 14px;
+    height: 14px;
+
+    border-radius: 50%;
+
+    background-color: #c9d1d9;
+
+    transform: translate(-50%, -50%);
+
+    transition:
+        background-color 0.4s,
+        transform 0.3s;
+}
+
+.kmeans-zentrum {
+    position: absolute;
+
+    width: 24px;
+    height: 24px;
+
+    border: 3px solid white;
+    border-radius: 50%;
+
+    transform: translate(-50%, -50%);
+
+    box-shadow:
+        0 0 15px rgba(255, 255, 255, 0.7);
+
+    transition:
+        left 0.5s,
+        top 0.5s,
+        background-color 0.4s;
+}
+.cluster-0 {
+    background-color: #f85149;
+}
+
+.cluster-1 {
+    background-color: #58a6ff;
+}
+
+.cluster-2 {
+    background-color: #3fb950;
+}
+
+.cluster-3 {
+    background-color: #d29922;
+}
+
+.cluster-4 {
+    background-color: #a371f7;
+}
+/* ========================================
+   CAESAR CHIFFRE
+======================================== */
+
+.caesar-algorithmus {
+    margin-top: 30px;
+    padding: 25px;
+
+    background-color: #0d1117;
+
+    border: 1px solid #30363d;
+    border-radius: 12px;
+
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+
+/* ========================================
+   EINGABEN
+======================================== */
+
+#caesar-text {
+    width: 250px;
+    padding: 10px;
+
+    background-color: #161b22;
+    color: white;
+
+    border: 1px solid #30363d;
+    border-radius: 6px;
+
+    font-size: 16px;
+}
+
+#caesar-shift {
+    width: 60px;
+    padding: 10px;
+
+    margin-left: 8px;
+
+    background-color: #161b22;
+    color: white;
+
+    border: 1px solid #30363d;
+    border-radius: 6px;
+
+    font-size: 16px;
+}
+
+
+/* ========================================
+   BUTTONS
+======================================== */
+
+#caesar-verschluesseln,
+#caesar-entschluesseln,
+#caesar-bruteforce,
+#caesar-reset {
+    padding: 10px 15px;
+    margin-left: 8px;
+    margin-top: 10px;
+
+    color: white;
+
+    border: none;
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+#caesar-verschluesseln {
+    background-color: #238636;
+}
+
+#caesar-entschluesseln {
+    background-color: #1f6feb;
+}
+
+#caesar-bruteforce {
+    background-color: #8957e5;
+}
+
+#caesar-reset {
+    background-color: #da3633;
+}
+
+#caesar-verschluesseln:hover,
+#caesar-entschluesseln:hover,
+#caesar-bruteforce:hover,
+#caesar-reset:hover {
+    transform: translateY(-2px);
+}
+
+
+/* ========================================
+   AUSGABE
+======================================== */
+
+#caesar-ausgabe {
+    margin-top: 25px;
+    padding: 20px;
+
+    min-height: 60px;
+
+    background-color: #161b22;
+
+    border: 1px solid #30363d;
+    border-radius: 8px;
+
+    color: #e6edf3;
+
+    font-family: monospace;
+}
+
+
+/* ========================================
+   BUCHSTABEN
+======================================== */
+
+.caesar-buchstabe {
+    display: inline-flex;
+
+    width: 38px;
+    height: 38px;
+
+    margin: 4px;
+
+    justify-content: center;
+    align-items: center;
+
+    background-color: #21262d;
+
+    border: 1px solid #30363d;
+    border-radius: 6px;
+
+    font-weight: bold;
+
+    transition: 0.2s;
+}
+
+.caesar-buchstabe.pruefen {
+    background-color: #d29922;
+
+    transform: translateY(-6px) scale(1.1);
+
+    box-shadow:
+        0 0 15px rgba(210, 153, 34, 0.7);
+}
+
+.caesar-buchstabe.fertig {
+    background-color: #238636;
+
+    box-shadow:
+        0 0 10px rgba(46, 200, 80, 0.5);
+}
+
+
+/* ========================================
+   BRUTE FORCE
+======================================== */
+
+.caesar-brute-zeile {
+    margin: 6px 0;
+    padding: 8px 12px;
+
+    background-color: #21262d;
+
+    border-left: 4px solid #8957e5;
+    border-radius: 4px;
+
+    color: #c9d1d9;
+
+    transition: 0.2s;
+}
+
+.caesar-brute-zeile.aktiv {
+    background-color: #30363d;
+    border-left-color: #d29922;
+
+    transform: translateX(5px);
+}
+
+.caesar-shift-nummer {
+    display: inline-block;
+
+    width: 80px;
+
+    color: #58a6ff;
+
+    font-weight: bold;
+}
+/* ========================================
+   VIGENERE CHIFFRE
+======================================== */
+
+.vigenere-algorithmus {
+    margin-top: 30px;
+    padding: 25px;
+
+    background-color: #0d1117;
+
+    border: 1px solid #30363d;
+    border-radius: 12px;
+
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+
+/* ========================================
+   EINGABEN
+======================================== */
+
+.vigenere-eingaben {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-top: 20px;
+}
+
+
+#vigenere-text,
+#vigenere-key {
+    padding: 10px 12px;
+
+    background-color: #161b22;
+    color: white;
+
+    border: 1px solid #30363d;
+    border-radius: 6px;
+
+    font-size: 16px;
+
+    transition: 0.2s;
+}
+
+
+#vigenere-text {
+    width: 280px;
+}
+
+
+#vigenere-key {
+    width: 180px;
+}
+
+
+#vigenere-text:focus,
+#vigenere-key:focus {
+    outline: none;
+
+    border-color: #a371f7;
+
+    box-shadow:
+        0 0 10px
+        rgba(163, 113, 247, 0.4);
+}
+
+
+/* ========================================
+   BUTTONS
+======================================== */
+
+.vigenere-buttons {
+    margin-top: 15px;
+
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 10px;
+}
+
+
+#vigenere-verschluesseln,
+#vigenere-entschluesseln,
+#vigenere-reset {
+    padding: 10px 17px;
+
+    color: white;
+
+    border: none;
+    border-radius: 6px;
+
+    font-size: 15px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+
+#vigenere-verschluesseln {
+    background-color: #8957e5;
+}
+
+
+#vigenere-entschluesseln {
+    background-color: #1f6feb;
+}
+
+
+#vigenere-reset {
+    background-color: #da3633;
+}
+
+
+#vigenere-verschluesseln:hover,
+#vigenere-entschluesseln:hover,
+#vigenere-reset:hover {
+    transform: translateY(-2px);
+}
+
+
+#vigenere-verschluesseln:hover {
+    box-shadow:
+        0 5px 12px
+        rgba(137, 87, 229, 0.4);
+}
+
+
+#vigenere-entschluesseln:hover {
+    box-shadow:
+        0 5px 12px
+        rgba(31, 111, 235, 0.4);
+}
+
+
+#vigenere-reset:hover {
+    box-shadow:
+        0 5px 12px
+        rgba(248, 81, 73, 0.4);
+}
+
+
+/* ========================================
+   VISUALISIERUNG
+======================================== */
+
+#vigenere-visualisierung {
+    margin-top: 30px;
+
+    padding: 20px;
+
+    background-color: #161b22;
+
+    border: 1px solid #30363d;
+    border-radius: 10px;
+
+    overflow-x: auto;
+}
+
+
+.vigenere-zeile {
+    display: flex;
+    align-items: center;
+
+    min-height: 55px;
+
+    margin-bottom: 10px;
+}
+
+
+.vigenere-zeile:last-child {
+    margin-bottom: 0;
+}
+
+
+.vigenere-label {
+    width: 90px;
+    min-width: 90px;
+
+    color: #8b949e;
+
+    font-weight: bold;
+}
+
+
+#vigenere-text-zeile,
+#vigenere-key-zeile,
+#vigenere-ergebnis-zeile {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 6px;
+}
+
+
+/* ========================================
+   EINZELNE BUCHSTABEN
+======================================== */
+
+.vigenere-buchstabe {
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #21262d;
+    color: #e6edf3;
+
+    border: 1px solid #30363d;
+    border-radius: 6px;
+
+    font-family: monospace;
+    font-size: 17px;
+    font-weight: bold;
+
+    box-shadow:
+        0 3px 7px
+        rgba(0, 0, 0, 0.3);
+
+    transition: 0.25s;
+}
+
+
+/* Textbuchstabe */
+
+.vigenere-buchstabe.text {
+    border-color: #58a6ff;
+}
+
+
+/* Schlüsselbuchstabe */
+
+.vigenere-buchstabe.key {
+    color: white;
+
+    border-color: #a371f7;
+}
+
+
+/* Ergebnisbuchstabe */
+
+.vigenere-buchstabe.ergebnis {
+    border-color: #3fb950;
+}
+
+
+/* ========================================
+   AKTUELLER SCHRITT
+======================================== */
+
+.vigenere-buchstabe.pruefen {
+    background-color: #d29922;
+    color: white;
+
+    transform:
+        translateY(-6px)
+        scale(1.1);
+
+    box-shadow:
+        0 0 15px
+        rgba(210, 153, 34, 0.7);
+}
+
+
+/* ========================================
+   FERTIGER BUCHSTABE
+======================================== */
+
+.vigenere-buchstabe.fertig {
+    background-color: #238636;
+    color: white;
+
+    box-shadow:
+        0 0 10px
+        rgba(46, 200, 80, 0.5);
+}
+
+
+/* ========================================
+   INFORMATION
+======================================== */
+
+#vigenere-info {
+    margin-top: 15px;
+
+    padding: 12px 15px;
+
+    background-color: #161b22;
+
+    border-left:
+        4px solid #8957e5;
+
+    border-radius: 5px;
+
+    color: #c9d1d9;
+
+    font-family: monospace;
+}
+/* ========================================
+   XOR
+======================================== */
+
+.xor-algorithmus {
+    margin-top: 30px;
+    padding: 25px;
+
+    background-color: #0d1117;
+
+    border: 1px solid #30363d;
+    border-radius: 12px;
+
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+
+/* Eingaben */
+
+.xor-eingaben {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-top: 20px;
+}
+
+#xor-text,
+#xor-key {
+    padding: 10px 12px;
+
+    background-color: #161b22;
+    color: white;
+
+    border: 1px solid #30363d;
+    border-radius: 6px;
+
+    font-size: 16px;
+}
+
+#xor-text {
+    width: 280px;
+}
+
+#xor-key {
+    width: 100px;
+}
+
+
+/* Buttons */
+
+.xor-buttons {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-top: 15px;
+}
+
+#xor-verschluesseln,
+#xor-entschluesseln,
+#xor-reset {
+    padding: 10px 17px;
+
+    border: none;
+    border-radius: 6px;
+
+    color: white;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+#xor-verschluesseln {
+    background-color: #8957e5;
+}
+
+#xor-entschluesseln {
+    background-color: #1f6feb;
+}
+
+#xor-reset {
+    background-color: #da3633;
+}
+
+#xor-verschluesseln:hover,
+#xor-entschluesseln:hover,
+#xor-reset:hover {
+    transform: translateY(-2px);
+}
+
+
+/* Visualisierung */
+
+#xor-visualisierung {
+    width: max-content;
+
+    margin-top: 30px;
+    padding: 20px;
+
+    background-color: #161b22;
+
+    border: 1px solid #30363d;
+    border-radius: 10px;
+
+    font-family: monospace;
+}
+
+.xor-zeile {
+    display: flex;
+    align-items: center;
+
+    min-height: 40px;
+}
+
+.xor-label {
+    width: 150px;
+
+    color: #8b949e;
+}
+
+#xor-text-binaer,
+#xor-key-binaer,
+#xor-ergebnis-binaer {
+    padding: 7px 10px;
+
+    background-color: #21262d;
+
+    border-radius: 5px;
+
+    letter-spacing: 5px;
+
+    font-size: 18px;
+    font-weight: bold;
+
+    color: #e6edf3;
+
+    transition: 0.2s;
+}
+
+#xor-text-binaer.aktiv,
+#xor-key-binaer.aktiv {
+    background-color: #d29922;
+
+    box-shadow:
+        0 0 12px rgba(210, 153, 34, 0.6);
+}
+
+#xor-ergebnis-binaer.aktiv {
+    background-color: #238636;
+
+    box-shadow:
+        0 0 12px rgba(46, 200, 80, 0.6);
+}
+
+.xor-trennlinie {
+    height: 2px;
+
+    margin: 5px 0 5px 150px;
+
+    background-color: #30363d;
+}
+
+#xor-ausgabe {
+    margin-top: 20px;
+    padding: 15px;
+
+    min-height: 30px;
+
+    background-color: #161b22;
+
+    border-left: 4px solid #8957e5;
+    border-radius: 5px;
+
+    color: #c9d1d9;
+
+    font-family: monospace;
+
+    overflow-wrap: anywhere;
+}
+/* ========================================
+   RAIL FENCE
+======================================== */
+
+.rail-algorithmus {
+    margin-top: 30px;
+    padding: 25px;
+
+    background-color: #0d1117;
+
+    border: 1px solid #30363d;
+    border-radius: 12px;
+
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+
+/* ========================================
+   EINGABEN
+======================================== */
+
+.rail-eingaben {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-top: 20px;
+}
+
+#rail-text {
+    width: 280px;
+
+    padding: 10px 12px;
+
+    background-color: #161b22;
+    color: white;
+
+    border: 1px solid #30363d;
+    border-radius: 6px;
+
+    font-size: 16px;
+}
+
+#rail-anzahl {
+    width: 65px;
+
+    padding: 10px;
+
+    background-color: #161b22;
+    color: white;
+
+    border: 1px solid #30363d;
+    border-radius: 6px;
+
+    font-size: 16px;
+}
+
+
+/* ========================================
+   BUTTONS
+======================================== */
+
+.rail-buttons {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-top: 15px;
+}
+
+#rail-verschluesseln,
+#rail-entschluesseln,
+#rail-reset {
+    padding: 10px 17px;
+
+    color: white;
+
+    border: none;
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+#rail-verschluesseln {
+    background-color: #8957e5;
+}
+
+#rail-entschluesseln {
+    background-color: #1f6feb;
+}
+
+#rail-reset {
+    background-color: #da3633;
+}
+
+#rail-verschluesseln:hover,
+#rail-entschluesseln:hover,
+#rail-reset:hover {
+    transform: translateY(-2px);
+}
+
+
+/* ========================================
+   VISUALISIERUNG
+======================================== */
+
+#rail-visualisierung {
+    margin-top: 30px;
+
+    padding: 20px;
+
+    min-height: 150px;
+
+    background-color: #161b22;
+
+    border: 1px solid #30363d;
+    border-radius: 10px;
+
+    overflow-x: auto;
+}
+
+
+/* Eine komplette Schiene */
+
+.rail-schiene {
+    display: flex;
+
+    gap: 5px;
+
+    min-height: 45px;
+
+    margin-bottom: 5px;
+}
+
+
+/* Einzelne Position */
+
+.rail-position {
+    width: 36px;
+    min-width: 36px;
+    height: 36px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #21262d;
+    color: white;
+
+    border: 1px solid #30363d;
+    border-radius: 5px;
+
+    font-family: monospace;
+    font-weight: bold;
+
+    transition: 0.25s;
+}
+
+
+/* Leere Zickzack-Position */
+
+.rail-position.leer {
+    background-color: transparent;
+    border-color: transparent;
+}
+
+
+/* Aktuell bearbeiteter Buchstabe */
+
+.rail-position.pruefen {
+    background-color: #d29922;
+
+    transform:
+        translateY(-5px)
+        scale(1.1);
+
+    box-shadow:
+        0 0 15px
+        rgba(210, 153, 34, 0.7);
+}
+
+
+/* Fertiger Buchstabe */
+
+.rail-position.fertig {
+    background-color: #238636;
+
+    box-shadow:
+        0 0 10px
+        rgba(46, 200, 80, 0.5);
+}
+
+
+/* ========================================
+   AUSGABE
+======================================== */
+
+#rail-ausgabe {
+    margin-top: 20px;
+
+    padding: 15px;
+
+    min-height: 30px;
+
+    background-color: #161b22;
+
+    border-left: 4px solid #8957e5;
+    border-radius: 5px;
+
+    color: #c9d1d9;
+
+    font-family: monospace;
+
+    overflow-wrap: anywhere;
+}
+/* ========================================
+   PLAYFAIR CHIFFRE
+======================================== */
+
+.playfair-algorithmus {
+    margin-top: 30px;
+    padding: 25px;
+
+    background-color: #0d1117;
+
+    border: 1px solid #30363d;
+    border-radius: 12px;
+
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+
+/* ========================================
+   EINGABEN
+======================================== */
+
+.playfair-eingaben {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-top: 20px;
+}
+
+#playfair-text,
+#playfair-key {
+    padding: 10px 12px;
+
+    background-color: #161b22;
+    color: white;
+
+    border: 1px solid #30363d;
+    border-radius: 6px;
+
+    font-size: 16px;
+
+    transition: 0.2s;
+}
+
+#playfair-text {
+    width: 280px;
+}
+
+#playfair-key {
+    width: 200px;
+}
+
+#playfair-text:focus,
+#playfair-key:focus {
+    outline: none;
+
+    border-color: #a371f7;
+
+    box-shadow:
+        0 0 10px rgba(163, 113, 247, 0.4);
+}
+
+
+/* ========================================
+   BUTTONS
+======================================== */
+
+.playfair-buttons {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-top: 15px;
+}
+
+#playfair-verschluesseln,
+#playfair-entschluesseln,
+#playfair-reset {
+    padding: 10px 17px;
+
+    color: white;
+
+    border: none;
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+#playfair-verschluesseln {
+    background-color: #8957e5;
+}
+
+#playfair-entschluesseln {
+    background-color: #1f6feb;
+}
+
+#playfair-reset {
+    background-color: #da3633;
+}
+
+#playfair-verschluesseln:hover,
+#playfair-entschluesseln:hover,
+#playfair-reset:hover {
+    transform: translateY(-2px);
+}
+
+
+/* ========================================
+   ARBEITSBEREICH
+======================================== */
+
+.playfair-arbeitsbereich {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+
+    gap: 30px;
+
+    margin-top: 30px;
+}
+
+.playfair-matrix-bereich,
+.playfair-paar-bereich {
+    padding: 20px;
+
+    background-color: #161b22;
+
+    border: 1px solid #30363d;
+    border-radius: 10px;
+}
+
+.playfair-matrix-bereich h3,
+.playfair-paar-bereich h3 {
+    margin-top: 0;
+
+    color: #c9d1d9;
+}
+
+
+/* ========================================
+   5 × 5 MATRIX
+======================================== */
+
+#playfair-matrix {
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, 52px);
+
+    grid-template-rows:
+        repeat(5, 52px);
+
+    gap: 5px;
+}
+
+.playfair-matrix-feld {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #21262d;
+    color: #e6edf3;
+
+    border: 1px solid #30363d;
+    border-radius: 7px;
+
+    font-family: monospace;
+    font-size: 20px;
+    font-weight: bold;
+
+    box-shadow:
+        0 3px 7px rgba(0, 0, 0, 0.3);
+
+    transition: 0.25s;
+}
+
+
+/* Das Schlüsselwort erzeugte dieses Feld */
+
+.playfair-matrix-feld.schluessel {
+    color: #a371f7;
+    border-color: #8957e5;
+}
+
+
+/* Feld des ersten Buchstabens */
+
+.playfair-matrix-feld.buchstabe-a {
+    background-color: #d29922;
+    color: white;
+
+    transform: scale(1.1);
+
+    box-shadow:
+        0 0 14px rgba(210, 153, 34, 0.7);
+}
+
+
+/* Feld des zweiten Buchstabens */
+
+.playfair-matrix-feld.buchstabe-b {
+    background-color: #1f6feb;
+    color: white;
+
+    transform: scale(1.1);
+
+    box-shadow:
+        0 0 14px rgba(31, 111, 235, 0.7);
+}
+
+
+/* Ergebnisfelder */
+
+.playfair-matrix-feld.ergebnis {
+    background-color: #238636;
+    color: white;
+
+    transform: scale(1.13);
+
+    box-shadow:
+        0 0 16px rgba(46, 200, 80, 0.7);
+}
+
+
+/* Rechteckregel sichtbar machen */
+
+.playfair-matrix-feld.rechteck {
+    border-color: #f85149;
+
+    box-shadow:
+        inset 0 0 0 2px #f85149;
+}
+
+
+/* ========================================
+   AKTUELLES PAAR
+======================================== */
+
+#playfair-aktuelles-paar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 12px;
+
+    margin-top: 20px;
+}
+
+.playfair-paar-buchstabe {
+    width: 58px;
+    height: 58px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #21262d;
+    color: white;
+
+    border: 2px solid #8957e5;
+    border-radius: 9px;
+
+    font-family: monospace;
+    font-size: 24px;
+    font-weight: bold;
+
+    transition: 0.25s;
+}
+
+.playfair-paar-buchstabe.pruefen {
+    background-color: #d29922;
+
+    transform:
+        translateY(-6px)
+        scale(1.1);
+
+    box-shadow:
+        0 0 15px rgba(210, 153, 34, 0.7);
+}
+
+.playfair-paar-trenner {
+    color: #8b949e;
+
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#playfair-regel {
+    max-width: 330px;
+
+    margin-top: 20px;
+    padding: 12px;
+
+    background-color: #0d1117;
+
+    border-left: 4px solid #8957e5;
+    border-radius: 5px;
+
+    color: #c9d1d9;
+
+    font-family: monospace;
+}
+
+
+/* ========================================
+   PAARE UND ERGEBNIS
+======================================== */
+
+.playfair-zeile {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 12px;
+
+    margin-top: 20px;
+    padding: 15px;
+
+    background-color: #161b22;
+
+    border: 1px solid #30363d;
+    border-radius: 8px;
+}
+
+.playfair-label {
+    width: 85px;
+    min-width: 85px;
+
+    color: #8b949e;
+
+    font-weight: bold;
+}
+
+#playfair-paare,
+#playfair-ergebnis {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 8px;
+}
+
+.playfair-paar {
+    padding: 8px 11px;
+
+    background-color: #21262d;
+    color: #e6edf3;
+
+    border: 1px solid #30363d;
+    border-radius: 6px;
+
+    font-family: monospace;
+    font-weight: bold;
+
+    transition: 0.25s;
+}
+
+.playfair-paar.aktiv {
+    background-color: #d29922;
+    color: white;
+
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 0 12px rgba(210, 153, 34, 0.6);
+}
+
+.playfair-paar.fertig {
+    background-color: #238636;
+    color: white;
+}
+
+
+/* ========================================
+   AUSGABE
+======================================== */
+
+#playfair-ausgabe {
+    margin-top: 20px;
+    padding: 15px;
+
+    min-height: 30px;
+
+    background-color: #161b22;
+
+    border-left: 4px solid #8957e5;
+    border-radius: 5px;
+
+    color: #c9d1d9;
+
+    font-family: monospace;
+
+    overflow-wrap: anywhere;
+}
+/* ========================================
+   AES-128 VISUALIZER
+======================================== */
+
+.aes-algorithmus {
+    margin-top: 30px;
+    padding: 25px;
+
+    background-color: #0d1117;
+
+    border: 1px solid #30363d;
+    border-radius: 12px;
+
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+
+/* ========================================
+   EINGABEN
+======================================== */
+
+.aes-eingaben {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 20px;
+
+    margin-top: 20px;
+}
+
+.aes-eingabe-gruppe {
+    display: flex;
+    flex-direction: column;
+
+    gap: 7px;
+}
+
+.aes-eingabe-gruppe label {
+    color: #8b949e;
+
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#aes-text,
+#aes-key {
+    width: 260px;
+
+    padding: 10px 12px;
+
+    background-color: #161b22;
+    color: white;
+
+    border: 1px solid #30363d;
+    border-radius: 6px;
+
+    font-family: monospace;
+    font-size: 16px;
+
+    transition: 0.2s;
+}
+
+#aes-text:focus,
+#aes-key:focus {
+    outline: none;
+
+    border-color: #58a6ff;
+
+    box-shadow:
+        0 0 10px rgba(88, 166, 255, 0.4);
+}
+
+
+/* ========================================
+   BUTTONS
+======================================== */
+
+.aes-buttons {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-top: 18px;
+}
+
+#aes-vorbereiten,
+#aes-naechster-schritt,
+#aes-automatisch,
+#aes-reset {
+    padding: 10px 17px;
+
+    color: white;
+
+    border: none;
+    border-radius: 6px;
+
+    font-size: 15px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+#aes-vorbereiten {
+    background-color: #238636;
+}
+
+#aes-naechster-schritt {
+    background-color: #1f6feb;
+}
+
+#aes-automatisch {
+    background-color: #8957e5;
+}
+
+#aes-reset {
+    background-color: #da3633;
+}
+
+#aes-vorbereiten:hover,
+#aes-naechster-schritt:hover,
+#aes-automatisch:hover,
+#aes-reset:hover {
+    transform: translateY(-2px);
+}
+
+#aes-naechster-schritt:disabled,
+#aes-automatisch:disabled {
+    opacity: 0.45;
+
+    cursor: not-allowed;
+
+    transform: none;
+}
+
+
+/* ========================================
+   STATUS
+======================================== */
+
+.aes-status-bereich {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 30px;
+
+    margin-top: 25px;
+    padding: 15px;
+
+    background-color: #161b22;
+
+    border: 1px solid #30363d;
+    border-radius: 8px;
+
+    color: #e6edf3;
+
+    font-family: monospace;
+}
+
+.aes-status-label {
+    color: #8b949e;
+    font-weight: bold;
+}
+
+#aes-runde {
+    color: #58a6ff;
+    font-weight: bold;
+}
+
+#aes-operation {
+    color: #a371f7;
+    font-weight: bold;
+}
+
+
+/* ========================================
+   ARBEITSBEREICH
+======================================== */
+
+.aes-arbeitsbereich {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 35px;
+
+    margin-top: 25px;
+}
+
+.aes-matrix-bereich {
+    padding: 20px;
+
+    background-color: #161b22;
+
+    border: 1px solid #30363d;
+    border-radius: 10px;
+}
+
+.aes-matrix-bereich h3 {
+    margin-top: 0;
+
+    color: #c9d1d9;
+}
+
+
+/* ========================================
+   MATRIZEN
+======================================== */
+
+#aes-state-matrix,
+#aes-key-matrix {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 58px);
+
+    grid-template-rows:
+        repeat(4, 58px);
+
+    gap: 6px;
+}
+
+.aes-byte {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #21262d;
+    color: #e6edf3;
+
+    border: 1px solid #30363d;
+    border-radius: 7px;
+
+    font-family: monospace;
+    font-size: 18px;
+    font-weight: bold;
+
+    box-shadow:
+        0 3px 8px rgba(0, 0, 0, 0.3);
+
+    transition:
+        background-color 0.3s,
+        transform 0.3s,
+        box-shadow 0.3s;
+}
+
+
+/* State */
+
+#aes-state-matrix .aes-byte {
+    border-color: #58a6ff;
+}
+
+
+/* Rundenschlüssel */
+
+#aes-key-matrix .aes-byte {
+    border-color: #a371f7;
+}
+
+
+/* Aktuell veränderte Bytes */
+
+.aes-byte.aktiv {
+    background-color: #d29922;
+    color: white;
+
+    transform:
+        translateY(-5px)
+        scale(1.08);
+
+    box-shadow:
+        0 0 14px rgba(210, 153, 34, 0.7);
+}
+
+
+/* Fertige Operation */
+
+.aes-byte.fertig {
+    background-color: #238636;
+    color: white;
+
+    box-shadow:
+        0 0 11px rgba(46, 200, 80, 0.55);
+}
+
+
+/* XOR-Schritt */
+
+.aes-byte.xor {
+    background-color: #8957e5;
+    color: white;
+
+    transform: scale(1.08);
+
+    box-shadow:
+        0 0 14px rgba(137, 87, 229, 0.7);
+}
+
+
+/* Verschiebung bei ShiftRows */
+
+.aes-byte.verschieben {
+    background-color: #1f6feb;
+    color: white;
+
+    transform:
+        translateX(4px)
+        scale(1.08);
+
+    box-shadow:
+        0 0 14px rgba(31, 111, 235, 0.7);
+}
+
+
+/* MixColumns */
+
+.aes-byte.mischen {
+    background-color: #f85149;
+    color: white;
+
+    transform:
+        translateY(-4px)
+        scale(1.08);
+
+    box-shadow:
+        0 0 14px rgba(248, 81, 73, 0.7);
+}
+
+
+/* ========================================
+   BYTE-ZEILE
+======================================== */
+
+.aes-byte-information {
+    margin-top: 25px;
+    padding: 18px;
+
+    background-color: #161b22;
+
+    border: 1px solid #30363d;
+    border-radius: 10px;
+}
+
+.aes-byte-information h3 {
+    margin-top: 0;
+
+    color: #c9d1d9;
+}
+
+#aes-byte-zeile {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 7px;
+}
+
+.aes-byte-inline {
+    padding: 7px 9px;
+
+    background-color: #21262d;
+    color: #58a6ff;
+
+    border: 1px solid #30363d;
+    border-radius: 5px;
+
+    font-family: monospace;
+    font-weight: bold;
+}
+
+
+/* ========================================
+   ERKLÄRUNG
+======================================== */
+
+.aes-erklaerung {
+    margin-top: 20px;
+    padding: 18px;
+
+    background-color: #161b22;
+
+    border-left: 4px solid #8957e5;
+    border-radius: 6px;
+}
+
+#aes-schritt-titel {
+    margin-top: 0;
+
+    color: #a371f7;
+}
+
+#aes-schritt-text {
+    margin-bottom: 0;
+
+    color: #c9d1d9;
+
+    line-height: 1.6;
+}
+
+
+/* ========================================
+   AUSGABE
+======================================== */
+
+#aes-ausgabe {
+    margin-top: 20px;
+    padding: 15px;
+
+    min-height: 30px;
+
+    background-color: #161b22;
+
+    border-left: 4px solid #238636;
+    border-radius: 5px;
+
+    color: #3fb950;
+
+    font-family: monospace;
+    font-weight: bold;
+
+    overflow-wrap: anywhere;
+}
+/* ========================================
+   AES-128 ENTSCHLÜSSELER
+======================================== */
+
+.aes-decrypt-algorithmus {
+    margin-top: 30px;
+    padding: 25px;
+
+    background-color: #0d1117;
+
+    border: 1px solid #30363d;
+    border-radius: 12px;
+
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+
+/* ========================================
+   EINGABEN
+======================================== */
+
+.aes-decrypt-eingaben {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 20px;
+
+    margin-top: 20px;
+}
+
+.aes-decrypt-eingabe-gruppe {
+    display: flex;
+    flex-direction: column;
+
+    gap: 7px;
+}
+
+.aes-decrypt-eingabe-gruppe label {
+    color: #8b949e;
+
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#aes-decrypt-ciphertext,
+#aes-decrypt-key {
+    padding: 10px 12px;
+
+    background-color: #161b22;
+    color: white;
+
+    border: 1px solid #30363d;
+    border-radius: 6px;
+
+    font-family: monospace;
+    font-size: 16px;
+
+    transition: 0.2s;
+}
+
+#aes-decrypt-ciphertext {
+    width: 430px;
+    max-width: 100%;
+}
+
+#aes-decrypt-key {
+    width: 260px;
+}
+
+#aes-decrypt-ciphertext:focus,
+#aes-decrypt-key:focus {
+    outline: none;
+
+    border-color: #a371f7;
+
+    box-shadow:
+        0 0 10px rgba(163, 113, 247, 0.4);
+}
+
+
+/* ========================================
+   BUTTONS
+======================================== */
+
+.aes-decrypt-buttons {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-top: 18px;
+}
+
+#aes-decrypt-vorbereiten,
+#aes-decrypt-naechster-schritt,
+#aes-decrypt-auto,
+#aes-decrypt-reset {
+    padding: 10px 17px;
+
+    color: white;
+
+    border: none;
+    border-radius: 6px;
+
+    font-size: 15px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+#aes-decrypt-vorbereiten {
+    background-color: #238636;
+}
+
+#aes-decrypt-naechster-schritt {
+    background-color: #1f6feb;
+}
+
+#aes-decrypt-auto {
+    background-color: #8957e5;
+}
+
+#aes-decrypt-reset {
+    background-color: #da3633;
+}
+
+#aes-decrypt-vorbereiten:hover,
+#aes-decrypt-naechster-schritt:hover,
+#aes-decrypt-auto:hover,
+#aes-decrypt-reset:hover {
+    transform: translateY(-2px);
+}
+
+#aes-decrypt-naechster-schritt:disabled,
+#aes-decrypt-auto:disabled {
+    opacity: 0.45;
+
+    cursor: not-allowed;
+
+    transform: none;
+}
+
+
+/* ========================================
+   STATUS
+======================================== */
+
+.aes-decrypt-status {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 30px;
+
+    margin-top: 25px;
+    padding: 15px;
+
+    background-color: #161b22;
+
+    border: 1px solid #30363d;
+    border-radius: 8px;
+
+    color: #e6edf3;
+
+    font-family: monospace;
+}
+
+.aes-decrypt-status-label {
+    color: #8b949e;
+
+    font-weight: bold;
+}
+
+#aes-decrypt-runde {
+    color: #58a6ff;
+
+    font-weight: bold;
+}
+
+#aes-decrypt-operation {
+    color: #a371f7;
+
+    font-weight: bold;
+}
+
+
+/* ========================================
+   ARBEITSBEREICH
+======================================== */
+
+.aes-decrypt-arbeitsbereich {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 35px;
+
+    margin-top: 25px;
+}
+
+.aes-decrypt-matrix-bereich {
+    padding: 20px;
+
+    background-color: #161b22;
+
+    border: 1px solid #30363d;
+    border-radius: 10px;
+}
+
+.aes-decrypt-matrix-bereich h3 {
+    margin-top: 0;
+
+    color: #c9d1d9;
+}
+
+
+/* ========================================
+   MATRIZEN
+======================================== */
+
+#aes-decrypt-state-matrix,
+#aes-decrypt-key-matrix {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 58px);
+
+    grid-template-rows:
+        repeat(4, 58px);
+
+    gap: 6px;
+}
+
+.aes-decrypt-byte {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #21262d;
+    color: #e6edf3;
+
+    border: 1px solid #30363d;
+    border-radius: 7px;
+
+    font-family: monospace;
+    font-size: 18px;
+    font-weight: bold;
+
+    box-shadow:
+        0 3px 8px rgba(0, 0, 0, 0.3);
+
+    transition:
+        background-color 0.3s,
+        transform 0.3s,
+        box-shadow 0.3s;
+}
+
+#aes-decrypt-state-matrix
+.aes-decrypt-byte {
+    border-color: #58a6ff;
+}
+
+#aes-decrypt-key-matrix
+.aes-decrypt-byte {
+    border-color: #a371f7;
+}
+
+
+/* InvSubBytes */
+
+.aes-decrypt-byte.inv-sub {
+    background-color: #d29922;
+    color: white;
+
+    transform:
+        translateY(-5px)
+        scale(1.08);
+
+    box-shadow:
+        0 0 14px rgba(210, 153, 34, 0.7);
+}
+
+
+/* InvShiftRows */
+
+.aes-decrypt-byte.inv-shift {
+    background-color: #1f6feb;
+    color: white;
+
+    transform:
+        translateX(-4px)
+        scale(1.08);
+
+    box-shadow:
+        0 0 14px rgba(31, 111, 235, 0.7);
+}
+
+
+/* InvMixColumns */
+
+.aes-decrypt-byte.inv-mix {
+    background-color: #f85149;
+    color: white;
+
+    transform:
+        translateY(-4px)
+        scale(1.08);
+
+    box-shadow:
+        0 0 14px rgba(248, 81, 73, 0.7);
+}
+
+
+/* AddRoundKey */
+
+.aes-decrypt-byte.xor {
+    background-color: #8957e5;
+    color: white;
+
+    transform: scale(1.08);
+
+    box-shadow:
+        0 0 14px rgba(137, 87, 229, 0.7);
+}
+
+
+/* Schritt abgeschlossen */
+
+.aes-decrypt-byte.fertig {
+    background-color: #238636;
+    color: white;
+
+    box-shadow:
+        0 0 11px rgba(46, 200, 80, 0.55);
+}
+
+
+/* ========================================
+   BYTE-ZEILE
+======================================== */
+
+.aes-decrypt-byte-bereich {
+    margin-top: 25px;
+    padding: 18px;
+
+    background-color: #161b22;
+
+    border: 1px solid #30363d;
+    border-radius: 10px;
+}
+
+.aes-decrypt-byte-bereich h3 {
+    margin-top: 0;
+
+    color: #c9d1d9;
+}
+
+#aes-decrypt-byte-zeile {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 7px;
+}
+
+.aes-decrypt-byte-inline {
+    padding: 7px 9px;
+
+    background-color: #21262d;
+    color: #58a6ff;
+
+    border: 1px solid #30363d;
+    border-radius: 5px;
+
+    font-family: monospace;
+    font-weight: bold;
+}
+
+
+/* ========================================
+   ERKLÄRUNG
+======================================== */
+
+.aes-decrypt-erklaerung {
+    margin-top: 20px;
+    padding: 18px;
+
+    background-color: #161b22;
+
+    border-left: 4px solid #8957e5;
+    border-radius: 6px;
+}
+
+#aes-decrypt-schritt-titel {
+    margin-top: 0;
+
+    color: #a371f7;
+}
+
+#aes-decrypt-schritt-text {
+    margin-bottom: 0;
+
+    color: #c9d1d9;
+
+    line-height: 1.6;
+}
+
+
+/* ========================================
+   AUSGABE
+======================================== */
+
+#aes-decrypt-ausgabe {
+    margin-top: 20px;
+    padding: 15px;
+
+    min-height: 30px;
+
+    background-color: #161b22;
+
+    border-left: 4px solid #238636;
+    border-radius: 5px;
+
+    color: #3fb950;
+
+    font-family: monospace;
+    font-weight: bold;
+
+    overflow-wrap: anywhere;
+}
+/* ========================================
+   RABIN-KARP
+======================================== */
+
+.rabin-karp-algorithmus {
+    margin-top: 30px;
+    padding: 25px;
+
+    background-color: #0d1117;
+
+    border: 1px solid #30363d;
+    border-radius: 12px;
+
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+
+/* ========================================
+   EINGABEN
+======================================== */
+
+.rabin-eingaben {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 20px;
+
+    margin-top: 20px;
+}
+
+.rabin-eingabe-gruppe {
+    display: flex;
+    flex-direction: column;
+
+    gap: 7px;
+}
+
+.rabin-eingabe-gruppe label {
+    color: #8b949e;
+
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#rabin-text,
+#rabin-muster {
+    padding: 10px 12px;
+
+    background-color: #161b22;
+    color: white;
+
+    border: 1px solid #30363d;
+    border-radius: 6px;
+
+    font-family: monospace;
+    font-size: 16px;
+
+    transition: 0.2s;
+}
+
+#rabin-text {
+    width: 420px;
+    max-width: 100%;
+}
+
+#rabin-muster {
+    width: 220px;
+}
+
+#rabin-text:focus,
+#rabin-muster:focus {
+    outline: none;
+
+    border-color: #58a6ff;
+
+    box-shadow:
+        0 0 10px rgba(88, 166, 255, 0.4);
+}
+
+
+/* ========================================
+   BUTTONS
+======================================== */
+
+.rabin-buttons {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-top: 18px;
+}
+
+#rabin-start,
+#rabin-naechster-schritt,
+#rabin-auto,
+#rabin-reset {
+    padding: 10px 17px;
+
+    border: none;
+    border-radius: 6px;
+
+    color: white;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+#rabin-start {
+    background-color: #238636;
+}
+
+#rabin-naechster-schritt {
+    background-color: #1f6feb;
+}
+
+#rabin-auto {
+    background-color: #8957e5;
+}
+
+#rabin-reset {
+    background-color: #da3633;
+}
+
+#rabin-start:hover,
+#rabin-naechster-schritt:hover,
+#rabin-auto:hover,
+#rabin-reset:hover {
+    transform: translateY(-2px);
+}
+
+#rabin-naechster-schritt:disabled,
+#rabin-auto:disabled {
+    opacity: 0.45;
+
+    cursor: not-allowed;
+
+    transform: none;
+}
+
+
+/* ========================================
+   STATUS
+======================================== */
+
+.rabin-status {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 25px;
+
+    margin-top: 25px;
+    padding: 15px;
+
+    background-color: #161b22;
+
+    border: 1px solid #30363d;
+    border-radius: 8px;
+
+    color: #e6edf3;
+
+    font-family: monospace;
+}
+
+.rabin-status-label {
+    color: #8b949e;
+    font-weight: bold;
+}
+
+#rabin-position {
+    color: #58a6ff;
+    font-weight: bold;
+}
+
+#rabin-muster-hash {
+    color: #a371f7;
+    font-weight: bold;
+}
+
+#rabin-fenster-hash {
+    color: #d29922;
+    font-weight: bold;
+}
+
+
+/* ========================================
+   VISUALISIERUNG
+======================================== */
+
+.rabin-visualisierung {
+    margin-top: 25px;
+    padding: 20px;
+
+    background-color: #161b22;
+
+    border: 1px solid #30363d;
+    border-radius: 10px;
+
+    overflow-x: auto;
+}
+
+.rabin-zeile {
+    display: flex;
+    align-items: flex-start;
+
+    min-width: max-content;
+    min-height: 55px;
+
+    margin-bottom: 12px;
+}
+
+.rabin-zeile:last-child {
+    margin-bottom: 0;
+}
+
+.rabin-label {
+    width: 80px;
+    min-width: 80px;
+
+    padding-top: 9px;
+
+    color: #8b949e;
+
+    font-weight: bold;
+}
+
+#rabin-text-zeile,
+#rabin-muster-zeile {
+    display: flex;
+
+    gap: 5px;
+}
+
+
+/* ========================================
+   EINZELNE ZEICHEN
+======================================== */
+
+.rabin-zeichen {
+    width: 38px;
+    min-width: 38px;
+    height: 38px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #21262d;
+    color: #e6edf3;
+
+    border: 1px solid #30363d;
+    border-radius: 6px;
+
+    font-family: monospace;
+    font-size: 17px;
+    font-weight: bold;
+
+    box-shadow:
+        0 3px 7px rgba(0, 0, 0, 0.3);
+
+    transition: 0.25s;
+}
+
+
+/* Suchfenster */
+
+.rabin-zeichen.fenster {
+    background-color: #1f3a5f;
+
+    border-color: #58a6ff;
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 0 10px rgba(88, 166, 255, 0.5);
+}
+
+
+/* Hash stimmt nicht */
+
+.rabin-zeichen.verworfen {
+    background-color: #4a2020;
+    color: #f85149;
+
+    opacity: 0.65;
+}
+
+
+/* Hash stimmt, direkter Vergleich */
+
+.rabin-zeichen.vergleichen {
+    background-color: #d29922;
+    color: white;
+
+    transform:
+        translateY(-6px)
+        scale(1.1);
+
+    box-shadow:
+        0 0 15px rgba(210, 153, 34, 0.7);
+}
+
+
+/* Vollständiger Treffer */
+
+.rabin-zeichen.gefunden {
+    background-color: #238636;
+    color: white;
+
+    transform:
+        translateY(-6px)
+        scale(1.1);
+
+    box-shadow:
+        0 0 15px rgba(46, 200, 80, 0.7);
+}
+
+
+/* Musterzeichen */
+
+.rabin-zeichen.muster {
+    border-color: #a371f7;
+}
+
+
+/* ========================================
+   HASH-BEREICH
+======================================== */
+
+.rabin-hash-bereich {
+    margin-top: 20px;
+    padding: 18px;
+
+    background-color: #161b22;
+
+    border: 1px solid #30363d;
+    border-radius: 10px;
+}
+
+.rabin-hash-bereich h3 {
+    margin-top: 0;
+
+    color: #c9d1d9;
+}
+
+#rabin-hash-formel {
+    padding: 12px;
+
+    background-color: #0d1117;
+
+    border-left: 4px solid #8957e5;
+    border-radius: 5px;
+
+    color: #c9d1d9;
+
+    font-family: monospace;
+    line-height: 1.6;
+}
+
+
+/* ========================================
+   INFO UND AUSGABE
+======================================== */
+
+#rabin-info,
+#rabin-ausgabe {
+    margin-top: 15px;
+    padding: 14px;
+
+    background-color: #161b22;
+
+    border-radius: 6px;
+
+    color: #c9d1d9;
+
+    font-family: monospace;
+}
+
+#rabin-info {
+    border-left: 4px solid #d29922;
+}
+
+#rabin-ausgabe {
+    border-left: 4px solid #238636;
+}
+
+.rabin-treffer {
+    display: inline-block;
+
+    margin: 4px;
+    padding: 7px 10px;
+
+    background-color: #238636;
+    color: white;
+
+    border-radius: 5px;
+}
+/* ========================================
+   EVOLUTIONAERE ALGORITHMEN
+======================================== */
+
+.genetic-text-algorithmus {
+    margin-top: 30px;
+    padding: 25px;
+
+    background-color: #0d1117;
+
+    border: 1px solid #30363d;
+    border-radius: 12px;
+
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+
+/* ========================================
+   MODUS-AUSWAHL
+======================================== */
+
+.genetic-modus-bereich {
+    display: flex;
+    flex-direction: column;
+
+    gap: 7px;
+
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.genetic-modus-bereich label {
+    color: #8b949e;
+
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#genetic-modus {
+    width: 260px;
+
+    padding: 10px 12px;
+
+    background-color: #161b22;
+    color: white;
+
+    border: 1px solid #8957e5;
+    border-radius: 6px;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+#genetic-modus:focus {
+    outline: none;
+
+    border-color: #a371f7;
+
+    box-shadow:
+        0 0 10px rgba(163, 113, 247, 0.4);
+}
+
+
+/* ========================================
+   MODUS-EINGABEN
+======================================== */
+
+.genetic-modus-eingabe {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    gap: 12px;
+
+    margin-top: 10px;
+    padding: 15px;
+
+    background-color: #161b22;
+
+    border: 1px solid #30363d;
+    border-radius: 8px;
+}
+
+.genetic-modus-eingabe label {
+    color: #8b949e;
+
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.genetic-modus-eingabe input {
+    padding: 9px 11px;
+
+    background-color: #0d1117;
+    color: white;
+
+    border: 1px solid #30363d;
+    border-radius: 6px;
+
+    font-size: 15px;
+
+    transition: 0.2s;
+}
+
+.genetic-modus-eingabe input:focus {
+    outline: none;
+
+    border-color: #58a6ff;
+
+    box-shadow:
+        0 0 8px rgba(88, 166, 255, 0.35);
+}
+
+#genetic-ziel {
+    width: 240px;
+}
+
+#genetic-ziel-zahl {
+    width: 120px;
+}
+
+#genetic-ziel-x,
+#genetic-ziel-y {
+    width: 90px;
+}
+
+
+/* ========================================
+   FARB-AUSWAHL
+======================================== */
+
+#genetic-ziel-farbe {
+    width: 70px;
+    height: 42px;
+
+    padding: 3px;
+
+    cursor: pointer;
+}
+
+.genetic-farbe-vorschau {
+    width: 45px;
+    height: 45px;
+
+    background-color: #1eaae0;
+
+    border: 3px solid white;
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 15px rgba(30, 170, 224, 0.6);
+}
+
+
+/* ========================================
+   MODUS-BESCHREIBUNG
+======================================== */
+
+.genetic-modus-beschreibung {
+    width: 100%;
+
+    margin: 3px 0 0 0;
+
+    color: #8b949e;
+
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+
+/* ========================================
+   GEMEINSAME EINSTELLUNGEN
+======================================== */
+
+.genetic-eingaben {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 20px;
+
+    margin-top: 20px;
+}
+
+.genetic-eingaben > div {
+    display: flex;
+    flex-direction: column;
+
+    gap: 6px;
+}
+
+.genetic-eingaben label {
+    color: #8b949e;
+
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#genetic-population,
+#genetic-mutation {
+    width: 115px;
+
+    padding: 10px;
+
+    background-color: #161b22;
+    color: white;
+
+    border: 1px solid #30363d;
+    border-radius: 6px;
+
+    font-size: 15px;
+}
+
+#genetic-population:focus,
+#genetic-mutation:focus {
+    outline: none;
+
+    border-color: #58a6ff;
+}
+
+
+/* ========================================
+   BUTTONS
+======================================== */
+
+.genetic-buttons {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-top: 20px;
+}
+
+#genetic-start,
+#genetic-pause,
+#genetic-schritt,
+#genetic-reset {
+    padding: 10px 17px;
+
+    color: white;
+
+    border: none;
+    border-radius: 6px;
+
+    font-size: 15px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+#genetic-start {
+    background-color: #238636;
+}
+
+#genetic-pause {
+    background-color: #d29922;
+}
+
+#genetic-schritt {
+    background-color: #1f6feb;
+}
+
+#genetic-reset {
+    background-color: #da3633;
+}
+
+#genetic-start:hover,
+#genetic-pause:hover,
+#genetic-schritt:hover,
+#genetic-reset:hover {
+    transform: translateY(-2px);
+}
+
+#genetic-start:disabled,
+#genetic-pause:disabled,
+#genetic-schritt:disabled,
+#genetic-reset:disabled {
+    opacity: 0.45;
+
+    cursor: not-allowed;
+
+    transform: none;
+}
+
+
+/* ========================================
+   STATUS
+======================================== */
+
+.genetic-status {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 40px;
+
+    margin-top: 25px;
+    padding: 16px;
+
+    background-color: #161b22;
+
+    border: 1px solid #30363d;
+    border-radius: 8px;
+}
+
+.genetic-status > div {
+    display: flex;
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+.genetic-label {
+    color: #8b949e;
+
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#genetic-modus-anzeige {
+    color: #a371f7;
+
+    font-size: 20px;
+}
+
+#genetic-generation {
+    color: #58a6ff;
+
+    font-size: 22px;
+}
+
+#genetic-fitness {
+    color: #3fb950;
+
+    font-size: 22px;
+}
+
+
+/* ========================================
+   BESTER KANDIDAT + ZIEL
+======================================== */
+
+.genetic-best,
+.genetic-zielbereich {
+    margin-top: 20px;
+    padding: 18px;
+
+    background-color: #161b22;
+
+    border: 1px solid #30363d;
+    border-radius: 8px;
+}
+
+#genetic-bester,
+#genetic-ziel-anzeige {
+    margin-top: 10px;
+
+    font-family: monospace;
+    font-size: 27px;
+    font-weight: bold;
+
+    letter-spacing: 3px;
+
+    overflow-wrap: anywhere;
+}
+
+#genetic-bester {
+    color: #a371f7;
+}
+
+#genetic-ziel-anzeige {
+    color: #58a6ff;
+}
+
+
+/* ========================================
+   FARBMODUS ERGEBNIS
+======================================== */
+
+.genetic-ergebnis-farbe {
+    width: 100%;
+    max-width: 300px;
+    height: 80px;
+
+    margin-top: 15px;
+
+    background-color: #21262d;
+
+    border: 3px solid white;
+    border-radius: 10px;
+
+    box-shadow:
+        0 0 15px rgba(255, 255, 255, 0.15);
+
+    transition:
+        background-color 0.3s,
+        box-shadow 0.3s;
+}
+
+
+/* ========================================
+   KOORDINATEN-MODUS
+======================================== */
+
+.genetic-koordinaten-flaeche {
+    position: relative;
+
+    width: 700px;
+    max-width: 100%;
+    height: 450px;
+
+    margin-top: 20px;
+
+    overflow: hidden;
+
+    background-color: #161b22;
+
+    border: 2px solid #30363d;
+    border-radius: 10px;
+
+    background-image:
+        linear-gradient(
+            rgba(255, 255, 255, 0.03) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.03) 1px,
+            transparent 1px
+        );
+
+    background-size: 25px 25px;
+}
+
+
+/* Zielpunkt */
+
+#genetic-ziel-punkt {
+    position: absolute;
+
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #da3633;
+    color: white;
+
+    border: 3px solid white;
+    border-radius: 50%;
+
+    font-size: 10px;
+    font-weight: bold;
+
+    transform: translate(-50%, -50%);
+
+    box-shadow:
+        0 0 16px rgba(248, 81, 73, 0.7);
+
+    transition:
+        left 0.3s,
+        top 0.3s;
+}
+
+
+/* Bester Kandidat */
+
+#genetic-bester-punkt {
+    position: absolute;
+
+    width: 32px;
+    height: 32px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #238636;
+    color: white;
+
+    border: 3px solid white;
+    border-radius: 50%;
+
+    font-size: 9px;
+    font-weight: bold;
+
+    transform: translate(-50%, -50%);
+
+    box-shadow:
+        0 0 16px rgba(46, 200, 80, 0.7);
+
+    transition:
+        left 0.25s,
+        top 0.25s;
+}
+
+
+/* ========================================
+   FORTSCHRITTSBALKEN
+======================================== */
+
+.genetic-fortschritt {
+    width: 100%;
+    height: 18px;
+
+    margin-top: 20px;
+
+    overflow: hidden;
+
+    background-color: #21262d;
+
+    border: 1px solid #30363d;
+    border-radius: 10px;
+}
+
+#genetic-fortschritt-balken {
+    width: 0%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            #8957e5,
+            #58a6ff,
+            #3fb950
+        );
+
+    border-radius: 10px;
+
+    transition: width 0.25s;
+}
+
+
+/* ========================================
+   POPULATION
+======================================== */
+
+.genetic-text-algorithmus h3 {
+    margin-top: 25px;
+
+    color: #c9d1d9;
+}
+
+#genetic-population-anzeige {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(180px, 1fr)
+        );
+
+    gap: 8px;
+
+    margin-top: 15px;
+}
+
+.genetic-kandidat {
+    padding: 9px 11px;
+
+    overflow: hidden;
+
+    background-color: #161b22;
+    color: #8b949e;
+
+    border: 1px solid #30363d;
+    border-radius: 6px;
+
+    font-family: monospace;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    transition:
+        background-color 0.2s,
+        border-color 0.2s,
+        transform 0.2s;
+}
+
+.genetic-kandidat.bester {
+    background-color: #21262d;
+    color: #3fb950;
+
+    border-color: #238636;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 0 10px rgba(46, 200, 80, 0.35);
+}
+
+
+/* ========================================
+   INFO
+======================================== */
+
+#genetic-info {
+    margin-top: 20px;
+    padding: 14px;
+
+    background-color: #161b22;
+
+    border-left: 4px solid #8957e5;
+    border-radius: 5px;
+
+    color: #c9d1d9;
+
+    font-family: monospace;
+
+    line-height: 1.5;
+}
+
+
+/* ========================================
+   VERSTECKTE MODI
+
+   Muss weit unten stehen, damit display:none
+   nicht von .genetic-modus-eingabe oder
+   .genetic-koordinaten-flaeche überschrieben
+   wird.
+======================================== */
+
+.versteckt {
+    display: none !important;
+}
+
+
+/* ========================================
+   KLEINERE BILDSCHIRME
+======================================== */
+
+@media (max-width: 600px) {
+
+    .genetic-text-algorithmus {
+        padding: 18px;
+    }
+
+    #genetic-modus {
+        width: 100%;
+    }
+
+    #genetic-ziel {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .genetic-status {
+        gap: 20px;
+    }
+
+    #genetic-bester,
+    #genetic-ziel-anzeige {
+        font-size: 21px;
+        letter-spacing: 2px;
+    }
+
+    .genetic-koordinaten-flaeche {
+        height: 300px;
+    }
+
+}
+
+/* ========================================
+   NEUROEVOLUTION: KI-RENNWAGEN
+======================================== */
+
+.ki-auto-algorithmus {
+    margin-top: 30px;
+    padding: 25px;
+
+    background-color: #0d1117;
+
+    border: 1px solid #30363d;
+    border-radius: 12px;
+
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+
+/* ========================================
+   EINSTELLUNGEN
+======================================== */
+
+.ki-auto-einstellungen {
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: wrap;
+
+    gap: 18px;
+
+    margin-top: 20px;
+}
+
+.ki-auto-einstellungen > div {
+    display: flex;
+    flex-direction: column;
+
+    gap: 6px;
+}
+
+.ki-auto-einstellungen label {
+    color: #8b949e;
+
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#ki-auto-population,
+#ki-auto-mutation,
+#ki-auto-tempo {
+    padding: 9px 11px;
+
+    background-color: #161b22;
+    color: white;
+
+    border: 1px solid #30363d;
+    border-radius: 6px;
+
+    font-size: 15px;
+}
+
+#ki-auto-population,
+#ki-auto-mutation {
+    width: 110px;
+}
+
+#ki-auto-tempo {
+    width: 100px;
+}
+
+.ki-auto-checkbox {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    min-height: 38px;
+
+    cursor: pointer;
+}
+
+
+/* ========================================
+   BUTTONS
+======================================== */
+
+.ki-auto-buttons {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-top: 20px;
+}
+
+#ki-auto-start,
+#ki-auto-pause,
+#ki-auto-naechste-generation,
+#ki-auto-reset {
+    padding: 10px 17px;
+
+    border: none;
+    border-radius: 6px;
+
+    color: white;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+#ki-auto-start {
+    background-color: #238636;
+}
+
+#ki-auto-pause {
+    background-color: #d29922;
+}
+
+#ki-auto-naechste-generation {
+    background-color: #1f6feb;
+}
+
+#ki-auto-reset {
+    background-color: #da3633;
+}
+
+#ki-auto-start:hover,
+#ki-auto-pause:hover,
+#ki-auto-naechste-generation:hover,
+#ki-auto-reset:hover {
+    transform: translateY(-2px);
+}
+
+#ki-auto-start:disabled,
+#ki-auto-pause:disabled,
+#ki-auto-naechste-generation:disabled,
+#ki-auto-reset:disabled {
+    opacity: 0.45;
+
+    cursor: not-allowed;
+
+    transform: none;
+}
+
+
+/* ========================================
+   STATUS
+======================================== */
+
+.ki-auto-status {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(150px, 1fr)
+        );
+
+    gap: 10px;
+
+    margin-top: 20px;
+}
+
+.ki-auto-status > div {
+    display: flex;
+    flex-direction: column;
+
+    gap: 5px;
+
+    padding: 14px;
+
+    background-color: #161b22;
+
+    border: 1px solid #30363d;
+    border-radius: 8px;
+}
+
+.ki-auto-status span {
+    color: #8b949e;
+
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.ki-auto-status strong {
+    color: #58a6ff;
+
+    font-family: monospace;
+    font-size: 20px;
+}
+
+#ki-auto-fitness {
+    color: #3fb950;
+}
+
+
+/* ========================================
+   LEGENDE
+======================================== */
+
+.ki-auto-legende {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 16px;
+
+    margin-top: 18px;
+
+    color: #c9d1d9;
+
+    font-size: 13px;
+}
+
+.ki-auto-legende span {
+    display: flex;
+    align-items: center;
+
+    gap: 7px;
+}
+
+.ki-auto-legende i {
+    width: 14px;
+    height: 14px;
+
+    display: inline-block;
+
+    border-radius: 3px;
+}
+
+.ki-legende-auto {
+    background-color: #58a6ff;
+}
+
+.ki-legende-bestes {
+    background-color: #3fb950;
+}
+
+.ki-legende-checkpoint {
+    background-color: #d29922;
+}
+
+.ki-legende-ziel {
+    background-color: #f85149;
+}
+
+
+/* ========================================
+   CANVAS
+======================================== */
+
+.ki-auto-canvas-container {
+    margin-top: 20px;
+
+    overflow-x: auto;
+
+    border: 1px solid #30363d;
+    border-radius: 10px;
+
+    background-color: #05070a;
+}
+
+#ki-auto-canvas {
+    display: block;
+
+    width: 100%;
+    min-width: 720px;
+    height: auto;
+
+    background-color: #05070a;
+}
+
+
+/* ========================================
+   INFORMATION
+======================================== */
+
+#ki-auto-info {
+    margin-top: 18px;
+    padding: 14px;
+
+    background-color: #161b22;
+
+    border-left: 4px solid #8957e5;
+    border-radius: 5px;
+
+    color: #c9d1d9;
+
+    font-family: monospace;
+
+    line-height: 1.5;
+}

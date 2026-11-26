@@ -308,6 +308,1309 @@
     <div id="queens-grid"></div>
 
 </section>
+<section class="kmeans-algorithmus">
+
+    <h2>K-Means Clustering</h2>
+
+    <p>
+        K-Means teilt Punkte anhand ihrer Entfernung
+        in verschiedene Gruppen ein.
+    </p>
+
+    <label for="kmeans-k">Cluster:</label>
+
+    <select id="kmeans-k">
+        <option value="2">2</option>
+        <option value="3" selected>3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select>
+
+    <button id="kmeans-start">
+        K-Means starten
+    </button>
+
+    <button id="kmeans-zufall">
+        Zufällige Punkte
+    </button>
+
+    <button id="kmeans-reset">
+        Zurücksetzen
+    </button>
+
+    <div id="kmeans-flaeche"></div>
+
+</section>
+<section class="caesar-algorithmus">
+
+    <h2>Caesar-Chiffre</h2>
+
+    <p>
+        Die Caesar-Chiffre verschiebt jeden Buchstaben
+        um eine bestimmte Anzahl im Alphabet.
+    </p>
+
+    <input
+        type="text"
+        id="caesar-text"
+        placeholder="Text eingeben"
+    >
+
+    <input
+        type="number"
+        id="caesar-shift"
+        min="1"
+        max="25"
+        value="3"
+    >
+
+    <button id="caesar-verschluesseln">
+        Verschlüsseln
+    </button>
+
+    <button id="caesar-entschluesseln">
+        Entschlüsseln
+    </button>
+
+    <button id="caesar-bruteforce">
+        Brute Force
+    </button>
+
+    <button id="caesar-reset">
+        Reset
+    </button>
+
+    <div id="caesar-ausgabe"></div>
+
+</section>
+<section class="vigenere-algorithmus">
+
+    <h2>Vigenère-Chiffre</h2>
+
+    <p>
+        Die Vigenère-Chiffre verwendet ein Schlüsselwort,
+        um jeden Buchstaben unterschiedlich zu verschieben.
+    </p>
+
+    <div class="vigenere-eingaben">
+
+        <input
+            type="text"
+            id="vigenere-text"
+            placeholder="Text eingeben"
+        >
+
+        <input
+            type="text"
+            id="vigenere-key"
+            placeholder="Schlüsselwort"
+        >
+
+    </div>
+
+    <div class="vigenere-buttons">
+
+        <button id="vigenere-verschluesseln">
+            Verschlüsseln
+        </button>
+
+        <button id="vigenere-entschluesseln">
+            Entschlüsseln
+        </button>
+
+        <button id="vigenere-reset">
+            Reset
+        </button>
+
+    </div>
+
+
+    <div id="vigenere-visualisierung">
+
+        <div class="vigenere-zeile">
+            <span class="vigenere-label">Text</span>
+            <div id="vigenere-text-zeile"></div>
+        </div>
+
+        <div class="vigenere-zeile">
+            <span class="vigenere-label">Schlüssel</span>
+            <div id="vigenere-key-zeile"></div>
+        </div>
+
+        <div class="vigenere-zeile">
+            <span class="vigenere-label">Ergebnis</span>
+            <div id="vigenere-ergebnis-zeile"></div>
+        </div>
+
+    </div>
+
+
+    <div id="vigenere-info">
+        Gib einen Text und ein Schlüsselwort ein.
+    </div>
+
+</section>
+<section class="xor-algorithmus">
+
+    <h2>XOR-Verschlüsselung</h2>
+
+    <p>
+        XOR verknüpft die Bits eines Textzeichens mit den Bits
+        eines Schlüssels. Derselbe Schlüssel kann zum Ver- und
+        Entschlüsseln verwendet werden.
+    </p>
+
+    <div class="xor-eingaben">
+
+        <input
+            type="text"
+            id="xor-text"
+            placeholder="Text eingeben"
+        >
+
+        <input
+            type="number"
+            id="xor-key"
+            min="0"
+            max="255"
+            value="42"
+            placeholder="Key"
+        >
+
+    </div>
+
+    <div class="xor-buttons">
+
+        <button id="xor-verschluesseln">
+            Verschlüsseln
+        </button>
+
+        <button id="xor-entschluesseln">
+            Entschlüsseln
+        </button>
+
+        <button id="xor-reset">
+            Reset
+        </button>
+
+    </div>
+
+    <div id="xor-visualisierung">
+
+        <div class="xor-zeile">
+            <span class="xor-label">Zeichen:</span>
+            <span id="xor-zeichen">-</span>
+        </div>
+
+        <div class="xor-zeile">
+            <span class="xor-label">Zeichen binär:</span>
+            <span id="xor-text-binaer">00000000</span>
+        </div>
+
+        <div class="xor-zeile">
+            <span class="xor-label">Schlüssel:</span>
+            <span id="xor-key-binaer">00000000</span>
+        </div>
+
+        <div class="xor-trennlinie"></div>
+
+        <div class="xor-zeile xor-ergebnis">
+            <span class="xor-label">XOR:</span>
+            <span id="xor-ergebnis-binaer">00000000</span>
+        </div>
+
+    </div>
+
+    <div id="xor-ausgabe">
+        Ergebnis erscheint hier.
+    </div>
+
+</section>
+<section class="rail-algorithmus">
+
+    <h2>Rail-Fence-Chiffre</h2>
+
+    <p>
+        Die Rail-Fence-Chiffre schreibt den Text im Zickzack
+        über mehrere Schienen und liest die Schienen anschließend
+        zeilenweise aus.
+    </p>
+
+    <div class="rail-eingaben">
+
+        <input
+            type="text"
+            id="rail-text"
+            placeholder="Text eingeben"
+        >
+
+        <label for="rail-anzahl">Schienen:</label>
+
+        <input
+            type="number"
+            id="rail-anzahl"
+            min="2"
+            max="6"
+            value="3"
+        >
+
+    </div>
+
+    <div class="rail-buttons">
+
+        <button id="rail-verschluesseln">
+            Verschlüsseln
+        </button>
+
+        <button id="rail-entschluesseln">
+            Entschlüsseln
+        </button>
+
+        <button id="rail-reset">
+            Reset
+        </button>
+
+    </div>
+
+    <div id="rail-visualisierung"></div>
+
+    <div id="rail-ausgabe">
+        Ergebnis erscheint hier.
+    </div>
+
+</section>
+<section class="playfair-algorithmus">
+
+    <h2>Playfair-Chiffre</h2>
+
+    <p>
+        Die Playfair-Chiffre verschlüsselt Buchstabenpaare
+        mithilfe einer 5 × 5-Schlüsselmatrix. I und J teilen
+        sich dabei ein gemeinsames Feld.
+    </p>
+
+    <div class="playfair-eingaben">
+
+        <input
+            type="text"
+            id="playfair-text"
+            placeholder="Text eingeben"
+        >
+
+        <input
+            type="text"
+            id="playfair-key"
+            placeholder="Schlüsselwort"
+        >
+
+    </div>
+
+    <div class="playfair-buttons">
+
+        <button id="playfair-verschluesseln">
+            Verschlüsseln
+        </button>
+
+        <button id="playfair-entschluesseln">
+            Entschlüsseln
+        </button>
+
+        <button id="playfair-reset">
+            Reset
+        </button>
+
+    </div>
+
+    <div class="playfair-arbeitsbereich">
+
+        <div class="playfair-matrix-bereich">
+
+            <h3>Schlüsselmatrix</h3>
+
+            <div id="playfair-matrix"></div>
+
+        </div>
+
+        <div class="playfair-paar-bereich">
+
+            <h3>Aktuelles Buchstabenpaar</h3>
+
+            <div id="playfair-aktuelles-paar">
+
+                <span
+                    id="playfair-paar-a"
+                    class="playfair-paar-buchstabe"
+                >
+                    -
+                </span>
+
+                <span class="playfair-paar-trenner">
+                    +
+                </span>
+
+                <span
+                    id="playfair-paar-b"
+                    class="playfair-paar-buchstabe"
+                >
+                    -
+                </span>
+
+            </div>
+
+            <div id="playfair-regel">
+                Gib Text und Schlüsselwort ein.
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="playfair-zeile">
+
+        <span class="playfair-label">
+            Paare:
+        </span>
+
+        <div id="playfair-paare"></div>
+
+    </div>
+
+    <div class="playfair-zeile">
+
+        <span class="playfair-label">
+            Ergebnis:
+        </span>
+
+        <div id="playfair-ergebnis"></div>
+
+    </div>
+
+    <div id="playfair-ausgabe">
+        Ergebnis erscheint hier.
+    </div>
+
+</section>
+<section class="aes-algorithmus">
+
+    <h2>AES-128 Visualizer</h2>
+
+    <p>
+        AES-128 verarbeitet einen Block aus 16 Bytes in einer
+        4 × 4-State-Matrix. Der Visualizer zeigt alle zehn Runden.
+    </p>
+
+    <div class="aes-eingaben">
+
+        <div class="aes-eingabe-gruppe">
+            <label for="aes-text">
+                Klartext, genau 16 ASCII-Zeichen
+            </label>
+
+            <input
+                type="text"
+                id="aes-text"
+                maxlength="16"
+                value="Hallo AES Welt!!"
+            >
+        </div>
+
+        <div class="aes-eingabe-gruppe">
+            <label for="aes-key">
+                Schlüssel, genau 16 ASCII-Zeichen
+            </label>
+
+            <input
+                type="text"
+                id="aes-key"
+                maxlength="16"
+                value="GeheimerKey1234"
+            >
+        </div>
+
+    </div>
+
+    <div class="aes-buttons">
+
+        <button id="aes-vorbereiten">
+            AES vorbereiten
+        </button>
+
+        <button id="aes-naechster-schritt">
+            Nächster Schritt
+        </button>
+
+        <button id="aes-automatisch">
+            Automatisch abspielen
+        </button>
+
+        <button id="aes-reset">
+            Reset
+        </button>
+
+    </div>
+
+    <div class="aes-status-bereich">
+
+        <div>
+            <span class="aes-status-label">Runde:</span>
+            <span id="aes-runde">-</span>
+        </div>
+
+        <div>
+            <span class="aes-status-label">Operation:</span>
+            <span id="aes-operation">Noch nicht gestartet</span>
+        </div>
+
+    </div>
+
+    <div class="aes-arbeitsbereich">
+
+        <div class="aes-matrix-bereich">
+
+            <h3>State-Matrix</h3>
+
+            <div id="aes-state-matrix"></div>
+
+        </div>
+
+        <div class="aes-matrix-bereich">
+
+            <h3>Aktueller Rundenschlüssel</h3>
+
+            <div id="aes-key-matrix"></div>
+
+        </div>
+
+    </div>
+
+    <div class="aes-byte-information">
+
+        <h3>Aktueller Zustand als Bytes</h3>
+
+        <div id="aes-byte-zeile"></div>
+
+    </div>
+
+    <div class="aes-erklaerung">
+
+        <h3 id="aes-schritt-titel">
+            AES-128 vorbereiten
+        </h3>
+
+        <p id="aes-schritt-text">
+            Gib einen 16 Zeichen langen Klartext und Schlüssel ein.
+        </p>
+
+    </div>
+
+    <div id="aes-ausgabe">
+        Verschlüsseltes Ergebnis erscheint hier.
+    </div>
+
+</section>
+<section class="aes-decrypt-algorithmus">
+
+    <h2>AES-128 Entschlüsseler</h2>
+
+    <p>
+        Dieses Modul entschlüsselt einen einzelnen AES-128-Block.
+        Die inversen AES-Schritte werden in umgekehrter
+        Rundenreihenfolge visualisiert.
+    </p>
+
+    <div class="aes-decrypt-eingaben">
+
+        <div class="aes-decrypt-eingabe-gruppe">
+
+            <label for="aes-decrypt-ciphertext">
+                Ciphertext, genau 16 Hex-Bytes
+            </label>
+
+            <input
+                type="text"
+                id="aes-decrypt-ciphertext"
+                placeholder="z. B. A1 3F 27 48 ..."
+            >
+
+        </div>
+
+        <div class="aes-decrypt-eingabe-gruppe">
+
+            <label for="aes-decrypt-key">
+                Schlüssel, genau 16 ASCII-Zeichen
+            </label>
+
+            <input
+                type="text"
+                id="aes-decrypt-key"
+                maxlength="16"
+                value="GeheimerKey1234"
+            >
+
+        </div>
+
+    </div>
+
+    <div class="aes-decrypt-buttons">
+
+        <button id="aes-decrypt-vorbereiten">
+            Entschlüsselung vorbereiten
+        </button>
+
+        <button id="aes-decrypt-naechster-schritt">
+            Nächster Schritt
+        </button>
+
+        <button id="aes-decrypt-auto">
+            Automatisch abspielen
+        </button>
+
+        <button id="aes-decrypt-reset">
+            Reset
+        </button>
+
+    </div>
+
+    <div class="aes-decrypt-status">
+
+        <div>
+            <span class="aes-decrypt-status-label">
+                Runde:
+            </span>
+
+            <span id="aes-decrypt-runde">
+                -
+            </span>
+        </div>
+
+        <div>
+            <span class="aes-decrypt-status-label">
+                Operation:
+            </span>
+
+            <span id="aes-decrypt-operation">
+                Noch nicht gestartet
+            </span>
+        </div>
+
+    </div>
+
+    <div class="aes-decrypt-arbeitsbereich">
+
+        <div class="aes-decrypt-matrix-bereich">
+
+            <h3>State-Matrix</h3>
+
+            <div id="aes-decrypt-state-matrix"></div>
+
+        </div>
+
+        <div class="aes-decrypt-matrix-bereich">
+
+            <h3>Aktueller Rundenschlüssel</h3>
+
+            <div id="aes-decrypt-key-matrix"></div>
+
+        </div>
+
+    </div>
+
+    <div class="aes-decrypt-byte-bereich">
+
+        <h3>Aktueller Zustand als Bytes</h3>
+
+        <div id="aes-decrypt-byte-zeile"></div>
+
+    </div>
+
+    <div class="aes-decrypt-erklaerung">
+
+        <h3 id="aes-decrypt-schritt-titel">
+            AES-128-Entschlüsselung vorbereiten
+        </h3>
+
+        <p id="aes-decrypt-schritt-text">
+            Füge einen AES-Ciphertext mit 16 Hex-Bytes ein
+            und verwende denselben Schlüssel wie beim Verschlüsseln.
+        </p>
+
+    </div>
+
+    <div id="aes-decrypt-ausgabe">
+        Der entschlüsselte Klartext erscheint hier.
+    </div>
+
+</section>
+<section class="rabin-karp-algorithmus">
+
+    <h2>Rabin-Karp Textsuche</h2>
+
+    <p>
+        Rabin-Karp sucht ein Muster in einem längeren Text.
+        Dabei werden Hashwerte verglichen, bevor die Zeichen
+        direkt überprüft werden.
+    </p>
+
+    <div class="rabin-eingaben">
+
+        <div class="rabin-eingabe-gruppe">
+            <label for="rabin-text">
+                Text
+            </label>
+
+            <input
+                type="text"
+                id="rabin-text"
+                value="DAS IST EIN ALGORITHMUS TEST"
+                placeholder="Text eingeben"
+            >
+        </div>
+
+        <div class="rabin-eingabe-gruppe">
+            <label for="rabin-muster">
+                Suchmuster
+            </label>
+
+            <input
+                type="text"
+                id="rabin-muster"
+                value="ALGORITHMUS"
+                placeholder="Suchmuster eingeben"
+            >
+        </div>
+
+    </div>
+
+    <div class="rabin-buttons">
+
+        <button id="rabin-start">
+            Rabin-Karp starten
+        </button>
+
+        <button id="rabin-naechster-schritt">
+            Nächster Schritt
+        </button>
+
+        <button id="rabin-auto">
+            Automatisch abspielen
+        </button>
+
+        <button id="rabin-reset">
+            Reset
+        </button>
+
+    </div>
+
+    <div class="rabin-status">
+
+        <div>
+            <span class="rabin-status-label">
+                Fensterposition:
+            </span>
+
+            <span id="rabin-position">
+                -
+            </span>
+        </div>
+
+        <div>
+            <span class="rabin-status-label">
+                Muster-Hash:
+            </span>
+
+            <span id="rabin-muster-hash">
+                -
+            </span>
+        </div>
+
+        <div>
+            <span class="rabin-status-label">
+                Fenster-Hash:
+            </span>
+
+            <span id="rabin-fenster-hash">
+                -
+            </span>
+        </div>
+
+    </div>
+
+    <div class="rabin-visualisierung">
+
+        <div class="rabin-zeile">
+            <span class="rabin-label">
+                Text:
+            </span>
+
+            <div id="rabin-text-zeile"></div>
+        </div>
+
+        <div class="rabin-zeile">
+            <span class="rabin-label">
+                Muster:
+            </span>
+
+            <div id="rabin-muster-zeile"></div>
+        </div>
+
+    </div>
+
+    <div class="rabin-hash-bereich">
+
+        <h3>Rolling Hash</h3>
+
+        <div id="rabin-hash-formel">
+            Der Algorithmus wurde noch nicht gestartet.
+        </div>
+
+    </div>
+
+    <div id="rabin-info">
+        Gib einen Text und ein Suchmuster ein.
+    </div>
+
+    <div id="rabin-ausgabe">
+        Suchergebnisse erscheinen hier.
+    </div>
+
+</section>
+<!-- =========================================
+     EVOLUTIONÄRE ALGORITHMEN
+========================================= -->
+
+<section class="genetic-text-algorithmus">
+
+    <h2>Evolutionäre Algorithmen</h2>
+
+    <p>
+        Eine Population entwickelt sich durch Fitnessbewertung,
+        Selektion, Crossover und Mutation immer näher an ein Ziel heran.
+    </p>
+
+
+    <!-- MODUS-AUSWAHL -->
+
+    <div class="genetic-modus-bereich">
+
+        <label for="genetic-modus">
+            Evolutionsmodus
+        </label>
+
+        <select id="genetic-modus">
+
+            <option value="text" selected>
+                Text Evolution
+            </option>
+
+            <option value="zahl">
+                Zahlen Evolution
+            </option>
+
+            <option value="farbe">
+                Farb Evolution
+            </option>
+
+            <option value="punkt">
+                Koordinaten Evolution
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <!-- =====================================
+         TEXT EVOLUTION
+    ====================================== -->
+
+    <div
+        id="genetic-text-bereich"
+        class="genetic-modus-eingabe"
+    >
+
+        <label for="genetic-ziel">
+            Zieltext
+        </label>
+
+        <input
+            type="text"
+            id="genetic-ziel"
+            value="ALGORITHMUS"
+            maxlength="30"
+        >
+
+        <p class="genetic-modus-beschreibung">
+            Die DNA besteht aus Zeichen. Je mehr Zeichen an der
+            richtigen Position stehen, desto höher ist die Fitness.
+        </p>
+
+    </div>
+
+
+    <!-- =====================================
+         ZAHLEN EVOLUTION
+    ====================================== -->
+
+    <div
+        id="genetic-zahl-bereich"
+        class="genetic-modus-eingabe versteckt"
+    >
+
+        <label for="genetic-ziel-zahl">
+            Zielzahl
+        </label>
+
+        <input
+            type="number"
+            id="genetic-ziel-zahl"
+            value="750"
+            min="0"
+            max="1000"
+        >
+
+        <p class="genetic-modus-beschreibung">
+            Die DNA ist eine Zahl zwischen 0 und 1000.
+            Je näher sie an der Zielzahl liegt, desto höher ist die Fitness.
+        </p>
+
+    </div>
+
+
+    <!-- =====================================
+         FARB EVOLUTION
+    ====================================== -->
+
+    <div
+        id="genetic-farbe-bereich"
+        class="genetic-modus-eingabe versteckt"
+    >
+
+        <label for="genetic-ziel-farbe">
+            Zielfarbe
+        </label>
+
+        <input
+            type="color"
+            id="genetic-ziel-farbe"
+            value="#1eaae0"
+        >
+
+        <div
+            id="genetic-farbe-vorschau"
+            class="genetic-farbe-vorschau"
+        ></div>
+
+        <p class="genetic-modus-beschreibung">
+            Die DNA besteht aus Rot-, Grün- und Blauwerten.
+            Die Population versucht, sich der Zielfarbe anzunähern.
+        </p>
+
+    </div>
+
+
+    <!-- =====================================
+         KOORDINATEN EVOLUTION
+    ====================================== -->
+
+    <div
+        id="genetic-punkt-bereich"
+        class="genetic-modus-eingabe versteckt"
+    >
+
+        <label for="genetic-ziel-x">
+            Zielposition X
+        </label>
+
+        <input
+            type="number"
+            id="genetic-ziel-x"
+            value="400"
+            min="0"
+            max="700"
+        >
+
+        <label for="genetic-ziel-y">
+            Zielposition Y
+        </label>
+
+        <input
+            type="number"
+            id="genetic-ziel-y"
+            value="200"
+            min="0"
+            max="450"
+        >
+
+        <p class="genetic-modus-beschreibung">
+            Die DNA besteht aus einer X- und Y-Koordinate.
+            Die Population versucht, den Zielpunkt zu erreichen.
+        </p>
+
+    </div>
+
+
+    <!-- =====================================
+         GEMEINSAME EINSTELLUNGEN
+    ====================================== -->
+
+    <div class="genetic-eingaben">
+
+        <div>
+
+            <label for="genetic-population">
+                Populationsgröße
+            </label>
+
+            <input
+                type="number"
+                id="genetic-population"
+                min="20"
+                max="500"
+                value="100"
+            >
+
+        </div>
+
+        <div>
+
+            <label for="genetic-mutation">
+                Mutationsrate %
+            </label>
+
+            <input
+                type="number"
+                id="genetic-mutation"
+                min="0"
+                max="50"
+                step="0.1"
+                value="2"
+            >
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================
+         STEUERUNG
+    ====================================== -->
+
+    <div class="genetic-buttons">
+
+        <button id="genetic-start">
+            Evolution starten
+        </button>
+
+        <button id="genetic-pause">
+            Pause
+        </button>
+
+        <button id="genetic-schritt">
+            Eine Generation
+        </button>
+
+        <button id="genetic-reset">
+            Reset
+        </button>
+
+    </div>
+
+
+    <!-- =====================================
+         STATUS
+    ====================================== -->
+
+    <div class="genetic-status">
+
+        <div>
+
+            <span class="genetic-label">
+                Modus
+            </span>
+
+            <strong id="genetic-modus-anzeige">
+                Text Evolution
+            </strong>
+
+        </div>
+
+        <div>
+
+            <span class="genetic-label">
+                Generation
+            </span>
+
+            <strong id="genetic-generation">
+                0
+            </strong>
+
+        </div>
+
+        <div>
+
+            <span class="genetic-label">
+                Beste Fitness
+            </span>
+
+            <strong id="genetic-fitness">
+                0 %
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================
+         BESTER KANDIDAT
+    ====================================== -->
+
+    <div class="genetic-best">
+
+        <span class="genetic-label">
+            Bester Kandidat
+        </span>
+
+        <div id="genetic-bester">
+            -
+        </div>
+
+        <!-- Nur im Farbmodus sichtbar -->
+
+        <div
+            id="genetic-bester-farbe"
+            class="genetic-ergebnis-farbe versteckt"
+        ></div>
+
+    </div>
+
+
+    <!-- =====================================
+         ZIEL
+    ====================================== -->
+
+    <div class="genetic-zielbereich">
+
+        <span class="genetic-label">
+            Ziel
+        </span>
+
+        <div id="genetic-ziel-anzeige">
+            ALGORITHMUS
+        </div>
+
+        <!-- Nur im Farbmodus sichtbar -->
+
+        <div
+            id="genetic-ziel-farbe-anzeige"
+            class="genetic-ergebnis-farbe versteckt"
+        ></div>
+
+    </div>
+
+
+    <!-- =====================================
+         KOORDINATEN-VISUALISIERUNG
+         Nur im Koordinatenmodus sichtbar
+    ====================================== -->
+
+    <div
+        id="genetic-koordinaten-flaeche"
+        class="genetic-koordinaten-flaeche versteckt"
+    >
+
+        <div id="genetic-ziel-punkt">
+            Ziel
+        </div>
+
+        <div id="genetic-bester-punkt">
+            DNA
+        </div>
+
+    </div>
+
+
+    <!-- =====================================
+         FORTSCHRITT
+    ====================================== -->
+
+    <div class="genetic-fortschritt">
+
+        <div id="genetic-fortschritt-balken"></div>
+
+    </div>
+
+
+    <!-- =====================================
+         POPULATION
+    ====================================== -->
+
+    <h3>Aktuelle Population</h3>
+
+    <div id="genetic-population-anzeige"></div>
+
+
+    <!-- =====================================
+         INFORMATION
+    ====================================== -->
+
+    <div id="genetic-info">
+        Wähle einen Evolutionsmodus und starte den Algorithmus.
+    </div>
+
+</section>
+<section class="ki-auto-algorithmus">
+
+    <h2>Neuroevolution: KI-Rennwagen</h2>
+
+    <p>
+        Mehrere Autos werden durch kleine neuronale Netze gesteuert.
+        Die besten Netze werden ausgewählt, kombiniert und mutiert,
+        damit spätere Generationen die Rennstrecke besser bewältigen.
+    </p>
+
+    <div class="ki-auto-einstellungen">
+
+        <div>
+            <label for="ki-auto-population">
+                Autos pro Generation
+            </label>
+
+            <input
+                type="number"
+                id="ki-auto-population"
+                min="10"
+                max="100"
+                value="40"
+            >
+        </div>
+
+        <div>
+            <label for="ki-auto-mutation">
+                Mutationsrate %
+            </label>
+
+            <input
+                type="number"
+                id="ki-auto-mutation"
+                min="0"
+                max="50"
+                step="0.5"
+                value="8"
+            >
+        </div>
+
+        <div>
+            <label for="ki-auto-tempo">
+                Trainingsgeschwindigkeit
+            </label>
+
+            <select id="ki-auto-tempo">
+                <option value="1">1×</option>
+                <option value="3">3×</option>
+                <option value="8">8×</option>
+                <option value="20">20×</option>
+            </select>
+        </div>
+
+        <label class="ki-auto-checkbox">
+
+            <input
+                type="checkbox"
+                id="ki-auto-sensoren"
+                checked
+            >
+
+            Sensoren des besten Autos anzeigen
+
+        </label>
+
+    </div>
+
+    <div class="ki-auto-buttons">
+
+        <button id="ki-auto-start">
+            Training starten
+        </button>
+
+        <button id="ki-auto-pause">
+            Pause
+        </button>
+
+        <button id="ki-auto-naechste-generation">
+            Nächste Generation
+        </button>
+
+        <button id="ki-auto-reset">
+            Reset
+        </button>
+
+    </div>
+
+    <div class="ki-auto-status">
+
+        <div>
+            <span>Generation</span>
+            <strong id="ki-auto-generation">1</strong>
+        </div>
+
+        <div>
+            <span>Lebende Autos</span>
+            <strong id="ki-auto-lebend">0 / 40</strong>
+        </div>
+
+        <div>
+            <span>Bester Checkpoint</span>
+            <strong id="ki-auto-checkpoint">0 / 8</strong>
+        </div>
+
+        <div>
+            <span>Bester Fortschritt</span>
+            <strong id="ki-auto-fitness">-</strong>
+        </div>
+
+    </div>
+
+    <div class="ki-auto-legende">
+
+        <span>
+            <i class="ki-legende-auto"></i>
+            Aktive Autos
+        </span>
+
+        <span>
+            <i class="ki-legende-bestes"></i>
+            Bestes Auto
+        </span>
+
+        <span>
+            <i class="ki-legende-checkpoint"></i>
+            Checkpoints
+        </span>
+
+        <span>
+            <i class="ki-legende-ziel"></i>
+            Ziel
+        </span>
+
+    </div>
+
+    <div class="ki-auto-canvas-container">
+
+        <canvas
+            id="ki-auto-canvas"
+            width="900"
+            height="520"
+        ></canvas>
+
+    </div>
+
+    <div id="ki-auto-info">
+        Starte das Training. Die erste Generation fährt zunächst
+        weitgehend zufällig.
+    </div>
+
+</section>
     <script src="script.js"></script>
     </body>
 </html>
