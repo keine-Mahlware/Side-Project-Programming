@@ -4721,3 +4721,52 @@ p {
 
     line-height: 1.5;
 }
+
+/* ========================================
+   GEHEIMER ZUGANG
+======================================== */
+
+body.geheim-freigeschaltet {
+    animation:
+        geheimFreischalten
+        1.2s ease;
+}
+
+body.geheim-freigeschaltet
+#suchZahl {
+    color: #3fb950;
+
+    border-color: #3fb950;
+
+    box-shadow:
+        0 0 18px
+        rgba(46, 200, 80, 0.8);
+}
+
+body.geheim-freigeschaltet
+#linear-suchen {
+    background-color: #238636;
+
+    box-shadow:
+        0 0 20px
+        rgba(46, 200, 80, 0.8);
+}
+
+@keyframes geheimFreischalten {
+
+    0% {
+        filter: brightness(1);
+    }
+
+    30% {
+        filter: brightness(1.5);
+    }
+
+    60% {
+        filter: brightness(0.8);
+    }
+
+    100% {
+        filter: brightness(1);
+    }
+}

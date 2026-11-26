@@ -26,30 +26,179 @@ let zahlen = [8,1,16,13,3,12,5,17,4,9,2,6,10,14,20,19,7,11,15,18]
 
 function warten(ms){
     return new Promise(resolve => setTimeout(resolve, ms));
+
 }
+// ========================================
+// LINEAR SEARCH + GEHEIMER CODE
+// ========================================
+//Nimm Hallo AES Welt!!  --> [V]XOR --> [E]Vigenère [Secret]--> [V]Ceasar-->[E]Rail-Fence --> Linear Search
+const geheimPasswort =
+    "64 52 40 H6 46 GW 56 ZL 47 96 00 HG 47 Z6 04 AV";
 
-linearSuchen.addEventListener("click",async function() {
-    zahlElemente.forEach(function(element) {
-    element.classList.remove("pruefen");
-    element.classList.remove("gefunden");
-    });
-    const gesucht = Number(document.getElementById("suchZahl").value);
-    for (let i = 0; i < zahlen.length; i++) {
-        zahlElemente[i].classList.add("pruefen");
 
-        await warten(300);
+const geheimEingabe =
+    document.getElementById(
+        "suchZahl"
+    );
 
-        if (zahlen[i] == gesucht){
 
-            zahlElemente[i].classList.remove("pruefen")
-            zahlElemente[i].classList.add("gefunden")
+linearSuchen.addEventListener(
+    "click",
+    async function() {
 
-            console.log("Gefunden!")
-            break;
+        // =================================
+        // EINGABE LESEN
+        // =================================
+
+        const eingabe =
+            geheimEingabe.value
+                .trim()
+                .toUpperCase();
+
+
+        // =================================
+        // GEHEIMCODE PRÜFEN
+        // =================================
+
+        if (
+            eingabe === geheimPasswort
+        ) {
+
+            document.body.classList.add(
+                "geheim-freigeschaltet"
+            );
+
+
+            linearSuchen.textContent =
+                "ACCESS GRANTED";
+
+
+            geheimEingabe.value =
+                "ZUGANG FREIGESCHALTET";
+
+
+            geheimEingabe.disabled =
+                true;
+
+
+            // Kurz warten und geheime
+            // Seite öffnen
+
+            setTimeout(
+                function() {
+
+                   window.open(
+                    "secret.html",
+                    "_blank"
+                    );
+                },
+                1200
+            );
+
+
+            // Sehr wichtig:
+            // Die normale Suche danach
+            // NICHT ausführen.
+
+            return;
         }
-        zahlElemente[i].classList.remove("pruefen")
+
+
+        // =================================
+        // NORMALE LINEAR SEARCH
+        // =================================
+
+        const gesucht =
+            Number(eingabe);
+
+
+        // Prüfen, ob tatsächlich
+        // eine Zahl eingegeben wurde
+
+        if (Number.isNaN(gesucht)) {
+
+            geheimEingabe.value = "";
+
+            geheimEingabe.placeholder =
+                "Ungültige Zahl";
+
+            return;
+        }
+
+
+        // Alte Markierungen entfernen
+
+        zahlElemente.forEach(
+            function(element) {
+
+                element.classList.remove(
+                    "pruefen"
+                );
+
+                element.classList.remove(
+                    "gefunden"
+                );
+            }
+        );
+
+
+        // =================================
+        // LINEAR SEARCH
+        // =================================
+
+        for (
+            let i = 0;
+            i < zahlen.length;
+            i++
+        ) {
+
+            zahlElemente[i]
+                .classList.add(
+                    "pruefen"
+                );
+
+
+            await warten(300);
+
+
+            if (
+                zahlen[i] === gesucht
+            ) {
+
+                zahlElemente[i]
+                    .classList.remove(
+                        "pruefen"
+                    );
+
+
+                zahlElemente[i]
+                    .classList.add(
+                        "gefunden"
+                    );
+
+
+                console.log(
+                    "Gefunden!"
+                );
+
+
+                return;
+            }
+
+
+            zahlElemente[i]
+                .classList.remove(
+                    "pruefen"
+                );
+        }
+
+
+        console.log(
+            "Zahl nicht gefunden."
+        );
     }
-});
+);
+
 
 binarySuchen.addEventListener("click", async function() {
 
