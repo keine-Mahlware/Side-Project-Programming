@@ -1,7 +1,6 @@
-
 // ========================================
 // SECRET ALGORITHM LAB
-// LEVEL 1 + LEVEL 2
+// CODE BREAKER + NEURAL VAULT REPAIR
 // ========================================
 
 
@@ -81,6 +80,15 @@ const secretZurueck =
 
 
 // ========================================
+// FREISCHALTUNGSZUSTAND
+// ========================================
+
+let secretLevel2Freigeschaltet = false;
+
+let secretLevel3Freigeschaltet = false;
+
+
+// ========================================
 // LEVEL 1: CODE BREAKER
 // ========================================
 
@@ -104,74 +112,44 @@ const secretVersucheAnzeige =
         "secret-versuche-anzahl"
     );
 
-let secretVersuche = 0;
-
 const secretCodeLoesung =
     "HELLO WORLD";
 
+let secretVersuche = 0;
+
 
 // ========================================
-// LEVEL 2: NEURAL VAULT ELEMENTE
+// LEVEL 2: ARCHITEKTUR
 // ========================================
 
-const neuralLernrateInput =
-    document.getElementById(
-        "neural-lernrate"
+const neuralArchitekturOptionen =
+    document.querySelectorAll(
+        ".neural-architektur-option"
     );
 
-const neuralTempoInput =
+const neuralArchitekturPruefen =
     document.getElementById(
-        "neural-tempo"
+        "neural-architektur-pruefen"
     );
 
-const neuralStart =
+const neuralArchitekturInfo =
     document.getElementById(
-        "neural-start"
+        "neural-architektur-info"
     );
 
-const neuralPause =
+const neuralArchitekturStatus =
     document.getElementById(
-        "neural-pause"
+        "neural-architektur-status"
     );
 
-const neuralEinzelschritt =
+const neuralPhaseGewichte =
     document.getElementById(
-        "neural-einzelschritt"
+        "neural-phase-gewichte"
     );
 
-const neuralReset =
+const neuralGewichteStatus =
     document.getElementById(
-        "neural-reset"
-    );
-
-const neuralEpochAnzeige =
-    document.getElementById(
-        "neural-epoch"
-    );
-
-const neuralGenauigkeitAnzeige =
-    document.getElementById(
-        "neural-genauigkeit"
-    );
-
-const neuralFehlerAnzeige =
-    document.getElementById(
-        "neural-fehler"
-    );
-
-const neuralStabilAnzeige =
-    document.getElementById(
-        "neural-stabil"
-    );
-
-const neuralFortschrittBalken =
-    document.getElementById(
-        "neural-fortschritt-balken"
-    );
-
-const neuralInfo =
-    document.getElementById(
-        "neural-info"
+        "neural-gewichte-status"
     );
 
 const neuralModulStatus =
@@ -179,572 +157,635 @@ const neuralModulStatus =
         "neural-modul-status"
     );
 
-const neuralOutputNeuron =
+let neuralGewaehlteArchitektur = null;
+
+let neuralArchitekturKorrekt = false;
+
+
+// ========================================
+// LEVEL 2: GEWICHTE
+// ========================================
+
+const neuralGewichtH1B =
     document.getElementById(
-        "neural-output-neuron"
+        "neural-gewicht-h1-b"
     );
 
-const neuralVerbindungen =
-    document.querySelectorAll(
-        ".neural-verbindung"
+const neuralGewichtH2A =
+    document.getElementById(
+        "neural-gewicht-h2-a"
     );
 
-const neuralNeuronen =
-    document.querySelectorAll(
-        ".neural-neuron"
+const neuralBiasOutput =
+    document.getElementById(
+        "neural-bias-output"
     );
 
-const neuralDatenzeilen = [
+const neuralNetzTesten =
     document.getElementById(
-        "neural-daten-0"
-    ),
-    document.getElementById(
-        "neural-daten-1"
-    ),
-    document.getElementById(
-        "neural-daten-2"
-    ),
-    document.getElementById(
-        "neural-daten-3"
-    )
-];
-
-const neuralVorhersagen = [
-    document.getElementById(
-        "neural-vorhersage-0"
-    ),
-    document.getElementById(
-        "neural-vorhersage-1"
-    ),
-    document.getElementById(
-        "neural-vorhersage-2"
-    ),
-    document.getElementById(
-        "neural-vorhersage-3"
-    )
-];
-
-const neuralErgebnisse = [
-    document.getElementById(
-        "neural-ergebnis-0"
-    ),
-    document.getElementById(
-        "neural-ergebnis-1"
-    ),
-    document.getElementById(
-        "neural-ergebnis-2"
-    ),
-    document.getElementById(
-        "neural-ergebnis-3"
-    )
-];
-
-
-// ========================================
-// FREISCHALTUNGSZUSTAND
-// ========================================
-
-let secretLevel2Freigeschaltet = false;
-let secretLevel3Freigeschaltet = false;
-
-
-// ========================================
-// XOR-TRAININGSDATEN
-// ========================================
-
-const neuralTrainingsDaten = [
-
-    {
-        eingaben: [0, 0],
-        ziel: 0
-    },
-
-    {
-        eingaben: [0, 1],
-        ziel: 1
-    },
-
-    {
-        eingaben: [1, 0],
-        ziel: 1
-    },
-
-    {
-        eingaben: [1, 1],
-        ziel: 0
-    }
-
-];
-
-
-// ========================================
-// NEURONALES NETZ
-//
-// 2 Eingaben
-// 4 versteckte Neuronen
-// 1 Ausgabe
-// ========================================
-
-let neuralNetz = null;
-
-let neuralEpoch = 0;
-
-let neuralStabileEpochen = 0;
-
-let neuralTrainingLaeuft = false;
-
-let neuralTrainingPausiert = false;
-
-let neuralAnimationId = null;
-
-let neuralVaultGeloest = false;
-
-
-// ========================================
-// MATHEMATISCHE HILFSFUNKTIONEN
-// ========================================
-
-function neuralZufallsGewicht() {
-
-    return (
-        Math.random() * 2 - 1
+        "neural-netz-testen"
     );
-}
+
+const neuralNaechsterTest =
+    document.getElementById(
+        "neural-naechster-test"
+    );
+
+const neuralRepairReset =
+    document.getElementById(
+        "neural-repair-reset"
+    );
+
+const neuralKorrektAnzeige =
+    document.getElementById(
+        "neural-korrekt-anzahl"
+    );
+
+const neuralVersucheAnzeige =
+    document.getElementById(
+        "neural-versuche"
+    );
+
+const neuralVaultStatus =
+    document.getElementById(
+        "neural-vault-status"
+    );
+
+const neuralFortschrittBalken =
+    document.getElementById(
+        "neural-repair-fortschritt-balken"
+    );
+
+const neuralRepairInfo =
+    document.getElementById(
+        "neural-repair-info"
+    );
 
 
-function neuralSigmoid(wert) {
+// ========================================
+// LIVE-ANZEIGE
+// ========================================
 
-    return (
-        1 /
-        (
-            1 + Math.exp(-wert)
+const neuralLiveA =
+    document.getElementById(
+        "neural-live-a"
+    );
+
+const neuralLiveB =
+    document.getElementById(
+        "neural-live-b"
+    );
+
+const neuralLiveH1 =
+    document.getElementById(
+        "neural-live-h1"
+    );
+
+const neuralLiveH2 =
+    document.getElementById(
+        "neural-live-h2"
+    );
+
+const neuralLiveOutput =
+    document.getElementById(
+        "neural-live-output"
+    );
+
+const neuralLiveZiel =
+    document.getElementById(
+        "neural-live-ziel"
+    );
+
+const neuralLiveStatus =
+    document.getElementById(
+        "neural-live-status"
+    );
+
+
+// ========================================
+// NEURONEN
+// ========================================
+
+const neuralInputA =
+    document.getElementById(
+        "neural-input-a"
+    );
+
+const neuralInputB =
+    document.getElementById(
+        "neural-input-b"
+    );
+
+const neuralHidden1 =
+    document.getElementById(
+        "neural-hidden-1"
+    );
+
+const neuralHidden2 =
+    document.getElementById(
+        "neural-hidden-2"
+    );
+
+const neuralOutput =
+    document.getElementById(
+        "neural-output"
+    );
+
+
+// ========================================
+// TESTTABELLEN-ELEMENTE
+// ========================================
+
+const neuralTestZeilen = [];
+
+const neuralH1Anzeigen = [];
+
+const neuralH2Anzeigen = [];
+
+const neuralOutputAnzeigen = [];
+
+const neuralResultatAnzeigen = [];
+
+
+for (
+    let index = 0;
+    index < 4;
+    index++
+) {
+
+    neuralTestZeilen.push(
+        document.getElementById(
+            "neural-test-zeile-"
+            + index
+        )
+    );
+
+
+    neuralH1Anzeigen.push(
+        document.getElementById(
+            "neural-h1-"
+            + index
+        )
+    );
+
+
+    neuralH2Anzeigen.push(
+        document.getElementById(
+            "neural-h2-"
+            + index
+        )
+    );
+
+
+    neuralOutputAnzeigen.push(
+        document.getElementById(
+            "neural-output-"
+            + index
+        )
+    );
+
+
+    neuralResultatAnzeigen.push(
+        document.getElementById(
+            "neural-resultat-"
+            + index
         )
     );
 }
 
 
-function neuralSigmoidAbleitung(
-    ausgabe
-) {
+// ========================================
+// XOR-TESTDATEN
+// ========================================
 
-    return (
-        ausgabe
-        *
-        (1 - ausgabe)
-    );
+const neuralTestDaten = [
+
+    {
+        a: 0,
+        b: 0,
+        ziel: 0
+    },
+
+    {
+        a: 0,
+        b: 1,
+        ziel: 1
+    },
+
+    {
+        a: 1,
+        b: 0,
+        ziel: 1
+    },
+
+    {
+        a: 1,
+        b: 1,
+        ziel: 0
+    }
+
+];
+
+
+// ========================================
+// NEURAL-ZUSTAND
+// ========================================
+
+let neuralTestErgebnisse = [];
+
+let neuralAktuellerTest = 0;
+
+let neuralVersuche = 0;
+
+let neuralVaultGeloest = false;
+
+
+// ========================================
+// SCHWELLENFUNKTION
+// ========================================
+
+function neuralSchwelle(wert) {
+
+    if (wert >= 0) {
+
+        return 1;
+    }
+
+
+    return 0;
 }
 
 
 // ========================================
-// NETZ ERZEUGEN
+// NETZWERK AUSFÜHREN
 // ========================================
 
-function neuralNetzErzeugen() {
-
-    const netz = {
-
-        eingabeVersteckt: [],
-
-        verstecktBias: [],
-
-        verstecktAusgabe: [],
-
-        ausgabeBias:
-            neuralZufallsGewicht()
-    };
-
-
-    for (
-        let neuron = 0;
-        neuron < 4;
-        neuron++
-    ) {
-
-        netz.eingabeVersteckt[
-            neuron
-        ] = [
-
-            neuralZufallsGewicht(),
-
-            neuralZufallsGewicht()
-        ];
-
-
-        netz.verstecktBias[
-            neuron
-        ] =
-            neuralZufallsGewicht();
-
-
-        netz.verstecktAusgabe[
-            neuron
-        ] =
-            neuralZufallsGewicht();
-    }
-
-
-    return netz;
-}
-
-
-// ========================================
-// VORWÄRTSLAUF
-// ========================================
-
-function neuralVorwaerts(
-    eingaben
+function neuralNetzBerechnen(
+    a,
+    b
 ) {
 
-    const versteckt = [];
+    const gewichtH1B =
+        Number(
+            neuralGewichtH1B.value
+        );
 
 
-    for (
-        let neuron = 0;
-        neuron < 4;
-        neuron++
-    ) {
-
-        let summe =
-            neuralNetz
-                .verstecktBias[
-                    neuron
-                ];
+    const gewichtH2A =
+        Number(
+            neuralGewichtH2A.value
+        );
 
 
-        summe +=
-            eingaben[0]
-            *
-            neuralNetz
-                .eingabeVersteckt[
-                    neuron
-                ][0];
+    const outputBias =
+        Number(
+            neuralBiasOutput.value
+        );
 
 
-        summe +=
-            eingaben[1]
-            *
-            neuralNetz
-                .eingabeVersteckt[
-                    neuron
-                ][1];
+    // H1:
+    // A-Gewicht = 1
+    // B-Gewicht = Benutzerauswahl
+    // Bias = -0.5
+
+    const h1Summe =
+        a * 1
+        +
+        b * gewichtH1B
+        -
+        0.5;
 
 
-        versteckt[neuron] =
-            neuralSigmoid(
-                summe
-            );
-    }
+    const h1 =
+        neuralSchwelle(
+            h1Summe
+        );
 
 
-    let ausgabeSumme =
-        neuralNetz.ausgabeBias;
+    // H2:
+    // A-Gewicht = Benutzerauswahl
+    // B-Gewicht = -1
+    // Bias = 1.5
+
+    const h2Summe =
+        a * gewichtH2A
+        +
+        b * -1
+        +
+        1.5;
 
 
-    for (
-        let neuron = 0;
-        neuron < 4;
-        neuron++
-    ) {
-
-        ausgabeSumme +=
-            versteckt[neuron]
-            *
-            neuralNetz
-                .verstecktAusgabe[
-                    neuron
-                ];
-    }
+    const h2 =
+        neuralSchwelle(
+            h2Summe
+        );
 
 
-    const ausgabe =
-        neuralSigmoid(
-            ausgabeSumme
+    // Output:
+    // H1-Gewicht = 1
+    // H2-Gewicht = 1
+    // Bias = Benutzerauswahl
+
+    const outputSumme =
+        h1 * 1
+        +
+        h2 * 1
+        +
+        outputBias;
+
+
+    const output =
+        neuralSchwelle(
+            outputSumme
         );
 
 
     return {
 
-        versteckt: versteckt,
+        a: a,
 
-        ausgabe: ausgabe
+        b: b,
+
+        h1: h1,
+
+        h2: h2,
+
+        output: output,
+
+        h1Summe: h1Summe,
+
+        h2Summe: h2Summe,
+
+        outputSumme: outputSumme
     };
 }
 
 
 // ========================================
-// EIN TRAININGSSCHRITT
+// ARCHITEKTUR AUSWÄHLEN
 // ========================================
 
-function neuralBeispielTrainieren(
-    trainingsBeispiel,
-    lernrate
+function neuralArchitekturAuswaehlen(
+    option
 ) {
 
-    const eingaben =
-        trainingsBeispiel.eingaben;
+    neuralArchitekturOptionen.forEach(
+        function(element) {
 
-    const ziel =
-        trainingsBeispiel.ziel;
-
-
-    const vorwaerts =
-        neuralVorwaerts(
-            eingaben
-        );
-
-
-    const ausgabe =
-        vorwaerts.ausgabe;
-
-    const versteckt =
-        vorwaerts.versteckt;
-
-
-    const ausgabeFehler =
-        ziel - ausgabe;
-
-
-    const ausgabeDelta =
-        ausgabeFehler
-        *
-        neuralSigmoidAbleitung(
-            ausgabe
-        );
-
-
-    const alteAusgabeGewichte =
-        [
-            ...neuralNetz
-                .verstecktAusgabe
-        ];
-
-
-    for (
-        let neuron = 0;
-        neuron < 4;
-        neuron++
-    ) {
-
-        neuralNetz
-            .verstecktAusgabe[
-                neuron
-            ] +=
-                lernrate
-                *
-                ausgabeDelta
-                *
-                versteckt[neuron];
-    }
-
-
-    neuralNetz.ausgabeBias +=
-        lernrate
-        *
-        ausgabeDelta;
-
-
-    for (
-        let neuron = 0;
-        neuron < 4;
-        neuron++
-    ) {
-
-        const verstecktFehler =
-            ausgabeDelta
-            *
-            alteAusgabeGewichte[
-                neuron
-            ];
-
-
-        const verstecktDelta =
-            verstecktFehler
-            *
-            neuralSigmoidAbleitung(
-                versteckt[neuron]
+            element.classList.remove(
+                "ausgewaehlt",
+                "falsch"
             );
-
-
-        neuralNetz
-            .eingabeVersteckt[
-                neuron
-            ][0] +=
-                lernrate
-                *
-                verstecktDelta
-                *
-                eingaben[0];
-
-
-        neuralNetz
-            .eingabeVersteckt[
-                neuron
-            ][1] +=
-                lernrate
-                *
-                verstecktDelta
-                *
-                eingaben[1];
-
-
-        neuralNetz
-            .verstecktBias[
-                neuron
-            ] +=
-                lernrate
-                *
-                verstecktDelta;
-    }
-
-
-    return (
-        ausgabeFehler
-        *
-        ausgabeFehler
+        }
     );
+
+
+    option.classList.add(
+        "ausgewaehlt"
+    );
+
+
+    neuralGewaehlteArchitektur =
+        option.dataset.architektur;
+
+
+    neuralArchitekturInfo.classList.remove(
+        "richtig",
+        "falsch"
+    );
+
+
+    neuralArchitekturInfo.textContent =
+        "Ausgewählt: "
+        + neuralGewaehlteArchitektur;
 }
 
 
 // ========================================
-// EINE EPOCHE TRAINIEREN
+// ARCHITEKTUR PRÜFEN
 // ========================================
 
-function neuralEineEpoche() {
+function neuralArchitekturValidieren() {
 
-    if (neuralVaultGeloest) {
+    if (
+        neuralGewaehlteArchitektur
+        === null
+    ) {
 
-        return;
-    }
-
-
-    const lernrate =
-        Number(
-            neuralLernrateInput.value
+        neuralArchitekturInfo.classList.add(
+            "falsch"
         );
 
 
-    if (
-        Number.isNaN(lernrate)
-        ||
-        lernrate < 0.05
-        ||
-        lernrate > 1
-    ) {
-
-        neuralInfo.textContent =
-            "Learning Rate muss zwischen 0.05 und 1 liegen.";
-
-        neuralTrainingPausiert =
-            true;
+        neuralArchitekturInfo.textContent =
+            "Keine Architektur ausgewählt.";
 
         return;
     }
 
 
-    let gesamtFehler = 0;
+    if (
+        neuralGewaehlteArchitektur
+        !== "2-2-1"
+    ) {
 
+        neuralArchitekturOptionen.forEach(
+            function(element) {
 
-    /*
-        Reihenfolge zufällig mischen.
-    */
+                if (
+                    element.classList
+                        .contains(
+                            "ausgewaehlt"
+                        )
+                ) {
 
-    const gemischt =
-        [...neuralTrainingsDaten]
-            .sort(
-                function() {
-
-                    return (
-                        Math.random()
-                        - 0.5
+                    element.classList.add(
+                        "falsch"
                     );
                 }
-            );
+            }
+        );
 
 
-    for (
-        const beispiel
-        of gemischt
-    ) {
+        neuralArchitekturInfo.classList.remove(
+            "richtig"
+        );
 
-        gesamtFehler +=
-            neuralBeispielTrainieren(
-                beispiel,
-                lernrate
-            );
+
+        neuralArchitekturInfo.classList.add(
+            "falsch"
+        );
+
+
+        if (
+            neuralGewaehlteArchitektur
+            === "2-1"
+        ) {
+
+            neuralArchitekturInfo.textContent =
+                "ARCHITECTURE REJECTED: XOR ist nicht linear separierbar. Eine einzelne Ausgabeschicht reicht nicht aus.";
+
+        } else {
+
+            neuralArchitekturInfo.textContent =
+                "ARCHITECTURE REJECTED: Das Sicherheitssystem benötigt genau einen binären Ausgang.";
+        }
+
+
+        return;
     }
 
 
-    neuralEpoch++;
+    neuralArchitekturKorrekt = true;
 
 
-    const durchschnittFehler =
-        gesamtFehler
-        /
-        neuralTrainingsDaten.length;
+    neuralArchitekturStatus.textContent =
+        "VERIFIED";
 
 
-    const auswertung =
-        neuralNetzAuswerten();
-
-
-    if (
-        auswertung.genauigkeit
-        === 100
-    ) {
-
-        neuralStabileEpochen++;
-
-    } else {
-
-        neuralStabileEpochen = 0;
-    }
-
-
-    neuralAnzeigeAktualisieren(
-        auswertung,
-        durchschnittFehler
+    neuralArchitekturStatus.classList.add(
+        "verifiziert"
     );
 
 
-    if (
-        neuralStabileEpochen >= 8
-    ) {
+    neuralArchitekturInfo.classList.remove(
+        "falsch"
+    );
 
-        neuralVaultAbschliessen();
-    }
+
+    neuralArchitekturInfo.classList.add(
+        "richtig"
+    );
+
+
+    neuralArchitekturInfo.textContent =
+        "ARCHITECTURE ACCEPTED: Die versteckte Schicht kann nichtlineare XOR-Muster abbilden.";
+
+
+    neuralArchitekturPruefen.disabled =
+        true;
+
+
+    neuralArchitekturOptionen.forEach(
+        function(element) {
+
+            element.disabled = true;
+        }
+    );
+
+
+    neuralPhaseGewichte.classList.remove(
+        "neural-gesperrt"
+    );
+
+
+    neuralGewichteStatus.textContent =
+        "REPAIR ACTIVE";
+
+
+    neuralNetzTesten.disabled =
+        false;
+
+
+    neuralRepairReset.disabled =
+        false;
+
+
+    neuralRepairInfo.textContent =
+        "Setze alle drei fehlenden Werte ein und teste anschließend das Netzwerk.";
 }
 
 
 // ========================================
-// NETZ AUSWERTEN
+// EINGABEN PRÜFEN
 // ========================================
 
-function neuralNetzAuswerten() {
+function neuralGewichteVollstaendig() {
 
-    const vorhersagen = [];
+    return (
+        neuralGewichtH1B.value
+        !== ""
+        &&
+        neuralGewichtH2A.value
+        !== ""
+        &&
+        neuralBiasOutput.value
+        !== ""
+    );
+}
+
+
+// ========================================
+// ALLE MUSTER TESTEN
+// ========================================
+
+function neuralNetzwerkTesten() {
+
+    if (
+        !neuralArchitekturKorrekt
+        ||
+        neuralVaultGeloest
+    ) {
+
+        return;
+    }
+
+
+    if (
+        !neuralGewichteVollstaendig()
+    ) {
+
+        neuralRepairInfo.classList.remove(
+            "erfolg"
+        );
+
+
+        neuralRepairInfo.classList.add(
+            "fehler"
+        );
+
+
+        neuralRepairInfo.textContent =
+            "REPAIR INCOMPLETE: Alle drei fehlenden Werte müssen eingesetzt werden.";
+
+        return;
+    }
+
+
+    neuralVersuche++;
+
+
+    neuralVersucheAnzeige.textContent =
+        neuralVersuche;
+
+
+    neuralTestErgebnisse = [];
+
 
     let korrekt = 0;
 
 
     for (
-        const beispiel
-        of neuralTrainingsDaten
+        let index = 0;
+        index < neuralTestDaten.length;
+        index++
     ) {
 
-        const ergebnis =
-            neuralVorwaerts(
-                beispiel.eingaben
+        const test =
+            neuralTestDaten[index];
+
+
+        const berechnung =
+            neuralNetzBerechnen(
+                test.a,
+                test.b
             );
 
 
-        const klasse =
-            ergebnis.ausgabe >= 0.5
-                ? 1
-                : 0;
-
-
         const istKorrekt =
-            klasse === beispiel.ziel;
+            berechnung.output
+            ===
+            test.ziel;
 
 
         if (istKorrekt) {
@@ -753,289 +794,420 @@ function neuralNetzAuswerten() {
         }
 
 
-        vorhersagen.push({
+        neuralTestErgebnisse.push({
 
-            wert:
-                ergebnis.ausgabe,
+            ...berechnung,
 
-            klasse: klasse,
+            ziel: test.ziel,
 
-            korrekt:
-                istKorrekt
+            korrekt: istKorrekt
         });
-    }
 
 
-    return {
-
-        vorhersagen:
-            vorhersagen,
-
-        genauigkeit:
-            (
-                korrekt
-                /
-                neuralTrainingsDaten.length
-            )
-            * 100
-    };
-}
-
-
-// ========================================
-// ANZEIGE AKTUALISIEREN
-// ========================================
-
-function neuralAnzeigeAktualisieren(
-    auswertung,
-    fehler
-) {
-
-    neuralEpochAnzeige.textContent =
-        neuralEpoch;
-
-
-    neuralGenauigkeitAnzeige.textContent =
-        auswertung.genauigkeit
-        .toFixed(0)
-        + " %";
-
-
-    neuralFehlerAnzeige.textContent =
-        fehler.toFixed(5);
-
-
-    neuralStabilAnzeige.textContent =
-        Math.min(
-            neuralStabileEpochen,
-            8
-        )
-        + " / 8";
-
-
-    const fortschritt =
-        Math.min(
-            100,
-            auswertung.genauigkeit
-            *
-            0.8
-            +
-            (
-                neuralStabileEpochen
-                /
-                8
-            )
-            *
-            20
-        );
-
-
-    neuralFortschrittBalken
-        .style.width =
-            fortschritt
-            + "%";
-
-
-    for (
-        let index = 0;
-        index <
-            auswertung
-                .vorhersagen
-                .length;
-        index++
-    ) {
-
-        const ergebnis =
-            auswertung
-                .vorhersagen[
-                    index
-                ];
-
-
-        neuralVorhersagen[
+        neuralH1Anzeigen[
             index
         ].textContent =
-            ergebnis.wert
-                .toFixed(3);
+            berechnung.h1;
 
 
-        neuralErgebnisse[
+        neuralH2Anzeigen[
+            index
+        ].textContent =
+            berechnung.h2;
+
+
+        neuralOutputAnzeigen[
+            index
+        ].textContent =
+            berechnung.output;
+
+
+        neuralResultatAnzeigen[
+            index
+        ].textContent =
+            istKorrekt
+                ? "CORRECT"
+                : "FAILED";
+
+
+        neuralTestZeilen[
             index
         ].classList.remove(
             "korrekt",
-            "falsch"
+            "falsch",
+            "aktiv"
         );
 
 
-        if (ergebnis.korrekt) {
-
-            neuralErgebnisse[
-                index
-            ].classList.add(
-                "korrekt"
-            );
-
-
-            neuralErgebnisse[
-                index
-            ].textContent =
-                "CORRECT";
-
-        } else {
-
-            neuralErgebnisse[
-                index
-            ].classList.add(
-                "falsch"
-            );
-
-
-            neuralErgebnisse[
-                index
-            ].textContent =
-                "FAILED";
-        }
+        neuralTestZeilen[
+            index
+        ].classList.add(
+            istKorrekt
+                ? "korrekt"
+                : "falsch"
+        );
     }
 
 
-    if (
-        auswertung.genauigkeit
-        === 100
-    ) {
-
-        neuralOutputNeuron
-            .classList.add(
-                "aktiv"
-            );
-
-    } else {
-
-        neuralOutputNeuron
-            .classList.remove(
-                "aktiv"
-            );
-    }
+    neuralKorrektAnzeige.textContent =
+        korrekt
+        + " / 4";
 
 
-    neuralInfo.textContent =
-        "Epoch "
-        + neuralEpoch
-        + ": Accuracy "
-        + auswertung.genauigkeit
-            .toFixed(0)
-        + "%, Loss "
-        + fehler.toFixed(5)
-        + ".";
-}
+    neuralFortschrittBalken.style.width =
+        korrekt * 25
+        + "%";
 
 
-// ========================================
-// ANIMATION
-// ========================================
+    neuralAktuellerTest = 0;
 
-function neuralAnimation() {
 
-    if (!neuralTrainingLaeuft) {
+    neuralNaechsterTest.disabled =
+        false;
 
-        neuralAnimationId = null;
+
+    neuralLiveTestAnzeigen(
+        neuralAktuellerTest
+    );
+
+
+    if (korrekt === 4) {
+
+        neuralVaultAbschliessen();
 
         return;
     }
 
 
+    neuralRepairInfo.classList.remove(
+        "erfolg"
+    );
+
+
+    neuralRepairInfo.classList.add(
+        "fehler"
+    );
+
+
+    if (korrekt === 3) {
+
+        neuralRepairInfo.textContent =
+            "VALIDATION 75 %: Nur ein Muster ist fehlerhaft. Untersuche, welches versteckte Neuron beim fehlgeschlagenen Fall falsch reagiert.";
+
+    } else if (korrekt === 2) {
+
+        neuralRepairInfo.textContent =
+            "VALIDATION 50 %: Das Netzwerk bildet nur einen Teil der XOR-Regel ab. Prüfe OR-, NAND- und Output-Schwelle.";
+
+    } else {
+
+        neuralRepairInfo.textContent =
+            "VALIDATION FAILED: Die eingesetzten Gewichte erzeugen kein verwendbares XOR-Netz.";
+    }
+}
+
+
+// ========================================
+// LIVE-TEST ANZEIGEN
+// ========================================
+
+function neuralLiveTestAnzeigen(index) {
+
     if (
-        !neuralTrainingPausiert
-        &&
-        !neuralVaultGeloest
+        neuralTestErgebnisse.length
+        === 0
     ) {
 
-        const tempo =
-            Number(
-                neuralTempoInput.value
-            );
-
-
-        for (
-            let schritt = 0;
-            schritt < tempo;
-            schritt++
-        ) {
-
-            neuralEineEpoche();
-
-
-            if (neuralVaultGeloest) {
-
-                break;
-            }
-        }
-
-
-        neuralVerbindungen.forEach(
-            function(element) {
-
-                element.classList.add(
-                    "aktiv"
-                );
-            }
-        );
-
-
-        neuralNeuronen.forEach(
-            function(element) {
-
-                element.classList.add(
-                    "aktiv"
-                );
-            }
-        );
-
-
-        setTimeout(
-            function() {
-
-                if (!neuralVaultGeloest) {
-
-                    neuralVerbindungen
-                        .forEach(
-                            function(
-                                element
-                            ) {
-
-                                element
-                                    .classList
-                                    .remove(
-                                        "aktiv"
-                                    );
-                            }
-                        );
-
-
-                    neuralNeuronen
-                        .forEach(
-                            function(
-                                element
-                            ) {
-
-                                element
-                                    .classList
-                                    .remove(
-                                        "aktiv"
-                                    );
-                            }
-                        );
-                }
-            },
-
-            90
-        );
+        return;
     }
 
 
-    neuralAnimationId =
-        requestAnimationFrame(
-            neuralAnimation
+    const ergebnis =
+        neuralTestErgebnisse[index];
+
+
+    neuralTestZeilen.forEach(
+        function(element) {
+
+            element.classList.remove(
+                "aktiv"
+            );
+        }
+    );
+
+
+    neuralTestZeilen[
+        index
+    ].classList.add(
+        "aktiv"
+    );
+
+
+    neuralLiveA.textContent =
+        ergebnis.a;
+
+    neuralLiveB.textContent =
+        ergebnis.b;
+
+    neuralLiveH1.textContent =
+        ergebnis.h1;
+
+    neuralLiveH2.textContent =
+        ergebnis.h2;
+
+    neuralLiveOutput.textContent =
+        ergebnis.output;
+
+    neuralLiveZiel.textContent =
+        ergebnis.ziel;
+
+
+    neuralLiveStatus.classList.remove(
+        "korrekt",
+        "falsch"
+    );
+
+
+    if (ergebnis.korrekt) {
+
+        neuralLiveStatus.classList.add(
+            "korrekt"
         );
+
+
+        neuralLiveStatus.textContent =
+            "MATCH: Netzwerk-Ausgabe entspricht dem XOR-Ziel.";
+
+    } else {
+
+        neuralLiveStatus.classList.add(
+            "falsch"
+        );
+
+
+        neuralLiveStatus.textContent =
+            "MISMATCH: Erwartet "
+            + ergebnis.ziel
+            + ", Netzwerk liefert "
+            + ergebnis.output
+            + ".";
+    }
+
+
+    neuralNeuronStatusSetzen(
+        neuralInputA,
+        ergebnis.a
+    );
+
+
+    neuralNeuronStatusSetzen(
+        neuralInputB,
+        ergebnis.b
+    );
+
+
+    neuralNeuronStatusSetzen(
+        neuralHidden1,
+        ergebnis.h1
+    );
+
+
+    neuralNeuronStatusSetzen(
+        neuralHidden2,
+        ergebnis.h2
+    );
+
+
+    neuralNeuronStatusSetzen(
+        neuralOutput,
+        ergebnis.output
+    );
+
+
+    neuralOutput.classList.remove(
+        "falsches-ergebnis"
+    );
+
+
+    if (!ergebnis.korrekt) {
+
+        neuralOutput.classList.add(
+            "falsches-ergebnis"
+        );
+    }
+}
+
+
+// ========================================
+// NEURONENSTATUS
+// ========================================
+
+function neuralNeuronStatusSetzen(
+    element,
+    wert
+) {
+
+    element.classList.remove(
+        "aktiv",
+        "inaktiv",
+        "falsches-ergebnis"
+    );
+
+
+    element.classList.add(
+        wert === 1
+            ? "aktiv"
+            : "inaktiv"
+    );
+}
+
+
+// ========================================
+// NÄCHSTES MUSTER
+// ========================================
+
+function neuralNaechstesMuster() {
+
+    if (
+        neuralTestErgebnisse.length
+        === 0
+    ) {
+
+        return;
+    }
+
+
+    neuralAktuellerTest++;
+
+
+    if (
+        neuralAktuellerTest
+        >=
+        neuralTestErgebnisse.length
+    ) {
+
+        neuralAktuellerTest = 0;
+    }
+
+
+    neuralLiveTestAnzeigen(
+        neuralAktuellerTest
+    );
+}
+
+
+// ========================================
+// REPAIR-WERTE ZURÜCKSETZEN
+// ========================================
+
+function neuralRepairZuruecksetzen() {
+
+    if (neuralVaultGeloest) {
+
+        return;
+    }
+
+
+    neuralGewichtH1B.value = "";
+
+    neuralGewichtH2A.value = "";
+
+    neuralBiasOutput.value = "";
+
+
+    neuralTestErgebnisse = [];
+
+    neuralAktuellerTest = 0;
+
+
+    neuralKorrektAnzeige.textContent =
+        "0 / 4";
+
+
+    neuralFortschrittBalken.style.width =
+        "0%";
+
+
+    neuralNaechsterTest.disabled =
+        true;
+
+
+    neuralRepairInfo.classList.remove(
+        "erfolg",
+        "fehler"
+    );
+
+
+    neuralRepairInfo.textContent =
+        "Werte zurückgesetzt. Rekonstruiere das Netzwerk erneut.";
+
+
+    neuralLiveA.textContent = "-";
+    neuralLiveB.textContent = "-";
+    neuralLiveH1.textContent = "-";
+    neuralLiveH2.textContent = "-";
+    neuralLiveOutput.textContent = "-";
+    neuralLiveZiel.textContent = "-";
+
+
+    neuralLiveStatus.classList.remove(
+        "korrekt",
+        "falsch"
+    );
+
+
+    neuralLiveStatus.textContent =
+        "Netzwerk noch nicht getestet.";
+
+
+    neuralTestZeilen.forEach(
+        function(element) {
+
+            element.classList.remove(
+                "aktiv",
+                "korrekt",
+                "falsch"
+            );
+        }
+    );
+
+
+    for (
+        let index = 0;
+        index < 4;
+        index++
+    ) {
+
+        neuralH1Anzeigen[index]
+            .textContent = "-";
+
+        neuralH2Anzeigen[index]
+            .textContent = "-";
+
+        neuralOutputAnzeigen[index]
+            .textContent = "-";
+
+        neuralResultatAnzeigen[index]
+            .textContent = "WAITING";
+    }
+
+
+    [
+        neuralInputA,
+        neuralInputB,
+        neuralHidden1,
+        neuralHidden2,
+        neuralOutput
+    ].forEach(
+        function(element) {
+
+            element.classList.remove(
+                "aktiv",
+                "inaktiv",
+                "falsches-ergebnis"
+            );
+        }
+    );
 }
 
 
@@ -1053,192 +1225,58 @@ function neuralVaultAbschliessen() {
 
     neuralVaultGeloest = true;
 
-    neuralTrainingPausiert = true;
 
-
-    neuralFortschrittBalken
-        .style.width =
-            "100%";
-
-
-    neuralInfo.classList.add(
-        "erfolg"
-    );
-
-
-    neuralInfo.textContent =
-        "NEURAL PATTERN ACCEPTED // VAULT UNLOCKED // MODULE 03 AVAILABLE";
+    neuralVaultStatus.textContent =
+        "OPEN";
 
 
     neuralModulStatus.textContent =
         "ACCESS GRANTED";
 
 
-    neuralStart.disabled = true;
-
-    neuralPause.disabled = true;
-
-    neuralEinzelschritt.disabled =
-        true;
-
-    neuralLernrateInput.disabled =
-        true;
+    neuralGewichteStatus.textContent =
+        "CORE RESTORED";
 
 
-    neuralNeuronen.forEach(
-        function(element) {
+    neuralFortschrittBalken.style.width =
+        "100%";
 
-            element.classList.add(
-                "aktiv"
-            );
-        }
+
+    neuralRepairInfo.classList.remove(
+        "fehler"
     );
 
 
-    neuralVerbindungen.forEach(
-        function(element) {
-
-            element.classList.add(
-                "aktiv"
-            );
-        }
-    );
-
-
-    secretLevel3Freischalten();
-}
-
-
-// ========================================
-// NEURAL NETZ RESET
-// ========================================
-
-function neuralNetzZuruecksetzen() {
-
-    neuralTrainingLaeuft = false;
-
-    neuralTrainingPausiert = false;
-
-    neuralVaultGeloest = false;
-
-
-    if (neuralAnimationId !== null) {
-
-        cancelAnimationFrame(
-            neuralAnimationId
-        );
-
-        neuralAnimationId = null;
-    }
-
-
-    neuralNetz =
-        neuralNetzErzeugen();
-
-
-    neuralEpoch = 0;
-
-    neuralStabileEpochen = 0;
-
-
-    neuralEpochAnzeige.textContent =
-        "0";
-
-    neuralGenauigkeitAnzeige.textContent =
-        "0 %";
-
-    neuralFehlerAnzeige.textContent =
-        "-";
-
-    neuralStabilAnzeige.textContent =
-        "0 / 8";
-
-
-    neuralFortschrittBalken
-        .style.width =
-            "0%";
-
-
-    neuralInfo.classList.remove(
+    neuralRepairInfo.classList.add(
         "erfolg"
     );
 
 
-    neuralInfo.textContent =
-        "Das neuronale Netz besitzt neue zufällige Gewichte. Starte das Training.";
+    neuralRepairInfo.textContent =
+        "4 / 4 PATTERNS VERIFIED // NEURAL CORE RESTORED // MODULE 03 UNLOCKED";
 
 
-    neuralModulStatus.textContent =
-        "TRAINING REQUIRED";
+    neuralNetzTesten.disabled =
+        true;
 
+    neuralRepairReset.disabled =
+        true;
 
-    neuralStart.disabled = false;
-
-    neuralPause.disabled = false;
-
-    neuralEinzelschritt.disabled =
-        false;
-
-    neuralLernrateInput.disabled =
+    neuralNaechsterTest.disabled =
         false;
 
 
-    neuralPause.textContent =
-        "PAUSE";
+    neuralGewichtH1B.disabled =
+        true;
+
+    neuralGewichtH2A.disabled =
+        true;
+
+    neuralBiasOutput.disabled =
+        true;
 
 
-    neuralNeuronen.forEach(
-        function(element) {
-
-            element.classList.remove(
-                "aktiv"
-            );
-        }
-    );
-
-
-    neuralVerbindungen.forEach(
-        function(element) {
-
-            element.classList.remove(
-                "aktiv"
-            );
-        }
-    );
-
-
-    for (
-        let index = 0;
-        index < 4;
-        index++
-    ) {
-
-        neuralVorhersagen[
-            index
-        ].textContent =
-            "-";
-
-
-        neuralErgebnisse[
-            index
-        ].textContent =
-            "WAITING";
-
-
-        neuralErgebnisse[
-            index
-        ].classList.remove(
-            "korrekt",
-            "falsch"
-        );
-
-
-        neuralDatenzeilen[
-            index
-        ].classList.remove(
-            "aktiv"
-        );
-    }
+    secretLevel3Freischalten();
 }
 
 
@@ -1262,8 +1300,7 @@ function secretAntwortPruefen() {
 
 
     if (
-        antwort ===
-        secretCodeLoesung
+        antwort === secretCodeLoesung
     ) {
 
         secretCodeStatus.classList.remove(
@@ -1280,16 +1317,12 @@ function secretAntwortPruefen() {
             "DECRYPTION SUCCESSFUL // MODULE 02 UNLOCKED";
 
 
-        secretCodeAntwort.disabled =
-            true;
+        secretCodeAntwort.disabled = true;
 
-
-        secretCodePruefen.disabled =
-            true;
+        secretCodePruefen.disabled = true;
 
 
         secretLevel2Freischalten();
-
 
         return;
     }
@@ -1322,12 +1355,10 @@ function secretLevel2Freischalten() {
     }
 
 
-    secretLevel2Freigeschaltet =
-        true;
+    secretLevel2Freigeschaltet = true;
 
 
-    secretLevel2.disabled =
-        false;
+    secretLevel2.disabled = false;
 
 
     secretLevel2.classList.remove(
@@ -1369,12 +1400,10 @@ function secretLevel3Freischalten() {
     }
 
 
-    secretLevel3Freigeschaltet =
-        true;
+    secretLevel3Freigeschaltet = true;
 
 
-    secretLevel3.disabled =
-        false;
+    secretLevel3.disabled = false;
 
 
     secretLevel3.classList.remove(
@@ -1442,7 +1471,7 @@ function secretAlleModuleAusblenden() {
 
 
 // ========================================
-// LEVELS ANZEIGEN
+// LEVELS ÖFFNEN
 // ========================================
 
 function secretLevel1Anzeigen() {
@@ -1533,10 +1562,10 @@ function secretIntroStarten() {
             secretLadeText.textContent =
                 "Authentifiziere Schlüssel...";
 
+
             secretLadebalken.style.width =
                 "45%";
         },
-
         350
     );
 
@@ -1547,10 +1576,10 @@ function secretIntroStarten() {
             secretLadeText.textContent =
                 "Lade geheime Module...";
 
+
             secretLadebalken.style.width =
                 "72%";
         },
-
         750
     );
 
@@ -1561,10 +1590,10 @@ function secretIntroStarten() {
             secretLadeText.textContent =
                 "ACCESS LEVEL VERIFIED";
 
+
             secretLadebalken.style.width =
                 "100%";
         },
-
         1150
     );
 
@@ -1580,9 +1609,7 @@ function secretIntroStarten() {
             secretHauptbereich.classList.remove(
                 "secret-versteckt"
             );
-
         },
-
         1700
     );
 }
@@ -1591,6 +1618,8 @@ function secretIntroStarten() {
 // ========================================
 // EVENT LISTENER
 // ========================================
+
+// Level 1
 
 secretCodePruefen.addEventListener(
     "click",
@@ -1610,6 +1639,8 @@ secretCodeAntwort.addEventListener(
 );
 
 
+// Levelkarten
+
 secretLevel1.addEventListener(
     "click",
     secretLevel1Anzeigen
@@ -1628,98 +1659,47 @@ secretLevel3.addEventListener(
 );
 
 
-// ========================================
-// NEURAL-BUTTONS
-// ========================================
+// Architektur
 
-neuralStart.addEventListener(
-    "click",
-    function() {
+neuralArchitekturOptionen.forEach(
+    function(option) {
 
-        if (neuralVaultGeloest) {
+        option.addEventListener(
+            "click",
+            function() {
 
-            return;
-        }
-
-
-        neuralTrainingLaeuft = true;
-
-        neuralTrainingPausiert = false;
-
-
-        neuralPause.textContent =
-            "PAUSE";
-
-
-        neuralInfo.textContent =
-            "Neural training active...";
-
-
-        if (neuralAnimationId === null) {
-
-            neuralAnimation();
-        }
+                neuralArchitekturAuswaehlen(
+                    option
+                );
+            }
+        );
     }
 );
 
 
-neuralPause.addEventListener(
+neuralArchitekturPruefen.addEventListener(
     "click",
-    function() {
-
-        if (!neuralTrainingLaeuft) {
-
-            neuralInfo.textContent =
-                "Das Training wurde noch nicht gestartet.";
-
-            return;
-        }
-
-
-        neuralTrainingPausiert =
-            !neuralTrainingPausiert;
-
-
-        if (neuralTrainingPausiert) {
-
-            neuralPause.textContent =
-                "CONTINUE";
-
-
-            neuralInfo.textContent =
-                "Training paused.";
-
-        } else {
-
-            neuralPause.textContent =
-                "PAUSE";
-
-
-            neuralInfo.textContent =
-                "Training resumed.";
-        }
-    }
+    neuralArchitekturValidieren
 );
 
 
-neuralEinzelschritt.addEventListener(
+// Netzwerk testen
+
+neuralNetzTesten.addEventListener(
     "click",
-    function() {
-
-        if (neuralVaultGeloest) {
-
-            return;
-        }
-
-
-        neuralEineEpoche();
-    }
+    neuralNetzwerkTesten
 );
 
 
-neuralReset.addEventListener(
+neuralNaechsterTest.addEventListener(
     "click",
-    neuralNetzZuruecksetzen
+    neuralNaechstesMuster
+);
+
+
+neuralRepairReset.addEventListener(
+    "click",
+    neuralRepairZuruecksetzen
 );
 
 
@@ -1737,7 +1717,5 @@ secretZurueck.addEventListener(
 // ========================================
 // START
 // ========================================
-
-neuralNetzZuruecksetzen();
 
 secretIntroStarten();
