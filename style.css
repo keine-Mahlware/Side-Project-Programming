@@ -4770,3 +4770,1056 @@ body.geheim-freigeschaltet
         filter: brightness(1);
     }
 }
+
+/* ========================================
+   ALGORITHM LAB NAVIGATION
+======================================== */
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 90px;
+}
+
+
+/* ========================================
+   NAVIGATIONSLEISTE
+======================================== */
+
+.algorithmus-nav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+
+    gap: 30px;
+
+    margin:
+        -40px
+        -40px
+        35px
+        -40px;
+
+    padding:
+        13px
+        40px;
+
+    background-color:
+        rgba(13, 17, 23, 0.97);
+
+    border-bottom:
+        1px solid #30363d;
+
+    box-shadow:
+        0 6px 20px
+        rgba(0, 0, 0, 0.35);
+
+    backdrop-filter:
+        blur(12px);
+}
+
+
+/* ========================================
+   LOGO
+======================================== */
+
+.nav-logo {
+    flex-shrink: 0;
+
+    color: #58a6ff;
+
+    font-size: 15px;
+    font-weight: bold;
+
+    letter-spacing: 2px;
+
+    user-select: none;
+}
+
+
+/* ========================================
+   NAVIGATIONSLINKS
+======================================== */
+
+.nav-links {
+    display: flex;
+    align-items: center;
+
+    gap: 5px;
+
+    flex-wrap: wrap;
+}
+
+
+/* ========================================
+   NAVIGATIONSGRUPPEN
+======================================== */
+
+.nav-gruppe {
+    position: relative;
+}
+
+
+/* ========================================
+   KATEGORIE-BUTTON
+======================================== */
+
+.nav-kategorie {
+    padding:
+        9px
+        13px;
+
+    background-color:
+        transparent;
+
+    color: #c9d1d9;
+
+    border:
+        1px solid transparent;
+
+    border-radius: 6px;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s,
+        color 0.2s,
+        border-color 0.2s;
+}
+
+
+.nav-kategorie:hover {
+    background-color: #161b22;
+
+    color: #58a6ff;
+
+    border-color: #30363d;
+}
+
+
+/* ========================================
+   DROPDOWN
+======================================== */
+
+.nav-dropdown {
+    position: absolute;
+
+    top: calc(100% + 6px);
+    left: 0;
+
+    min-width: 210px;
+
+    display: none;
+
+    padding: 7px;
+
+    background-color: #0d1117;
+
+    border:
+        1px solid #30363d;
+
+    border-radius: 8px;
+
+    box-shadow:
+        0 12px 30px
+        rgba(0, 0, 0, 0.5);
+}
+
+
+/* ========================================
+   DROPDOWN ÖFFNEN
+======================================== */
+
+.nav-gruppe:hover
+.nav-dropdown {
+
+    display: block;
+}
+
+
+/*
+    Verhindert, dass das Dropdown
+    sofort verschwindet, wenn die Maus
+    vom Button in das Menü bewegt wird.
+*/
+
+.nav-dropdown::before {
+    content: "";
+
+    position: absolute;
+
+    top: -8px;
+    left: 0;
+
+    width: 100%;
+    height: 8px;
+}
+
+
+/* ========================================
+   DROPDOWN LINKS
+======================================== */
+
+.nav-dropdown a {
+    display: block;
+
+    padding:
+        10px
+        12px;
+
+    color: #b1bac4;
+
+    border-radius: 5px;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    white-space: nowrap;
+
+    transition:
+        background-color 0.15s,
+        color 0.15s,
+        transform 0.15s;
+}
+
+
+.nav-dropdown a:hover {
+    background-color: #161b22;
+
+    color: #58a6ff;
+
+    transform:
+        translateX(4px);
+}
+
+
+/* ========================================
+   SCROLL-ZIELE
+======================================== */
+
+#linear-search,
+#binary-search,
+
+#bubble-sort,
+#selection-sort,
+#insertion-sort,
+#merge-sort,
+#quick-sort,
+
+#bfs,
+#binary-tree,
+
+#sudoku,
+#n-queens,
+
+#kmeans,
+
+#caesar,
+#vigenere,
+#xor,
+#rail-fence,
+#playfair,
+#aes,
+#aes-decrypt,
+
+#rabin-karp,
+
+#genetic,
+#neuroevolution {
+
+    scroll-margin-top: 90px;
+}
+
+
+/* ========================================
+   KLEINERE BILDSCHIRME
+======================================== */
+
+@media (max-width: 1000px) {
+
+    .algorithmus-nav {
+        align-items:
+            flex-start;
+
+        flex-direction:
+            column;
+
+        gap: 8px;
+
+        padding:
+            12px
+            20px;
+    }
+
+
+    .nav-links {
+        width: 100%;
+
+        flex-wrap: nowrap;
+
+        overflow-x: auto;
+
+        padding-bottom: 3px;
+    }
+
+
+    .nav-gruppe {
+        flex-shrink: 0;
+    }
+
+}
+
+/* ========================================
+   SUDOKU-BEREICH
+======================================== */
+
+.sudoku-bereich {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        );
+
+    align-items: start;
+
+    gap: 25px;
+
+    margin-top: 30px;
+
+    scroll-margin-top: 100px;
+}
+
+
+/*
+    Die alte Sudoku-Section hatte bereits
+    margin-top. Innerhalb des gemeinsamen
+    Bereichs wird dieser Abstand entfernt.
+*/
+
+.sudoku-bereich
+.sudoku-algorithmus {
+
+    margin-top: 0;
+}
+
+
+/* ========================================
+   SPIELBARES SUDOKU
+======================================== */
+
+.sudoku-spiel {
+    position: relative;
+
+    margin-top: 0;
+    padding: 25px;
+
+    background-color: #0d1117;
+
+    border:
+        1px solid #30363d;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 10px 25px
+        rgba(0, 0, 0, 0.3);
+}
+
+
+/* ========================================
+   HEADER
+======================================== */
+
+.sudoku-spiel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    gap: 20px;
+}
+
+
+.sudoku-spiel-header h2 {
+    margin-top: 0;
+}
+
+
+.sudoku-spiel-header p {
+    line-height: 1.55;
+}
+
+
+.sudoku-spiel-schwierigkeit {
+    min-width: 150px;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 7px;
+}
+
+
+.sudoku-spiel-schwierigkeit label {
+    color: #8b949e;
+
+    font-size: 13px;
+    font-weight: bold;
+}
+
+
+#sudoku-spiel-level {
+    padding: 10px;
+
+    background-color: #161b22;
+    color: white;
+
+    border:
+        1px solid #30363d;
+
+    border-radius: 6px;
+
+    font-size: 15px;
+
+    cursor: pointer;
+}
+
+
+#sudoku-spiel-level:focus {
+    outline: none;
+
+    border-color: #58a6ff;
+
+    box-shadow:
+        0 0 9px
+        rgba(88, 166, 255, 0.35);
+}
+
+
+/* ========================================
+   BUTTONS
+======================================== */
+
+.sudoku-spiel-buttons {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 9px;
+
+    margin-top: 20px;
+}
+
+
+.sudoku-spiel-buttons button,
+#sudoku-gewinn-neu {
+    padding: 10px 15px;
+
+    color: white;
+
+    border: none;
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+
+#sudoku-spiel-neu,
+#sudoku-gewinn-neu {
+    background-color: #238636;
+}
+
+
+#sudoku-spiel-pruefen {
+    background-color: #1f6feb;
+}
+
+
+#sudoku-spiel-hinweis {
+    background-color: #8957e5;
+}
+
+
+#sudoku-spiel-leeren {
+    background-color: #da3633;
+}
+
+
+.sudoku-spiel-buttons button:hover,
+#sudoku-gewinn-neu:hover {
+    transform:
+        translateY(-2px);
+}
+
+
+.sudoku-spiel-buttons button:disabled {
+    opacity: 0.4;
+
+    cursor: not-allowed;
+
+    transform: none;
+}
+
+
+/* ========================================
+   STATUS
+======================================== */
+
+.sudoku-spiel-status {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(105px, 1fr)
+        );
+
+    gap: 8px;
+
+    margin-top: 19px;
+}
+
+
+.sudoku-spiel-status > div {
+    display: flex;
+    flex-direction: column;
+
+    gap: 5px;
+
+    padding: 11px;
+
+    background-color: #161b22;
+
+    border:
+        1px solid #30363d;
+
+    border-radius: 7px;
+}
+
+
+.sudoku-spiel-status span {
+    color: #8b949e;
+
+    font-size: 11px;
+    font-weight: bold;
+}
+
+
+.sudoku-spiel-status strong {
+    color: #58a6ff;
+
+    font-family: monospace;
+    font-size: 17px;
+}
+
+
+/* ========================================
+   SPIELFELD
+======================================== */
+
+.sudoku-spiel-rahmen {
+    margin-top: 22px;
+
+    overflow-x: auto;
+}
+
+
+#sudoku-spiel-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(9, 44px);
+
+    grid-template-rows:
+        repeat(9, 44px);
+
+    width: max-content;
+
+    border:
+        3px solid #58a6ff;
+
+    background-color: #30363d;
+}
+
+
+/* ========================================
+   SPIELFELDER
+======================================== */
+
+.sudoku-spiel-feld {
+    width: 44px;
+    height: 44px;
+
+    box-sizing: border-box;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 0;
+
+    background-color: #161b22;
+    color: #e6edf3;
+
+    border:
+        1px solid #30363d;
+
+    border-radius: 0;
+
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.15s,
+        color 0.15s,
+        box-shadow 0.15s,
+        transform 0.15s;
+}
+
+
+.sudoku-spiel-feld:hover:not(.vorgegeben) {
+    background-color: #21262d;
+}
+
+
+/* Rechter Rand der 3×3-Blöcke */
+
+.sudoku-spiel-feld:nth-child(3n) {
+    border-right:
+        3px solid #58a6ff;
+}
+
+
+.sudoku-spiel-feld:nth-child(9n) {
+    border-right: none;
+}
+
+
+/* Unterer Rand der 3×3-Blöcke */
+
+.sudoku-spiel-feld:nth-child(n+19):nth-child(-n+27),
+.sudoku-spiel-feld:nth-child(n+46):nth-child(-n+54) {
+    border-bottom:
+        3px solid #58a6ff;
+}
+
+
+/* Vorgegebene Zahl */
+
+.sudoku-spiel-feld.vorgegeben {
+    background-color: #21262d;
+    color: #58a6ff;
+
+    cursor: default;
+}
+
+
+/* Vom Benutzer eingetragene Zahl */
+
+.sudoku-spiel-feld.benutzer {
+    color: #e6edf3;
+}
+
+
+/* Ausgewähltes Feld */
+
+.sudoku-spiel-feld.ausgewaehlt {
+    background-color: #1f3a5f;
+
+    box-shadow:
+        inset 0 0 0 2px #58a6ff;
+}
+
+
+/* Gleiche Reihe, Spalte oder Block */
+
+.sudoku-spiel-feld.verwandt {
+    background-color: #19212c;
+}
+
+
+/* Gleiche Zahl markieren */
+
+.sudoku-spiel-feld.gleiche-zahl {
+    background-color: #25364a;
+
+    color: #79c0ff;
+}
+
+
+/* Korrekte Benutzereingabe */
+
+.sudoku-spiel-feld.korrekt {
+    background-color: #173c26;
+    color: #3fb950;
+
+    box-shadow:
+        inset 0 0 0 1px #238636;
+}
+
+
+/* Falsche Benutzereingabe */
+
+.sudoku-spiel-feld.falsch {
+    background-color: #4a2020;
+    color: #ff7b72;
+
+    box-shadow:
+        inset 0 0 0 2px #f85149;
+}
+
+
+/* Konflikt in Zeile, Spalte oder Block */
+
+.sudoku-spiel-feld.konflikt {
+    background-color: #5a240f;
+    color: #ffa657;
+
+    box-shadow:
+        inset 0 0 0 2px #f0883e;
+}
+
+
+/* Durch Hinweis ausgefülltes Feld */
+
+.sudoku-spiel-feld.hinweis {
+    background-color: #302658;
+    color: #d2a8ff;
+
+    box-shadow:
+        inset 0 0 0 2px #8957e5;
+
+    animation:
+        sudokuHinweis
+        0.55s ease;
+}
+
+
+@keyframes sudokuHinweis {
+
+    0% {
+        transform:
+            scale(0.75);
+    }
+
+    60% {
+        transform:
+            scale(1.12);
+    }
+
+    100% {
+        transform:
+            scale(1);
+    }
+
+}
+
+
+/* ========================================
+   ZAHLENAUSWAHL
+======================================== */
+
+.sudoku-spiel-zahlen {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 7px;
+
+    margin-top: 18px;
+}
+
+
+.sudoku-spiel-zahlen button {
+    min-width: 42px;
+    height: 42px;
+
+    padding: 0 12px;
+
+    background-color: #21262d;
+    color: #e6edf3;
+
+    border:
+        1px solid #30363d;
+
+    border-radius: 6px;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+
+.sudoku-spiel-zahlen button:hover {
+    background-color: #1f6feb;
+
+    border-color: #58a6ff;
+
+    transform:
+        translateY(-2px);
+}
+
+
+.sudoku-spiel-zahlen
+.sudoku-radierer {
+
+    background-color: #4a2020;
+    color: #ff7b72;
+}
+
+
+/* ========================================
+   INFORMATION
+======================================== */
+
+#sudoku-spiel-info {
+    margin-top: 16px;
+    padding: 13px;
+
+    background-color: #161b22;
+    color: #c9d1d9;
+
+    border-left:
+        4px solid #58a6ff;
+
+    border-radius: 5px;
+
+    line-height: 1.5;
+}
+
+
+#sudoku-spiel-info.richtig {
+    color: #3fb950;
+
+    border-left-color: #3fb950;
+}
+
+
+#sudoku-spiel-info.falsch {
+    color: #ff7b72;
+
+    border-left-color: #f85149;
+}
+
+
+#sudoku-spiel-info.warnung {
+    color: #ffa657;
+
+    border-left-color: #f0883e;
+}
+
+
+/* ========================================
+   GEWINNANZEIGE
+======================================== */
+
+.sudoku-spiel-gewonnen {
+    position: absolute;
+
+    inset:
+        20px;
+
+    z-index: 20;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 30px;
+
+    background-color:
+        rgba(13, 17, 23, 0.97);
+
+    border:
+        2px solid #3fb950;
+
+    border-radius: 10px;
+
+    text-align: center;
+
+    box-shadow:
+        0 0 35px
+        rgba(46, 200, 80, 0.3);
+
+    animation:
+        sudokuGewonnen
+        0.5s ease;
+}
+
+
+.sudoku-spiel-gewonnen > span {
+    color: #8b949e;
+
+    font-size: 12px;
+    font-weight: bold;
+
+    letter-spacing: 3px;
+}
+
+
+.sudoku-spiel-gewonnen h3 {
+    margin:
+        14px
+        0;
+
+    color: #3fb950;
+
+    font-size: 32px;
+}
+
+
+.sudoku-gewinn-statistik {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 10px;
+
+    width: 100%;
+
+    margin:
+        18px
+        0;
+}
+
+
+.sudoku-gewinn-statistik > div {
+    display: flex;
+    flex-direction: column;
+
+    gap: 6px;
+
+    padding: 13px;
+
+    background-color: #161b22;
+
+    border:
+        1px solid #30363d;
+
+    border-radius: 6px;
+}
+
+
+.sudoku-gewinn-statistik span {
+    color: #8b949e;
+
+    font-size: 11px;
+}
+
+
+.sudoku-gewinn-statistik strong {
+    color: #3fb950;
+
+    font-size: 19px;
+}
+
+
+@keyframes sudokuGewonnen {
+
+    from {
+        opacity: 0;
+
+        transform:
+            scale(0.92);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            scale(1);
+    }
+
+}
+
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 1050px) {
+
+    .sudoku-bereich {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .sudoku-spiel-header {
+        flex-direction: column;
+    }
+
+
+    .sudoku-spiel-schwierigkeit {
+        width: 100%;
+    }
+
+
+    #sudoku-spiel-level {
+        width: 100%;
+    }
+
+
+    #sudoku-spiel-grid {
+        grid-template-columns:
+            repeat(9, 36px);
+
+        grid-template-rows:
+            repeat(9, 36px);
+    }
+
+
+    .sudoku-spiel-feld {
+        width: 36px;
+        height: 36px;
+
+        font-size: 15px;
+    }
+
+
+    .sudoku-gewinn-statistik {
+        grid-template-columns: 1fr;
+    }
+
+}
+/* ========================================
+   SUDOKU - VOLLSTÄNDIG BENUTZTE ZAHL
+======================================== */
+
+.sudoku-spiel-zahlen button.zahl-voll {
+    background-color: #161b22;
+    color: #484f58;
+
+    border-color: #21262d;
+
+    opacity: 0.35;
+
+    cursor: not-allowed;
+
+    transform: none;
+}
+
+.sudoku-spiel-zahlen button.zahl-voll:hover {
+    background-color: #161b22;
+    color: #484f58;
+
+    border-color: #21262d;
+
+    transform: none;
+}
