@@ -31,7 +31,7 @@ function warten(ms){
 // ========================================
 // LINEAR SEARCH + GEHEIMER CODE
 // ========================================
-//Nimm Hallo AES Welt!!  --> [V]XOR --> [E]Vigenère [Secret]--> [V]Ceasar-->[E]Rail-Fence --> Linear Search
+//Nimm Hallo AES Welt!!  --> [V]XOR [42]--> [V]Vigenère [Secret]--> [V]Ceasar-->[E]Rail-Fence [3] --> Linear Search
 const geheimPasswort =
     "64 52 40 H6 46 GW 56 ZL 47 96 00 HG 47 Z6 04 AV";
 
