@@ -15860,3 +15860,1556 @@ kiAutoCheckpointAnzeige.textContent =
 
 kiAutoFitnessAnzeige.textContent =
     "-";
+
+    // ========================================
+// SPIELBARES SUDOKU
+// LEICHT / MITTEL / SCHWER
+// ========================================
+
+
+// ========================================
+// HTML-ELEMENTE
+// ========================================
+
+const sudokuSpielLevel =
+    document.getElementById(
+        "sudoku-spiel-level"
+    );
+
+
+const sudokuSpielNeu =
+    document.getElementById(
+        "sudoku-spiel-neu"
+    );
+
+
+const sudokuSpielPruefen =
+    document.getElementById(
+        "sudoku-spiel-pruefen"
+    );
+
+
+const sudokuSpielHinweis =
+    document.getElementById(
+        "sudoku-spiel-hinweis"
+    );
+
+
+const sudokuSpielLeeren =
+    document.getElementById(
+        "sudoku-spiel-leeren"
+    );
+
+
+const sudokuSpielGrid =
+    document.getElementById(
+        "sudoku-spiel-grid"
+    );
+
+
+const sudokuSpielZeitAnzeige =
+    document.getElementById(
+        "sudoku-spiel-zeit"
+    );
+
+
+const sudokuSpielFehlerAnzeige =
+    document.getElementById(
+        "sudoku-spiel-fehler"
+    );
+
+
+const sudokuSpielHinweiseAnzeige =
+    document.getElementById(
+        "sudoku-spiel-hinweise"
+    );
+
+
+const sudokuSpielFortschrittAnzeige =
+    document.getElementById(
+        "sudoku-spiel-fortschritt"
+    );
+
+
+const sudokuSpielLevelAnzeige =
+    document.getElementById(
+        "sudoku-spiel-level-anzeige"
+    );
+
+
+const sudokuSpielInfo =
+    document.getElementById(
+        "sudoku-spiel-info"
+    );
+
+
+const sudokuSpielGewonnen =
+    document.getElementById(
+        "sudoku-spiel-gewonnen"
+    );
+
+
+const sudokuGewinnZeit =
+    document.getElementById(
+        "sudoku-gewinn-zeit"
+    );
+
+
+const sudokuGewinnFehler =
+    document.getElementById(
+        "sudoku-gewinn-fehler"
+    );
+
+
+const sudokuGewinnHinweise =
+    document.getElementById(
+        "sudoku-gewinn-hinweise"
+    );
+
+
+const sudokuGewinnNeu =
+    document.getElementById(
+        "sudoku-gewinn-neu"
+    );
+
+
+const sudokuZahlenButtons =
+    document.querySelectorAll(
+        ".sudoku-spiel-zahlen button[data-zahl]"
+    );
+
+
+const sudokuRadierer =
+    document.getElementById(
+        "sudoku-spiel-radierer"
+    );
+
+
+// ========================================
+// SUDOKU-DATEN
+//
+// 0 bedeutet ein freies Feld.
+// Jedes Rätsel besitzt eine zugehörige Lösung.
+// ========================================
+
+const sudokuSpielRaetsel = {
+
+    leicht: [
+
+        {
+            start: [
+                5, 3, 0, 0, 7, 0, 0, 0, 0,
+                6, 0, 0, 1, 9, 5, 0, 0, 0,
+                0, 9, 8, 0, 0, 0, 0, 6, 0,
+                8, 0, 0, 0, 6, 0, 0, 0, 3,
+                4, 0, 0, 8, 0, 3, 0, 0, 1,
+                7, 0, 0, 0, 2, 0, 0, 0, 6,
+                0, 6, 0, 0, 0, 0, 2, 8, 0,
+                0, 0, 0, 4, 1, 9, 0, 0, 5,
+                0, 0, 0, 0, 8, 0, 0, 7, 9
+            ],
+
+            loesung: [
+                5, 3, 4, 6, 7, 8, 9, 1, 2,
+                6, 7, 2, 1, 9, 5, 3, 4, 8,
+                1, 9, 8, 3, 4, 2, 5, 6, 7,
+                8, 5, 9, 7, 6, 1, 4, 2, 3,
+                4, 2, 6, 8, 5, 3, 7, 9, 1,
+                7, 1, 3, 9, 2, 4, 8, 5, 6,
+                9, 6, 1, 5, 3, 7, 2, 8, 4,
+                2, 8, 7, 4, 1, 9, 6, 3, 5,
+                3, 4, 5, 2, 8, 6, 1, 7, 9
+            ]
+        },
+
+        {
+            start: [
+                0, 0, 3, 0, 2, 0, 6, 0, 0,
+                9, 0, 0, 3, 0, 5, 0, 0, 1,
+                0, 0, 1, 8, 0, 6, 4, 0, 0,
+                0, 0, 8, 1, 0, 2, 9, 0, 0,
+                7, 0, 0, 0, 0, 0, 0, 0, 8,
+                0, 0, 6, 7, 0, 8, 2, 0, 0,
+                0, 0, 2, 6, 0, 9, 5, 0, 0,
+                8, 0, 0, 2, 0, 3, 0, 0, 9,
+                0, 0, 5, 0, 1, 0, 3, 0, 0
+            ],
+
+            loesung: [
+                4, 8, 3, 9, 2, 1, 6, 5, 7,
+                9, 6, 7, 3, 4, 5, 8, 2, 1,
+                2, 5, 1, 8, 7, 6, 4, 9, 3,
+                5, 4, 8, 1, 3, 2, 9, 7, 6,
+                7, 2, 9, 5, 6, 4, 1, 3, 8,
+                1, 3, 6, 7, 9, 8, 2, 4, 5,
+                3, 7, 2, 6, 8, 9, 5, 1, 4,
+                8, 1, 4, 2, 5, 3, 7, 6, 9,
+                6, 9, 5, 4, 1, 7, 3, 8, 2
+            ]
+        }
+
+    ],
+
+
+    mittel: [
+
+        {
+            start: [
+                0, 2, 0, 6, 0, 8, 0, 0, 0,
+                5, 8, 0, 0, 0, 9, 7, 0, 0,
+                0, 0, 0, 0, 4, 0, 0, 0, 0,
+                3, 7, 0, 0, 0, 0, 5, 0, 0,
+                6, 0, 0, 0, 0, 0, 0, 0, 4,
+                0, 0, 8, 0, 0, 0, 0, 1, 3,
+                0, 0, 0, 0, 2, 0, 0, 0, 0,
+                0, 0, 9, 8, 0, 0, 0, 3, 6,
+                0, 0, 0, 3, 0, 6, 0, 9, 0
+            ],
+
+            loesung: [
+                1, 2, 3, 6, 7, 8, 9, 4, 5,
+                5, 8, 4, 2, 3, 9, 7, 6, 1,
+                9, 6, 7, 1, 4, 5, 3, 2, 8,
+                3, 7, 2, 4, 6, 1, 5, 8, 9,
+                6, 9, 1, 5, 8, 3, 2, 7, 4,
+                4, 5, 8, 7, 9, 2, 6, 1, 3,
+                8, 3, 6, 9, 2, 4, 1, 5, 7,
+                2, 1, 9, 8, 5, 7, 4, 3, 6,
+                7, 4, 5, 3, 1, 6, 8, 9, 2
+            ]
+        },
+
+        {
+            start: [
+                0, 0, 0, 2, 6, 0, 7, 0, 1,
+                6, 8, 0, 0, 7, 0, 0, 9, 0,
+                1, 9, 0, 0, 0, 4, 5, 0, 0,
+                8, 2, 0, 1, 0, 0, 0, 4, 0,
+                0, 0, 4, 6, 0, 2, 9, 0, 0,
+                0, 5, 0, 0, 0, 3, 0, 2, 8,
+                0, 0, 9, 3, 0, 0, 0, 7, 4,
+                0, 4, 0, 0, 5, 0, 0, 3, 6,
+                7, 0, 3, 0, 1, 8, 0, 0, 0
+            ],
+
+            loesung: [
+                4, 3, 5, 2, 6, 9, 7, 8, 1,
+                6, 8, 2, 5, 7, 1, 4, 9, 3,
+                1, 9, 7, 8, 3, 4, 5, 6, 2,
+                8, 2, 6, 1, 9, 5, 3, 4, 7,
+                3, 7, 4, 6, 8, 2, 9, 1, 5,
+                9, 5, 1, 7, 4, 3, 6, 2, 8,
+                5, 1, 9, 3, 2, 6, 8, 7, 4,
+                2, 4, 8, 9, 5, 7, 1, 3, 6,
+                7, 6, 3, 4, 1, 8, 2, 5, 9
+            ]
+        }
+
+    ],
+
+
+   schwer: [
+
+    {
+        start: [
+            8, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 3, 6, 0, 0, 0, 0, 0,
+            0, 7, 0, 0, 9, 0, 2, 0, 0,
+            0, 5, 0, 0, 0, 7, 0, 0, 0,
+            0, 0, 0, 0, 4, 5, 7, 0, 0,
+            0, 0, 0, 1, 0, 0, 0, 3, 0,
+            0, 0, 1, 0, 0, 0, 0, 6, 8,
+            0, 0, 8, 5, 0, 0, 0, 1, 0,
+            0, 9, 0, 0, 0, 0, 4, 0, 0
+        ],
+
+        loesung: [
+            8, 1, 2, 7, 5, 3, 6, 4, 9,
+            9, 4, 3, 6, 8, 2, 1, 7, 5,
+            6, 7, 5, 4, 9, 1, 2, 8, 3,
+            1, 5, 4, 2, 3, 7, 8, 9, 6,
+            3, 6, 9, 8, 4, 5, 7, 2, 1,
+            2, 8, 7, 1, 6, 9, 5, 3, 4,
+            5, 2, 1, 9, 7, 4, 3, 6, 8,
+            4, 3, 8, 5, 2, 6, 9, 1, 7,
+            7, 9, 6, 3, 1, 8, 4, 5, 2
+        ]
+    }
+
+    ]
+};
+
+
+// ========================================
+// SPIELZUSTAND
+// ========================================
+
+let sudokuAktuellesRaetsel = null;
+
+let sudokuSpielWerte = [];
+
+let sudokuSpielFelder = [];
+
+let sudokuAusgewaehlterIndex = null;
+
+let sudokuSpielFehler = 0;
+
+let sudokuVerwendeteHinweise = 0;
+
+let sudokuSpielSekunden = 0;
+
+let sudokuSpielTimer = null;
+
+let sudokuSpielBeendet = false;
+
+
+// ========================================
+// HILFSFUNKTIONEN
+// ========================================
+
+function sudokuSpielLevelName(level) {
+
+    if (level === "leicht") {
+        return "Leicht";
+    }
+
+    if (level === "mittel") {
+        return "Mittel";
+    }
+
+    return "Schwer";
+}
+
+
+function sudokuZeitFormatieren(sekunden) {
+
+    const minuten =
+        Math.floor(
+            sekunden / 60
+        );
+
+    const restSekunden =
+        sekunden % 60;
+
+
+    return (
+        String(minuten).padStart(
+            2,
+            "0"
+        )
+        +
+        ":"
+        +
+        String(restSekunden).padStart(
+            2,
+            "0"
+        )
+    );
+}
+
+
+// ========================================
+// TIMER
+// ========================================
+
+function sudokuTimerStarten() {
+
+    if (sudokuSpielTimer !== null) {
+
+        clearInterval(
+            sudokuSpielTimer
+        );
+    }
+
+
+    sudokuSpielTimer =
+        setInterval(
+            function() {
+
+                if (sudokuSpielBeendet) {
+                    return;
+                }
+
+
+                sudokuSpielSekunden++;
+
+
+                sudokuSpielZeitAnzeige.textContent =
+                    sudokuZeitFormatieren(
+                        sudokuSpielSekunden
+                    );
+
+            },
+            1000
+        );
+}
+
+
+// ========================================
+// NEUES SPIEL
+// ========================================
+
+function sudokuNeuesSpiel() {
+
+    const level =
+        sudokuSpielLevel.value;
+
+
+    const raetselListe =
+        sudokuSpielRaetsel[level];
+
+
+    const zufallsIndex =
+        Math.floor(
+            Math.random()
+            *
+            raetselListe.length
+        );
+
+
+    sudokuAktuellesRaetsel =
+        raetselListe[
+            zufallsIndex
+        ];
+
+
+    sudokuSpielWerte =
+        [
+            ...sudokuAktuellesRaetsel.start
+        ];
+
+
+    sudokuAusgewaehlterIndex = null;
+
+    sudokuSpielFehler = 0;
+
+    sudokuVerwendeteHinweise = 0;
+
+    sudokuSpielSekunden = 0;
+
+    sudokuSpielBeendet = false;
+
+
+    sudokuSpielFehlerAnzeige.textContent =
+        "0";
+
+
+    sudokuSpielHinweiseAnzeige.textContent =
+        "0 / 3";
+
+
+    sudokuSpielZeitAnzeige.textContent =
+        "00:00";
+
+
+    sudokuSpielLevelAnzeige.textContent =
+        sudokuSpielLevelName(
+            level
+        );
+
+
+    sudokuSpielHinweis.disabled =
+        false;
+
+
+    sudokuSpielGewonnen.classList.add(
+        "versteckt"
+    );
+
+
+    sudokuSpielInfo.classList.remove(
+        "richtig",
+        "falsch",
+        "warnung"
+    );
+
+
+    sudokuSpielInfo.textContent =
+        "Wähle ein freies Feld und trage eine Zahl von 1 bis 9 ein.";
+
+
+    sudokuSpielfeldErzeugen();
+
+    sudokuFortschrittAktualisieren();
+
+    sudokuTimerStarten();
+}
+
+
+// ========================================
+// SPIELFELD ERZEUGEN
+// ========================================
+
+function sudokuSpielfeldErzeugen() {
+
+    sudokuSpielGrid.innerHTML = "";
+
+    sudokuSpielFelder = [];
+
+
+    for (
+        let index = 0;
+        index < 81;
+        index++
+    ) {
+
+        const feld =
+            document.createElement(
+                "button"
+            );
+
+
+        feld.type =
+            "button";
+
+
+        feld.className =
+            "sudoku-spiel-feld";
+
+
+        feld.dataset.index =
+            index;
+
+
+        const startWert =
+            sudokuAktuellesRaetsel
+                .start[index];
+
+
+        if (startWert !== 0) {
+
+            feld.textContent =
+                startWert;
+
+
+            feld.classList.add(
+                "vorgegeben"
+            );
+
+
+            feld.disabled =
+                true;
+
+        } else {
+
+            feld.textContent = "";
+
+
+            feld.addEventListener(
+                "click",
+                function() {
+
+                    sudokuFeldAuswaehlen(
+                        index
+                    );
+                }
+            );
+        }
+
+
+        sudokuSpielGrid.appendChild(
+            feld
+        );
+
+
+        sudokuSpielFelder.push(
+            feld
+        );
+    }
+}
+
+
+// ========================================
+// FELD AUSWÄHLEN
+// ========================================
+
+function sudokuFeldAuswaehlen(index) {
+
+    if (sudokuSpielBeendet) {
+        return;
+    }
+
+
+    sudokuAusgewaehlterIndex =
+        index;
+
+
+    sudokuMarkierungenEntfernen();
+
+
+    const zeile =
+        Math.floor(
+            index / 9
+        );
+
+    const spalte =
+        index % 9;
+
+    const blockZeile =
+        Math.floor(
+            zeile / 3
+        );
+
+    const blockSpalte =
+        Math.floor(
+            spalte / 3
+        );
+
+
+    for (
+        let position = 0;
+        position < 81;
+        position++
+    ) {
+
+        const andereZeile =
+            Math.floor(
+                position / 9
+            );
+
+        const andereSpalte =
+            position % 9;
+
+
+        const andererBlockZeile =
+            Math.floor(
+                andereZeile / 3
+            );
+
+        const andererBlockSpalte =
+            Math.floor(
+                andereSpalte / 3
+            );
+
+
+        if (
+            andereZeile === zeile
+            ||
+            andereSpalte === spalte
+            ||
+            (
+                andererBlockZeile
+                ===
+                blockZeile
+                &&
+                andererBlockSpalte
+                ===
+                blockSpalte
+            )
+        ) {
+
+            sudokuSpielFelder[
+                position
+            ].classList.add(
+                "verwandt"
+            );
+        }
+    }
+
+
+    sudokuSpielFelder[
+        index
+    ].classList.remove(
+        "verwandt"
+    );
+
+
+    sudokuSpielFelder[
+        index
+    ].classList.add(
+        "ausgewaehlt"
+    );
+
+
+    const wert =
+        sudokuSpielWerte[index];
+
+
+    if (wert !== 0) {
+
+        sudokuGleicheZahlenMarkieren(
+            wert
+        );
+    }
+}
+
+
+// ========================================
+// ALLGEMEINE MARKIERUNGEN ENTFERNEN
+// ========================================
+
+function sudokuMarkierungenEntfernen() {
+
+    sudokuSpielFelder.forEach(
+        function(feld) {
+
+            feld.classList.remove(
+                "ausgewaehlt",
+                "verwandt",
+                "gleiche-zahl"
+            );
+        }
+    );
+}
+
+
+// ========================================
+// GLEICHE ZAHLEN MARKIEREN
+// ========================================
+
+function sudokuGleicheZahlenMarkieren(
+    wert
+) {
+
+    for (
+        let index = 0;
+        index < 81;
+        index++
+    ) {
+
+        if (
+            sudokuSpielWerte[index]
+            ===
+            wert
+        ) {
+
+            sudokuSpielFelder[
+                index
+            ].classList.add(
+                "gleiche-zahl"
+            );
+        }
+    }
+}
+
+
+// ========================================
+// ZAHL EINTRAGEN
+// ========================================
+
+function sudokuZahlEintragen(zahl) {
+
+    if (
+        sudokuSpielBeendet
+        ||
+        sudokuAusgewaehlterIndex
+        ===
+        null
+    ) {
+
+        return;
+    }
+
+
+    const index =
+        sudokuAusgewaehlterIndex;
+
+
+    if (
+        sudokuAktuellesRaetsel
+            .start[index]
+        !== 0
+    ) {
+
+        return;
+    }
+
+
+    sudokuSpielWerte[index] =
+        zahl;
+
+
+    const feld =
+        sudokuSpielFelder[index];
+
+
+    feld.textContent =
+        zahl === 0
+            ? ""
+            : zahl;
+
+
+    feld.classList.remove(
+        "korrekt",
+        "falsch",
+        "konflikt",
+        "hinweis"
+    );
+
+
+    if (zahl !== 0) {
+
+        feld.classList.add(
+            "benutzer"
+        );
+
+    } else {
+
+        feld.classList.remove(
+            "benutzer"
+        );
+    }
+
+
+    sudokuKonfliktePruefen();
+
+    sudokuFortschrittAktualisieren();
+
+    sudokuFeldAuswaehlen(
+        index
+    );
+
+
+    if (
+        sudokuIstVollstaendig()
+    ) {
+
+        sudokuGesamtesSpielPruefen();
+    }
+}
+
+
+// ========================================
+// KONFLIKTE PRÜFEN
+// ========================================
+
+function sudokuKonfliktePruefen() {
+
+    sudokuSpielFelder.forEach(
+        function(feld) {
+
+            feld.classList.remove(
+                "konflikt"
+            );
+        }
+    );
+
+
+    for (
+        let index = 0;
+        index < 81;
+        index++
+    ) {
+
+        const wert =
+            sudokuSpielWerte[index];
+
+
+        if (wert === 0) {
+            continue;
+        }
+
+
+        const zeile =
+            Math.floor(
+                index / 9
+            );
+
+        const spalte =
+            index % 9;
+
+        const blockZeile =
+            Math.floor(
+                zeile / 3
+            );
+
+        const blockSpalte =
+            Math.floor(
+                spalte / 3
+            );
+
+
+        for (
+            let andererIndex =
+                index + 1;
+
+            andererIndex < 81;
+
+            andererIndex++
+        ) {
+
+            if (
+                sudokuSpielWerte[
+                    andererIndex
+                ]
+                !==
+                wert
+            ) {
+
+                continue;
+            }
+
+
+            const andereZeile =
+                Math.floor(
+                    andererIndex / 9
+                );
+
+            const andereSpalte =
+                andererIndex % 9;
+
+
+            const andererBlockZeile =
+                Math.floor(
+                    andereZeile / 3
+                );
+
+            const andererBlockSpalte =
+                Math.floor(
+                    andereSpalte / 3
+                );
+
+
+            if (
+                andereZeile === zeile
+                ||
+                andereSpalte === spalte
+                ||
+                (
+                    andererBlockZeile
+                    ===
+                    blockZeile
+                    &&
+                    andererBlockSpalte
+                    ===
+                    blockSpalte
+                )
+            ) {
+
+                sudokuSpielFelder[
+                    index
+                ].classList.add(
+                    "konflikt"
+                );
+
+
+                sudokuSpielFelder[
+                    andererIndex
+                ].classList.add(
+                    "konflikt"
+                );
+            }
+        }
+    }
+}
+
+
+// ========================================
+// FORTSCHRITT
+// ========================================
+
+function sudokuFortschrittAktualisieren() {
+
+    const ausgefuellt =
+        sudokuSpielWerte.filter(
+            function(wert) {
+
+                return wert !== 0;
+            }
+        ).length;
+
+
+    sudokuSpielFortschrittAnzeige
+        .textContent =
+            ausgefuellt
+            + " / 81";
+}
+
+
+// ========================================
+// SPIELSTAND PRÜFEN
+// ========================================
+
+function sudokuGesamtesSpielPruefen() {
+
+    if (sudokuSpielBeendet) {
+        return;
+    }
+
+
+    let falscheFelder = 0;
+
+    let leereFelder = 0;
+
+
+    for (
+        let index = 0;
+        index < 81;
+        index++
+    ) {
+
+        const feld =
+            sudokuSpielFelder[index];
+
+
+        if (
+            sudokuAktuellesRaetsel
+                .start[index]
+            !== 0
+        ) {
+
+            continue;
+        }
+
+
+        feld.classList.remove(
+            "korrekt",
+            "falsch"
+        );
+
+
+        const wert =
+            sudokuSpielWerte[index];
+
+
+        if (wert === 0) {
+
+            leereFelder++;
+
+            continue;
+        }
+
+
+        if (
+            wert
+            ===
+            sudokuAktuellesRaetsel
+                .loesung[index]
+        ) {
+
+            feld.classList.add(
+                "korrekt"
+            );
+
+        } else {
+
+            feld.classList.add(
+                "falsch"
+            );
+
+
+            falscheFelder++;
+        }
+    }
+
+
+    if (falscheFelder > 0) {
+
+        sudokuSpielFehler +=
+            falscheFelder;
+
+
+        sudokuSpielFehlerAnzeige.textContent =
+            sudokuSpielFehler;
+
+
+        sudokuSpielInfo.classList.remove(
+            "richtig",
+            "warnung"
+        );
+
+
+        sudokuSpielInfo.classList.add(
+            "falsch"
+        );
+
+
+        sudokuSpielInfo.textContent =
+            falscheFelder
+            +
+            (
+                falscheFelder === 1
+                    ? " falsches Feld gefunden."
+                    : " falsche Felder gefunden."
+            );
+
+
+        return;
+    }
+
+
+    if (leereFelder > 0) {
+
+        sudokuSpielInfo.classList.remove(
+            "richtig",
+            "falsch"
+        );
+
+
+        sudokuSpielInfo.classList.add(
+            "warnung"
+        );
+
+
+        sudokuSpielInfo.textContent =
+            "Bisher ist alles korrekt. Es fehlen noch "
+            +
+            leereFelder
+            +
+            " Felder.";
+
+
+        return;
+    }
+
+
+    sudokuSpielAbschliessen();
+}
+
+
+// ========================================
+// IST DAS SPIEL VOLLSTÄNDIG?
+// ========================================
+
+function sudokuIstVollstaendig() {
+
+    return sudokuSpielWerte.every(
+        function(wert) {
+
+            return wert !== 0;
+        }
+    );
+}
+
+
+// ========================================
+// HINWEIS
+// ========================================
+
+function sudokuHinweisGeben() {
+
+    if (
+        sudokuSpielBeendet
+        ||
+        sudokuVerwendeteHinweise >= 3
+    ) {
+
+        return;
+    }
+
+
+    const moeglicheFelder = [];
+
+
+    for (
+        let index = 0;
+        index < 81;
+        index++
+    ) {
+
+        if (
+            sudokuAktuellesRaetsel
+                .start[index]
+            === 0
+            &&
+            sudokuSpielWerte[index]
+            !==
+            sudokuAktuellesRaetsel
+                .loesung[index]
+        ) {
+
+            moeglicheFelder.push(
+                index
+            );
+        }
+    }
+
+
+    if (moeglicheFelder.length === 0) {
+
+        sudokuSpielInfo.textContent =
+            "Es gibt kein Feld mehr, für das ein Hinweis benötigt wird.";
+
+        return;
+    }
+
+
+    const zufallsIndex =
+        Math.floor(
+            Math.random()
+            *
+            moeglicheFelder.length
+        );
+
+
+    const feldIndex =
+        moeglicheFelder[
+            zufallsIndex
+        ];
+
+
+    const richtigeZahl =
+        sudokuAktuellesRaetsel
+            .loesung[feldIndex];
+
+
+    sudokuSpielWerte[
+        feldIndex
+    ] =
+        richtigeZahl;
+
+
+    sudokuSpielFelder[
+        feldIndex
+    ].textContent =
+        richtigeZahl;
+
+
+    sudokuSpielFelder[
+        feldIndex
+    ].classList.remove(
+        "falsch",
+        "konflikt",
+        "benutzer"
+    );
+
+
+    sudokuSpielFelder[
+        feldIndex
+    ].classList.add(
+        "hinweis"
+    );
+
+
+    sudokuVerwendeteHinweise++;
+
+
+    sudokuSpielHinweiseAnzeige.textContent =
+        sudokuVerwendeteHinweise
+        + " / 3";
+
+
+    if (
+        sudokuVerwendeteHinweise >= 3
+    ) {
+
+        sudokuSpielHinweis.disabled =
+            true;
+    }
+
+
+    sudokuSpielInfo.classList.remove(
+        "falsch",
+        "warnung"
+    );
+
+
+    sudokuSpielInfo.classList.add(
+        "richtig"
+    );
+
+
+    sudokuSpielInfo.textContent =
+        "Hinweis: Feld wurde mit "
+        +
+        richtigeZahl
+        +
+        " ausgefüllt.";
+
+
+    sudokuFortschrittAktualisieren();
+
+    sudokuKonfliktePruefen();
+
+
+    if (sudokuIstVollstaendig()) {
+
+        sudokuGesamtesSpielPruefen();
+    }
+}
+
+
+// ========================================
+// EIGENE EINGABEN LÖSCHEN
+// ========================================
+
+function sudokuEigeneEingabenLoeschen() {
+
+    if (sudokuSpielBeendet) {
+        return;
+    }
+
+
+    for (
+        let index = 0;
+        index < 81;
+        index++
+    ) {
+
+        if (
+            sudokuAktuellesRaetsel
+                .start[index]
+            === 0
+            &&
+            !sudokuSpielFelder[
+                index
+            ].classList
+                .contains(
+                    "hinweis"
+                )
+        ) {
+
+            sudokuSpielWerte[index] =
+                0;
+
+
+            sudokuSpielFelder[
+                index
+            ].textContent =
+                "";
+
+
+            sudokuSpielFelder[
+                index
+            ].classList.remove(
+                "benutzer",
+                "korrekt",
+                "falsch",
+                "konflikt"
+            );
+        }
+    }
+
+
+    sudokuAusgewaehlterIndex = null;
+
+    sudokuMarkierungenEntfernen();
+
+    sudokuFortschrittAktualisieren();
+
+
+    sudokuSpielInfo.classList.remove(
+        "richtig",
+        "falsch",
+        "warnung"
+    );
+
+
+    sudokuSpielInfo.textContent =
+        "Eigene Eingaben wurden gelöscht. Hinweise bleiben erhalten.";
+}
+
+
+// ========================================
+// SPIEL ABSCHLIESSEN
+// ========================================
+
+function sudokuSpielAbschliessen() {
+
+    sudokuSpielBeendet =
+        true;
+
+
+    if (sudokuSpielTimer !== null) {
+
+        clearInterval(
+            sudokuSpielTimer
+        );
+
+
+        sudokuSpielTimer =
+            null;
+    }
+
+
+    sudokuGewinnZeit.textContent =
+        sudokuZeitFormatieren(
+            sudokuSpielSekunden
+        );
+
+
+    sudokuGewinnFehler.textContent =
+        sudokuSpielFehler;
+
+
+    sudokuGewinnHinweise.textContent =
+        sudokuVerwendeteHinweise;
+
+
+    sudokuSpielGewonnen.classList.remove(
+        "versteckt"
+    );
+
+
+    sudokuSpielInfo.classList.remove(
+        "falsch",
+        "warnung"
+    );
+
+
+    sudokuSpielInfo.classList.add(
+        "richtig"
+    );
+
+
+    sudokuSpielInfo.textContent =
+        "Sudoku vollständig und korrekt gelöst!";
+}
+// ========================================
+// VOLLSTÄNDIGE ZAHLEN AKTUALISIEREN
+// ========================================
+
+function sudokuZahlenButtonsAktualisieren() {
+
+    sudokuZahlenButtons.forEach(
+        function(button) {
+
+            const zahl =
+                Number(
+                    button.dataset.zahl
+                );
+
+
+            const anzahl =
+                sudokuSpielWerte.filter(
+                    function(wert) {
+
+                        return wert === zahl;
+                    }
+                ).length;
+
+
+            if (anzahl >= 9) {
+
+                button.classList.add(
+                    "zahl-voll"
+                );
+
+                button.disabled =
+                    true;
+
+            } else {
+
+                button.classList.remove(
+                    "zahl-voll"
+                );
+
+                button.disabled =
+                    false;
+            }
+        }
+    );
+}
+
+// ========================================
+// EVENT LISTENER
+// ========================================
+
+sudokuSpielNeu.addEventListener(
+    "click",
+    sudokuNeuesSpiel
+);
+
+
+sudokuSpielLevel.addEventListener(
+    "change",
+    sudokuNeuesSpiel
+);
+
+
+sudokuSpielPruefen.addEventListener(
+    "click",
+    sudokuGesamtesSpielPruefen
+);
+
+
+sudokuSpielHinweis.addEventListener(
+    "click",
+    sudokuHinweisGeben
+);
+
+
+sudokuSpielLeeren.addEventListener(
+    "click",
+    sudokuEigeneEingabenLoeschen
+);
+
+
+sudokuGewinnNeu.addEventListener(
+    "click",
+    sudokuNeuesSpiel
+);
+
+
+sudokuZahlenButtons.forEach(
+    function(button) {
+
+        button.addEventListener(
+            "click",
+            function() {
+
+                sudokuZahlEintragen(
+                    Number(
+                        button.dataset.zahl
+                    )
+                );
+            }
+        );
+    }
+);
+
+
+sudokuRadierer.addEventListener(
+    "click",
+    function() {
+
+        sudokuZahlEintragen(
+            0
+        );
+    }
+);
+
+
+// Tastatureingabe
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            sudokuAusgewaehlterIndex
+            === null
+            ||
+            sudokuSpielBeendet
+        ) {
+
+            return;
+        }
+
+
+        if (
+            event.key >= "1"
+            &&
+            event.key <= "9"
+        ) {
+
+            sudokuZahlEintragen(
+                Number(
+                    event.key
+                )
+            );
+        }
+
+
+        if (
+            event.key === "Backspace"
+            ||
+            event.key === "Delete"
+            ||
+            event.key === "0"
+        ) {
+
+            sudokuZahlEintragen(
+                0
+            );
+        }
+    }
+);
+
+
+// ========================================
+// INITIALISIERUNG
+// ========================================
+
+sudokuNeuesSpiel();
+

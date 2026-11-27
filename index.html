@@ -1,57 +1,373 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Algorithm Lab</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-        <h1>Algorithm Lab</h1>
-        <p>Algorithmen können hier verstanden und visualisiert werden</p>
-        <section class="linear-algorithmus">
-        <h2> Linear Search</h2>
-        <p>Die Zahlen Liste kann so aussehen wie sie will, solange die gesuchte Zahl vorhanden ist finden wir sie.</p>
-        <p>Linear Search sucht von links nach recht, also so wie wir Lesen</p>
-        <input type="text" id="suchZahl" placeholder="Zahl eingeben" autocomplete="off">
-        <button id="linear-suchen">Linear Search starten</button>
-        <div class="zahlen-container">
-            <div class="zahl">8</div>
-            <div class="zahl">1</div>
-            <div class="zahl">16</div>
-            <div class="zahl">13</div>
-            <div class="zahl">3</div>
-            <div class="zahl">12</div>
-            <div class="zahl">5</div>
-            <div class="zahl">17</div>
-            <div class="zahl">4</div>
-            <div class="zahl">9</div>
-            <div class="zahl">2</div>
-            <div class="zahl">6</div>
-            <div class="zahl">10</div>
-            <div class="zahl">14</div>
-            <div class="zahl">20</div>
-            <div class="zahl">19</div>
-            <div class="zahl">7</div>
-            <div class="zahl">11</div>
-            <div class="zahl">15</div>
-            <div class="zahl">18</div>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Algorithm Lab</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+</head>
+
+
+<body>
+
+<!-- ========================================
+     ALGORITHM LAB NAVIGATION
+======================================== -->
+
+<nav class="algorithmus-nav">
+
+    <div class="nav-logo">
+        ALGORITHM LAB
+    </div>
+
+
+    <div class="nav-links">
+
+
+        <!-- SEARCH -->
+
+        <div class="nav-gruppe">
+
+            <button
+                type="button"
+                class="nav-kategorie"
+            >
+                Search
+            </button>
+
+
+            <div class="nav-dropdown">
+
+                <a href="#linear-search">
+                    Linear Search
+                </a>
+
+                <a href="#binary-search">
+                    Binary Search
+                </a>
+
+                <a href="#rabin-karp">
+                    Rabin-Karp
+                </a>
+
+            </div>
+
         </div>
-    </section>
-    <section class="binary-algorithmus">
-        <h2>Binary Search</h2>
-        <p>Die Zahlen Liste muss Sortiert sein sonst funktioniert es nicht!</p>
-        <p>Binary Search halbiert bei jedem Schritt den Suchbereich</p>
-        <input
-        type="nuber"
+
+
+        <!-- SORT -->
+
+        <div class="nav-gruppe">
+
+            <button
+                type="button"
+                class="nav-kategorie"
+            >
+                Sort
+            </button>
+
+
+            <div class="nav-dropdown">
+
+                <a href="#bubble-sort">
+                    Bubble Sort
+                </a>
+
+                <a href="#selection-sort">
+                    Selection Sort
+                </a>
+
+                <a href="#insertion-sort">
+                    Insertion Sort
+                </a>
+
+                <a href="#merge-sort">
+                    Merge Sort
+                </a>
+
+                <a href="#quick-sort">
+                    Quick Sort
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- GRAPHEN -->
+
+        <div class="nav-gruppe">
+
+            <button
+                type="button"
+                class="nav-kategorie"
+            >
+                Graphen
+            </button>
+
+
+            <div class="nav-dropdown">
+
+                <a href="#bfs">
+                    BFS / DFS / Dijkstra
+                </a>
+
+                <a href="#binary-tree">
+                    Binary Search Tree
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- BACKTRACKING -->
+
+        <div class="nav-gruppe">
+
+            <button
+                type="button"
+                class="nav-kategorie"
+            >
+                Backtracking
+            </button>
+
+
+            <div class="nav-dropdown">
+
+                <a href="#sudoku">
+                    Sudoku
+                </a>
+
+                <a href="#n-queens">
+                    N-Queens
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- DATEN -->
+
+        <div class="nav-gruppe">
+
+            <button
+                type="button"
+                class="nav-kategorie"
+            >
+                Daten
+            </button>
+
+
+            <div class="nav-dropdown">
+
+                <a href="#kmeans">
+                    K-Means
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- CRYPTO -->
+
+        <div class="nav-gruppe">
+
+            <button
+                type="button"
+                class="nav-kategorie"
+            >
+                Crypto
+            </button>
+
+
+            <div class="nav-dropdown">
+
+                <a href="#caesar">
+                    Caesar
+                </a>
+
+                <a href="#vigenere">
+                    Vigenère
+                </a>
+
+                <a href="#xor">
+                    XOR
+                </a>
+
+                <a href="#rail-fence">
+                    Rail Fence
+                </a>
+
+                <a href="#playfair">
+                    Playfair
+                </a>
+
+                <a href="#aes">
+                    AES-128
+                </a>
+
+                <a href="#aes-decrypt">
+                    AES Decryption
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- AI -->
+
+        <div class="nav-gruppe">
+
+            <button
+                type="button"
+                class="nav-kategorie"
+            >
+                AI
+            </button>
+
+
+            <div class="nav-dropdown">
+
+                <a href="#genetic">
+                    Genetic Algorithm
+                </a>
+
+                <a href="#neuroevolution">
+                    Neuroevolution
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- ========================================
+     HAUPTBEREICH
+======================================== -->
+
+<h1>Algorithm Lab</h1>
+
+<p>
+    Algorithmen können hier verstanden und visualisiert werden
+</p>
+
+
+<!-- ========================================
+     LINEAR SEARCH
+======================================== -->
+
+<section
+    class="linear-algorithmus"
+    id="linear-search"
+>
+
+    <h2>Linear Search</h2>
+
+    <p>
+        Die Zahlen Liste kann so aussehen wie sie will,
+        solange die gesuchte Zahl vorhanden ist finden wir sie.
+    </p>
+
+    <p>
+        Linear Search sucht von links nach rechts,
+        also so wie wir lesen.
+    </p>
+
+    <input
+        type="text"
+        id="suchZahl"
+        placeholder="Zahl eingeben"
+        autocomplete="off"
+    >
+
+    <button id="linear-suchen">
+        Linear Search starten
+    </button>
+
+
+    <div class="zahlen-container">
+
+        <div class="zahl">8</div>
+        <div class="zahl">1</div>
+        <div class="zahl">16</div>
+        <div class="zahl">13</div>
+        <div class="zahl">3</div>
+        <div class="zahl">12</div>
+        <div class="zahl">5</div>
+        <div class="zahl">17</div>
+        <div class="zahl">4</div>
+        <div class="zahl">9</div>
+        <div class="zahl">2</div>
+        <div class="zahl">6</div>
+        <div class="zahl">10</div>
+        <div class="zahl">14</div>
+        <div class="zahl">20</div>
+        <div class="zahl">19</div>
+        <div class="zahl">7</div>
+        <div class="zahl">11</div>
+        <div class="zahl">15</div>
+        <div class="zahl">18</div>
+
+    </div>
+
+</section>
+
+
+<!-- ========================================
+     BINARY SEARCH
+======================================== -->
+
+<section
+    class="binary-algorithmus"
+    id="binary-search"
+>
+
+    <h2>Binary Search</h2>
+
+    <p>
+        Die Zahlen Liste muss sortiert sein,
+        sonst funktioniert es nicht!
+    </p>
+
+    <p>
+        Binary Search halbiert bei jedem Schritt
+        den Suchbereich.
+    </p>
+
+
+    <input
+        type="number"
         id="binarySuchZahl"
         placeholder="Zahl eingeben"
         min="1"
         max="20"
-        >
-        <button id="binary-suchen">
-            Binary Search starten
-        </button>
-        <div class="binary-container">
+    >
+
+    <button id="binary-suchen">
+        Binary Search starten
+    </button>
+
+
+    <div class="binary-container">
+
         <div class="binary-zahl">1</div>
         <div class="binary-zahl">2</div>
         <div class="binary-zahl">3</div>
@@ -72,102 +388,184 @@
         <div class="binary-zahl">18</div>
         <div class="binary-zahl">19</div>
         <div class="binary-zahl">20</div>
-        </div>
-    </section>
-    <section class="bubble-sort-algorithmus">
-        <h2>Bubble Sort</h2>
-        <p>Der Bubble Sort ist ein Sortieralgorithmus,
-             der immer zwei benachbarte Zahlen vergleicht und ihre Plätze tauscht,
-             wenn die linke Zahl größer als die rechte Zahl ist.</p>
-             <button id="bubble-start">Bubble Sort starten</button>
-             <div class="bubble-container">
-                <div class="bubble-zahl">15</div>
-                <div class="bubble-zahl">3</div>
-                <div class="bubble-zahl">20</div>
-                <div class="bubble-zahl">8</div>
-                <div class="bubble-zahl">1</div>
-                <div class="bubble-zahl">17</div>
-                <div class="bubble-zahl">4</div>
-                <div class="bubble-zahl">13</div>
-                <div class="bubble-zahl">12</div>
-                <div class="bubble-zahl">9</div>
-                <div class="bubble-zahl">6</div>
-                <div class="bubble-zahl">10</div>
-                <div class="bubble-zahl">7</div>
-                <div class="bubble-zahl">11</div>
-                <div class="bubble-zahl">2</div>
-                <div class="bubble-zahl">5</div>
-                <div class="bubble-zahl">14</div>
-                <div class="bubble-zahl">18</div>
-                <div class="bubble-zahl">19</div>
-                <div class="bubble-zahl">16</div>
-             </div>
-    </section>
-    <section class="selection-sort-algorithmus">
-        <h2> Selection Sort</h2>
-        <p> Wählt einen Wert aus und bringt ihn an die richtige stelle</p>
-        <button id="selection-start">Selection Sort starten</button>
-        <div class="selection-container">
-            <div class="selection-zahl">3</div>
-            <div class="selection-zahl">7</div>
-            <div class="selection-zahl">19</div>
-            <div class="selection-zahl">4</div>
-            <div class="selection-zahl">16</div>
-            <div class="selection-zahl">12</div>
-            <div class="selection-zahl">9</div>
-            <div class="selection-zahl">18</div>
-            <div class="selection-zahl">5</div>
-            <div class="selection-zahl">2</div>
-            <div class="selection-zahl">10</div>
-            <div class="selection-zahl">14</div>
-            <div class="selection-zahl">20</div>
-            <div class="selection-zahl">13</div>
-            <div class="selection-zahl">8</div>
-            <div class="selection-zahl">15</div>
-            <div class="selection-zahl">6</div>
-            <div class="selection-zahl">17</div>
-            <div class="selection-zahl">11</div>
-            <div class="selection-zahl">1</div>
-        </div>
-    </section>
-    <section class="insertion-sort-algorithmus">
-        <h2> Insertion Sort</h2>
-        <p>Whält eine beliebige Zahl aus nimmt sie als sortiert, dann sortiert es alle anderen zahlen nach dieser einen Zahl.</p>
-        <button id="insertion-start">Insertion Sort starten</button>
-        <div class="insertion-container">
-            <div class="insertion-zahl">3</div>
-            <div class="insertion-zahl">10</div>
-            <div class="insertion-zahl">14</div>
-            <div class="insertion-zahl">1</div>
-            <div class="insertion-zahl">18</div>
-            <div class="insertion-zahl">13</div>
-            <div class="insertion-zahl">2</div>
-            <div class="insertion-zahl">9</div>
-            <div class="insertion-zahl">17</div>
-            <div class="insertion-zahl">5</div>
-            <div class="insertion-zahl">12</div>
-            <div class="insertion-zahl">8</div>
-            <div class="insertion-zahl">16</div>
-            <div class="insertion-zahl">4</div>
-            <div class="insertion-zahl">19</div>
-            <div class="insertion-zahl">11</div>
-            <div class="insertion-zahl">7</div>
-            <div class="insertion-zahl">15</div>
-            <div class="insertion-zahl">20</div>
-            <div class="insertion-zahl">6</div>
-        </div>
-    </section>
-    <section class="merge-sort-algorithmus">
+
+    </div>
+
+</section>
+
+
+<!-- ========================================
+     BUBBLE SORT
+======================================== -->
+
+<section
+    class="bubble-sort-algorithmus"
+    id="bubble-sort"
+>
+
+    <h2>Bubble Sort</h2>
+
+    <p>
+        Der Bubble Sort ist ein Sortieralgorithmus,
+        der immer zwei benachbarte Zahlen vergleicht
+        und ihre Plätze tauscht, wenn die linke Zahl
+        größer als die rechte Zahl ist.
+    </p>
+
+    <button id="bubble-start">
+        Bubble Sort starten
+    </button>
+
+
+    <div class="bubble-container">
+
+        <div class="bubble-zahl">15</div>
+        <div class="bubble-zahl">3</div>
+        <div class="bubble-zahl">20</div>
+        <div class="bubble-zahl">8</div>
+        <div class="bubble-zahl">1</div>
+        <div class="bubble-zahl">17</div>
+        <div class="bubble-zahl">4</div>
+        <div class="bubble-zahl">13</div>
+        <div class="bubble-zahl">12</div>
+        <div class="bubble-zahl">9</div>
+        <div class="bubble-zahl">6</div>
+        <div class="bubble-zahl">10</div>
+        <div class="bubble-zahl">7</div>
+        <div class="bubble-zahl">11</div>
+        <div class="bubble-zahl">2</div>
+        <div class="bubble-zahl">5</div>
+        <div class="bubble-zahl">14</div>
+        <div class="bubble-zahl">18</div>
+        <div class="bubble-zahl">19</div>
+        <div class="bubble-zahl">16</div>
+
+    </div>
+
+</section>
+
+
+<!-- ========================================
+     SELECTION SORT
+======================================== -->
+
+<section
+    class="selection-sort-algorithmus"
+    id="selection-sort"
+>
+
+    <h2>Selection Sort</h2>
+
+    <p>
+        Wählt einen Wert aus und bringt ihn
+        an die richtige Stelle.
+    </p>
+
+    <button id="selection-start">
+        Selection Sort starten
+    </button>
+
+
+    <div class="selection-container">
+
+        <div class="selection-zahl">3</div>
+        <div class="selection-zahl">7</div>
+        <div class="selection-zahl">19</div>
+        <div class="selection-zahl">4</div>
+        <div class="selection-zahl">16</div>
+        <div class="selection-zahl">12</div>
+        <div class="selection-zahl">9</div>
+        <div class="selection-zahl">18</div>
+        <div class="selection-zahl">5</div>
+        <div class="selection-zahl">2</div>
+        <div class="selection-zahl">10</div>
+        <div class="selection-zahl">14</div>
+        <div class="selection-zahl">20</div>
+        <div class="selection-zahl">13</div>
+        <div class="selection-zahl">8</div>
+        <div class="selection-zahl">15</div>
+        <div class="selection-zahl">6</div>
+        <div class="selection-zahl">17</div>
+        <div class="selection-zahl">11</div>
+        <div class="selection-zahl">1</div>
+
+    </div>
+
+</section>
+
+
+<!-- ========================================
+     INSERTION SORT
+======================================== -->
+
+<section
+    class="insertion-sort-algorithmus"
+    id="insertion-sort"
+>
+
+    <h2>Insertion Sort</h2>
+
+    <p>
+        Wählt eine Zahl aus und fügt die folgenden
+        Werte schrittweise an der richtigen Position ein.
+    </p>
+
+    <button id="insertion-start">
+        Insertion Sort starten
+    </button>
+
+
+    <div class="insertion-container">
+
+        <div class="insertion-zahl">3</div>
+        <div class="insertion-zahl">10</div>
+        <div class="insertion-zahl">14</div>
+        <div class="insertion-zahl">1</div>
+        <div class="insertion-zahl">18</div>
+        <div class="insertion-zahl">13</div>
+        <div class="insertion-zahl">2</div>
+        <div class="insertion-zahl">9</div>
+        <div class="insertion-zahl">17</div>
+        <div class="insertion-zahl">5</div>
+        <div class="insertion-zahl">12</div>
+        <div class="insertion-zahl">8</div>
+        <div class="insertion-zahl">16</div>
+        <div class="insertion-zahl">4</div>
+        <div class="insertion-zahl">19</div>
+        <div class="insertion-zahl">11</div>
+        <div class="insertion-zahl">7</div>
+        <div class="insertion-zahl">15</div>
+        <div class="insertion-zahl">20</div>
+        <div class="insertion-zahl">6</div>
+
+    </div>
+
+</section>
+
+
+<!-- ========================================
+     MERGE SORT
+======================================== -->
+
+<section
+    class="merge-sort-algorithmus"
+    id="merge-sort"
+>
+
     <h2>Merge Sort</h2>
 
     <p>
-        Teilt die Zahlen immer wieder in kleinere Bereiche und
-        führt diese anschließend sortiert zusammen.
+        Teilt die Zahlen immer wieder in kleinere Bereiche
+        und führt diese anschließend sortiert zusammen.
     </p>
 
-    <button id="merge-start">Merge Sort starten</button>
+    <button id="merge-start">
+        Merge Sort starten
+    </button>
+
 
     <div class="merge-container">
+
         <div class="merge-zahl">12</div>
         <div class="merge-zahl">4</div>
         <div class="merge-zahl">17</div>
@@ -188,19 +586,35 @@
         <div class="merge-zahl">13</div>
         <div class="merge-zahl">19</div>
         <div class="merge-zahl">10</div>
+
     </div>
+
 </section>
-<section class="quick-sort-algorithmus">
+
+
+<!-- ========================================
+     QUICK SORT
+======================================== -->
+
+<section
+    class="quick-sort-algorithmus"
+    id="quick-sort"
+>
+
     <h2>Quick Sort</h2>
 
     <p>
-        Wählt einen Pivot und teilt die Zahlen in kleinere
-        und größere Werte auf.
+        Wählt einen Pivot und teilt die Zahlen
+        in kleinere und größere Werte auf.
     </p>
 
-    <button id="quick-start">Quick Sort starten</button>
+    <button id="quick-start">
+        Quick Sort starten
+    </button>
+
 
     <div class="quick-container">
+
         <div class="quick-zahl">14</div>
         <div class="quick-zahl">3</div>
         <div class="quick-zahl">18</div>
@@ -221,24 +635,63 @@
         <div class="quick-zahl">8</div>
         <div class="quick-zahl">12</div>
         <div class="quick-zahl">15</div>
+
     </div>
+
 </section>
-<section class="bfs-algorithmus">
-    <h2>Breadth-First Search</h2>
+
+
+<!-- ========================================
+     BFS / DFS / DIJKSTRA
+======================================== -->
+
+<section
+    class="bfs-algorithmus"
+    id="bfs"
+>
+
+    <h2>
+        Breadth-First Search
+    </h2>
 
     <p>
-        BFS durchsucht ein Feld schichtweise und kann den kürzesten Weg finden.
+        BFS durchsucht ein Feld schichtweise
+        und kann den kürzesten Weg finden.
     </p>
 
-    <button id="bfs-start">BFS starten</button> 
-    <button id="dfs-start">DFS starten</button>
-    <button id="dijkstra-start">Dijkstra starten</button>
-    <button id="terrain-modus">Gelände-Modus</button>
-    <button id="bfs-reset">Zurücksetzen</button>
+    <button id="bfs-start">
+        BFS starten
+    </button>
+
+    <button id="dfs-start">
+        DFS starten
+    </button>
+
+    <button id="dijkstra-start">
+        Dijkstra starten
+    </button>
+
+    <button id="terrain-modus">
+        Gelände-Modus
+    </button>
+
+    <button id="bfs-reset">
+        Zurücksetzen
+    </button>
 
     <div id="bfs-grid"></div>
+
 </section>
-<section class="baum-algorithmus">
+
+
+<!-- ========================================
+     BINÄRER SUCHBAUM
+======================================== -->
+
+<section
+    class="baum-algorithmus"
+    id="binary-tree"
+>
 
     <h2>Binärer Suchbaum</h2>
 
@@ -268,27 +721,327 @@
     <div id="baum-container"></div>
 
 </section>
-<section class="sudoku-algorithmus">
 
-    <h2>Sudoku Backtracking</h2>
 
-    <p>
-        Der Algorithmus probiert Zahlen aus und geht zurück,
-        wenn eine Zahl zu keiner gültigen Lösung führt.
-    </p>
+<!-- ========================================
+     SUDOKU
+======================================== -->
 
-    <button id="sudoku-start">
-        Sudoku lösen
-    </button>
+<section
+    <!-- ========================================
+     SUDOKU-BEREICH
+======================================== -->
 
-    <button id="sudoku-reset">
-        Zurücksetzen
-    </button>
+<div class="sudoku-bereich" id="sudoku">
 
-    <div id="sudoku-grid"></div>
+
+    <!-- ====================================
+         BESTEHENDER BACKTRACKING-VISUALIZER
+    ===================================== -->
+
+    <section class="sudoku-algorithmus">
+
+        <h2>
+            Sudoku Backtracking
+        </h2>
+
+        <p>
+            Der Algorithmus probiert Zahlen aus und geht zurück,
+            wenn eine Zahl zu keiner gültigen Lösung führt.
+        </p>
+
+        <button id="sudoku-start">
+            Sudoku lösen
+        </button>
+
+        <button id="sudoku-reset">
+            Zurücksetzen
+        </button>
+
+        <div id="sudoku-grid"></div>
+
+    </section>
+
+
+    <!-- ====================================
+         SPIELBARES SUDOKU
+    ===================================== -->
+
+    <section
+        class="sudoku-spiel"
+        id="sudoku-spiel"
+    >
+
+        <div class="sudoku-spiel-header">
+
+            <div>
+
+                <h2>
+                    Sudoku spielen
+                </h2>
+
+                <p>
+                    Löse das Sudoku selbst. Jede Zahl von 1 bis 9
+                    darf in jeder Zeile, Spalte und jedem 3×3-Block
+                    nur einmal vorkommen.
+                </p>
+
+            </div>
+
+
+            <div class="sudoku-spiel-schwierigkeit">
+
+                <label for="sudoku-spiel-level">
+                    Schwierigkeit
+                </label>
+
+                <select id="sudoku-spiel-level">
+
+                    <option value="leicht">
+                        Leicht
+                    </option>
+
+                    <option value="mittel">
+                        Mittel
+                    </option>
+
+                    <option value="schwer">
+                        Schwer
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================
+             STEUERUNG
+        ================================== -->
+
+        <div class="sudoku-spiel-buttons">
+
+            <button id="sudoku-spiel-neu">
+                Neues Spiel
+            </button>
+
+            <button id="sudoku-spiel-pruefen">
+                Prüfen
+            </button>
+
+            <button id="sudoku-spiel-hinweis">
+                Hinweis
+            </button>
+
+            <button id="sudoku-spiel-leeren">
+                Eigene Eingaben löschen
+            </button>
+
+        </div>
+
+
+        <!-- =================================
+             STATUS
+        ================================== -->
+
+        <div class="sudoku-spiel-status">
+
+            <div>
+
+                <span>
+                    Schwierigkeit
+                </span>
+
+                <strong id="sudoku-spiel-level-anzeige">
+                    Leicht
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    Zeit
+                </span>
+
+                <strong id="sudoku-spiel-zeit">
+                    00:00
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    Fehler
+                </span>
+
+                <strong id="sudoku-spiel-fehler">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    Hinweise
+                </span>
+
+                <strong id="sudoku-spiel-hinweise">
+                    0 / 3
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    Fortschritt
+                </span>
+
+                <strong id="sudoku-spiel-fortschritt">
+                    0 / 81
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================
+             SPIELFELD
+        ================================== -->
+
+        <div class="sudoku-spiel-rahmen">
+
+            <div id="sudoku-spiel-grid"></div>
+
+        </div>
+
+
+        <!-- =================================
+             ZAHLENAUSWAHL
+        ================================== -->
+
+        <div class="sudoku-spiel-zahlen">
+
+            <button data-zahl="1">1</button>
+            <button data-zahl="2">2</button>
+            <button data-zahl="3">3</button>
+            <button data-zahl="4">4</button>
+            <button data-zahl="5">5</button>
+            <button data-zahl="6">6</button>
+            <button data-zahl="7">7</button>
+            <button data-zahl="8">8</button>
+            <button data-zahl="9">9</button>
+
+            <button
+                id="sudoku-spiel-radierer"
+                class="sudoku-radierer"
+                type="button"
+            >
+                Löschen
+            </button>
+
+        </div>
+
+
+        <!-- =================================
+             INFORMATION
+        ================================== -->
+
+        <div id="sudoku-spiel-info">
+            Wähle ein freies Feld und trage eine Zahl von 1 bis 9 ein.
+        </div>
+
+
+        <!-- =================================
+             GEWINNANZEIGE
+        ================================== -->
+
+        <div
+            id="sudoku-spiel-gewonnen"
+            class="sudoku-spiel-gewonnen versteckt"
+        >
+
+            <span>
+                SUDOKU ABGESCHLOSSEN
+            </span>
+
+            <h3>
+                Sudoku gelöst!
+            </h3>
+
+            <div class="sudoku-gewinn-statistik">
+
+                <div>
+
+                    <span>
+                        Zeit
+                    </span>
+
+                    <strong id="sudoku-gewinn-zeit">
+                        00:00
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Fehler
+                    </span>
+
+                    <strong id="sudoku-gewinn-fehler">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Hinweise
+                    </span>
+
+                    <strong id="sudoku-gewinn-hinweise">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <button id="sudoku-gewinn-neu">
+                Neues Sudoku
+            </button>
+
+        </div>
+
+    </section>
+
+</div>
 
 </section>
-<section class="queens-algorithmus">
+
+
+<!-- ========================================
+     N-QUEENS
+======================================== -->
+
+<section
+    class="queens-algorithmus"
+    id="n-queens"
+>
 
     <h2>N-Queens Backtracking</h2>
 
@@ -308,7 +1061,16 @@
     <div id="queens-grid"></div>
 
 </section>
-<section class="kmeans-algorithmus">
+
+
+<!-- ========================================
+     K-MEANS
+======================================== -->
+
+<section
+    class="kmeans-algorithmus"
+    id="kmeans"
+>
 
     <h2>K-Means Clustering</h2>
 
@@ -317,7 +1079,9 @@
         in verschiedene Gruppen ein.
     </p>
 
-    <label for="kmeans-k">Cluster:</label>
+    <label for="kmeans-k">
+        Cluster:
+    </label>
 
     <select id="kmeans-k">
         <option value="2">2</option>
@@ -341,7 +1105,16 @@
     <div id="kmeans-flaeche"></div>
 
 </section>
-<section class="caesar-algorithmus">
+
+
+<!-- ========================================
+     CAESAR
+======================================== -->
+
+<section
+    class="caesar-algorithmus"
+    id="caesar"
+>
 
     <h2>Caesar-Chiffre</h2>
 
@@ -383,7 +1156,16 @@
     <div id="caesar-ausgabe"></div>
 
 </section>
-<section class="vigenere-algorithmus">
+
+
+<!-- ========================================
+     VIGENERE
+======================================== -->
+
+<section
+    class="vigenere-algorithmus"
+    id="vigenere"
+>
 
     <h2>Vigenère-Chiffre</h2>
 
@@ -391,6 +1173,7 @@
         Die Vigenère-Chiffre verwendet ein Schlüsselwort,
         um jeden Buchstaben unterschiedlich zu verschieben.
     </p>
+
 
     <div class="vigenere-eingaben">
 
@@ -407,6 +1190,7 @@
         >
 
     </div>
+
 
     <div class="vigenere-buttons">
 
@@ -428,18 +1212,35 @@
     <div id="vigenere-visualisierung">
 
         <div class="vigenere-zeile">
-            <span class="vigenere-label">Text</span>
+
+            <span class="vigenere-label">
+                Text
+            </span>
+
             <div id="vigenere-text-zeile"></div>
+
         </div>
 
+
         <div class="vigenere-zeile">
-            <span class="vigenere-label">Schlüssel</span>
+
+            <span class="vigenere-label">
+                Schlüssel
+            </span>
+
             <div id="vigenere-key-zeile"></div>
+
         </div>
 
+
         <div class="vigenere-zeile">
-            <span class="vigenere-label">Ergebnis</span>
+
+            <span class="vigenere-label">
+                Ergebnis
+            </span>
+
             <div id="vigenere-ergebnis-zeile"></div>
+
         </div>
 
     </div>
@@ -450,7 +1251,16 @@
     </div>
 
 </section>
-<section class="xor-algorithmus">
+
+
+<!-- ========================================
+     XOR
+======================================== -->
+
+<section
+    class="xor-algorithmus"
+    id="xor"
+>
 
     <h2>XOR-Verschlüsselung</h2>
 
@@ -459,6 +1269,7 @@
         eines Schlüssels. Derselbe Schlüssel kann zum Ver- und
         Entschlüsseln verwendet werden.
     </p>
+
 
     <div class="xor-eingaben">
 
@@ -479,6 +1290,7 @@
 
     </div>
 
+
     <div class="xor-buttons">
 
         <button id="xor-verschluesseln">
@@ -495,38 +1307,81 @@
 
     </div>
 
+
     <div id="xor-visualisierung">
 
         <div class="xor-zeile">
-            <span class="xor-label">Zeichen:</span>
-            <span id="xor-zeichen">-</span>
+
+            <span class="xor-label">
+                Zeichen:
+            </span>
+
+            <span id="xor-zeichen">
+                -
+            </span>
+
         </div>
 
-        <div class="xor-zeile">
-            <span class="xor-label">Zeichen binär:</span>
-            <span id="xor-text-binaer">00000000</span>
-        </div>
 
         <div class="xor-zeile">
-            <span class="xor-label">Schlüssel:</span>
-            <span id="xor-key-binaer">00000000</span>
+
+            <span class="xor-label">
+                Zeichen binär:
+            </span>
+
+            <span id="xor-text-binaer">
+                00000000
+            </span>
+
         </div>
+
+
+        <div class="xor-zeile">
+
+            <span class="xor-label">
+                Schlüssel:
+            </span>
+
+            <span id="xor-key-binaer">
+                00000000
+            </span>
+
+        </div>
+
 
         <div class="xor-trennlinie"></div>
 
+
         <div class="xor-zeile xor-ergebnis">
-            <span class="xor-label">XOR:</span>
-            <span id="xor-ergebnis-binaer">00000000</span>
+
+            <span class="xor-label">
+                XOR:
+            </span>
+
+            <span id="xor-ergebnis-binaer">
+                00000000
+            </span>
+
         </div>
 
     </div>
+
 
     <div id="xor-ausgabe">
         Ergebnis erscheint hier.
     </div>
 
 </section>
-<section class="rail-algorithmus">
+
+
+<!-- ========================================
+     RAIL FENCE
+======================================== -->
+
+<section
+    class="rail-algorithmus"
+    id="rail-fence"
+>
 
     <h2>Rail-Fence-Chiffre</h2>
 
@@ -536,6 +1391,7 @@
         zeilenweise aus.
     </p>
 
+
     <div class="rail-eingaben">
 
         <input
@@ -544,7 +1400,9 @@
             placeholder="Text eingeben"
         >
 
-        <label for="rail-anzahl">Schienen:</label>
+        <label for="rail-anzahl">
+            Schienen:
+        </label>
 
         <input
             type="number"
@@ -555,6 +1413,7 @@
         >
 
     </div>
+
 
     <div class="rail-buttons">
 
@@ -572,14 +1431,25 @@
 
     </div>
 
+
     <div id="rail-visualisierung"></div>
+
 
     <div id="rail-ausgabe">
         Ergebnis erscheint hier.
     </div>
 
 </section>
-<section class="playfair-algorithmus">
+
+
+<!-- ========================================
+     PLAYFAIR
+======================================== -->
+
+<section
+    class="playfair-algorithmus"
+    id="playfair"
+>
 
     <h2>Playfair-Chiffre</h2>
 
@@ -588,6 +1458,7 @@
         mithilfe einer 5 × 5-Schlüsselmatrix. I und J teilen
         sich dabei ein gemeinsames Feld.
     </p>
+
 
     <div class="playfair-eingaben">
 
@@ -605,6 +1476,7 @@
 
     </div>
 
+
     <div class="playfair-buttons">
 
         <button id="playfair-verschluesseln">
@@ -621,19 +1493,26 @@
 
     </div>
 
+
     <div class="playfair-arbeitsbereich">
 
         <div class="playfair-matrix-bereich">
 
-            <h3>Schlüsselmatrix</h3>
+            <h3>
+                Schlüsselmatrix
+            </h3>
 
             <div id="playfair-matrix"></div>
 
         </div>
 
+
         <div class="playfair-paar-bereich">
 
-            <h3>Aktuelles Buchstabenpaar</h3>
+            <h3>
+                Aktuelles Buchstabenpaar
+            </h3>
+
 
             <div id="playfair-aktuelles-paar">
 
@@ -657,6 +1536,7 @@
 
             </div>
 
+
             <div id="playfair-regel">
                 Gib Text und Schlüsselwort ein.
             </div>
@@ -664,6 +1544,7 @@
         </div>
 
     </div>
+
 
     <div class="playfair-zeile">
 
@@ -675,6 +1556,7 @@
 
     </div>
 
+
     <div class="playfair-zeile">
 
         <span class="playfair-label">
@@ -685,12 +1567,22 @@
 
     </div>
 
+
     <div id="playfair-ausgabe">
         Ergebnis erscheint hier.
     </div>
 
 </section>
-<section class="aes-algorithmus">
+
+
+<!-- ========================================
+     AES-128
+======================================== -->
+
+<section
+    class="aes-algorithmus"
+    id="aes"
+>
 
     <h2>AES-128 Visualizer</h2>
 
@@ -699,9 +1591,11 @@
         4 × 4-State-Matrix. Der Visualizer zeigt alle zehn Runden.
     </p>
 
+
     <div class="aes-eingaben">
 
         <div class="aes-eingabe-gruppe">
+
             <label for="aes-text">
                 Klartext, genau 16 ASCII-Zeichen
             </label>
@@ -712,9 +1606,12 @@
                 maxlength="16"
                 value="Hallo AES Welt!!"
             >
+
         </div>
 
+
         <div class="aes-eingabe-gruppe">
+
             <label for="aes-key">
                 Schlüssel, genau 16 ASCII-Zeichen
             </label>
@@ -725,9 +1622,11 @@
                 maxlength="16"
                 value="GeheimerKey12345"
             >
+
         </div>
 
     </div>
+
 
     <div class="aes-buttons">
 
@@ -749,19 +1648,36 @@
 
     </div>
 
+
     <div class="aes-status-bereich">
 
         <div>
-            <span class="aes-status-label">Runde:</span>
-            <span id="aes-runde">-</span>
+
+            <span class="aes-status-label">
+                Runde:
+            </span>
+
+            <span id="aes-runde">
+                -
+            </span>
+
         </div>
 
+
         <div>
-            <span class="aes-status-label">Operation:</span>
-            <span id="aes-operation">Noch nicht gestartet</span>
+
+            <span class="aes-status-label">
+                Operation:
+            </span>
+
+            <span id="aes-operation">
+                Noch nicht gestartet
+            </span>
+
         </div>
 
     </div>
+
 
     <div class="aes-arbeitsbereich">
 
@@ -773,9 +1689,12 @@
 
         </div>
 
+
         <div class="aes-matrix-bereich">
 
-            <h3>Aktueller Rundenschlüssel</h3>
+            <h3>
+                Aktueller Rundenschlüssel
+            </h3>
 
             <div id="aes-key-matrix"></div>
 
@@ -783,13 +1702,17 @@
 
     </div>
 
+
     <div class="aes-byte-information">
 
-        <h3>Aktueller Zustand als Bytes</h3>
+        <h3>
+            Aktueller Zustand als Bytes
+        </h3>
 
         <div id="aes-byte-zeile"></div>
 
     </div>
+
 
     <div class="aes-erklaerung">
 
@@ -798,17 +1721,28 @@
         </h3>
 
         <p id="aes-schritt-text">
-            Gib einen 16 Zeichen langen Klartext und Schlüssel ein.
+            Gib einen 16 Zeichen langen Klartext
+            und Schlüssel ein.
         </p>
 
     </div>
+
 
     <div id="aes-ausgabe">
         Verschlüsseltes Ergebnis erscheint hier.
     </div>
 
 </section>
-<section class="aes-decrypt-algorithmus">
+
+
+<!-- ========================================
+     AES DECRYPT
+======================================== -->
+
+<section
+    class="aes-decrypt-algorithmus"
+    id="aes-decrypt"
+>
 
     <h2>AES-128 Entschlüsseler</h2>
 
@@ -817,6 +1751,7 @@
         Die inversen AES-Schritte werden in umgekehrter
         Rundenreihenfolge visualisiert.
     </p>
+
 
     <div class="aes-decrypt-eingaben">
 
@@ -834,6 +1769,7 @@
 
         </div>
 
+
         <div class="aes-decrypt-eingabe-gruppe">
 
             <label for="aes-decrypt-key">
@@ -850,6 +1786,7 @@
         </div>
 
     </div>
+
 
     <div class="aes-decrypt-buttons">
 
@@ -871,9 +1808,11 @@
 
     </div>
 
+
     <div class="aes-decrypt-status">
 
         <div>
+
             <span class="aes-decrypt-status-label">
                 Runde:
             </span>
@@ -881,9 +1820,12 @@
             <span id="aes-decrypt-runde">
                 -
             </span>
+
         </div>
 
+
         <div>
+
             <span class="aes-decrypt-status-label">
                 Operation:
             </span>
@@ -891,9 +1833,11 @@
             <span id="aes-decrypt-operation">
                 Noch nicht gestartet
             </span>
+
         </div>
 
     </div>
+
 
     <div class="aes-decrypt-arbeitsbereich">
 
@@ -905,9 +1849,12 @@
 
         </div>
 
+
         <div class="aes-decrypt-matrix-bereich">
 
-            <h3>Aktueller Rundenschlüssel</h3>
+            <h3>
+                Aktueller Rundenschlüssel
+            </h3>
 
             <div id="aes-decrypt-key-matrix"></div>
 
@@ -915,13 +1862,17 @@
 
     </div>
 
+
     <div class="aes-decrypt-byte-bereich">
 
-        <h3>Aktueller Zustand als Bytes</h3>
+        <h3>
+            Aktueller Zustand als Bytes
+        </h3>
 
         <div id="aes-decrypt-byte-zeile"></div>
 
     </div>
+
 
     <div class="aes-decrypt-erklaerung">
 
@@ -936,12 +1887,22 @@
 
     </div>
 
+
     <div id="aes-decrypt-ausgabe">
         Der entschlüsselte Klartext erscheint hier.
     </div>
 
 </section>
-<section class="rabin-karp-algorithmus">
+
+
+<!-- ========================================
+     RABIN-KARP
+======================================== -->
+
+<section
+    class="rabin-karp-algorithmus"
+    id="rabin-karp"
+>
 
     <h2>Rabin-Karp Textsuche</h2>
 
@@ -951,9 +1912,11 @@
         direkt überprüft werden.
     </p>
 
+
     <div class="rabin-eingaben">
 
         <div class="rabin-eingabe-gruppe">
+
             <label for="rabin-text">
                 Text
             </label>
@@ -964,9 +1927,12 @@
                 value="DAS IST EIN ALGORITHMUS TEST"
                 placeholder="Text eingeben"
             >
+
         </div>
 
+
         <div class="rabin-eingabe-gruppe">
+
             <label for="rabin-muster">
                 Suchmuster
             </label>
@@ -977,9 +1943,11 @@
                 value="ALGORITHMUS"
                 placeholder="Suchmuster eingeben"
             >
+
         </div>
 
     </div>
+
 
     <div class="rabin-buttons">
 
@@ -1001,9 +1969,11 @@
 
     </div>
 
+
     <div class="rabin-status">
 
         <div>
+
             <span class="rabin-status-label">
                 Fensterposition:
             </span>
@@ -1011,9 +1981,12 @@
             <span id="rabin-position">
                 -
             </span>
+
         </div>
 
+
         <div>
+
             <span class="rabin-status-label">
                 Muster-Hash:
             </span>
@@ -1021,9 +1994,12 @@
             <span id="rabin-muster-hash">
                 -
             </span>
+
         </div>
 
+
         <div>
+
             <span class="rabin-status-label">
                 Fenster-Hash:
             </span>
@@ -1031,33 +2007,43 @@
             <span id="rabin-fenster-hash">
                 -
             </span>
+
         </div>
 
     </div>
 
+
     <div class="rabin-visualisierung">
 
         <div class="rabin-zeile">
+
             <span class="rabin-label">
                 Text:
             </span>
 
             <div id="rabin-text-zeile"></div>
+
         </div>
 
+
         <div class="rabin-zeile">
+
             <span class="rabin-label">
                 Muster:
             </span>
 
             <div id="rabin-muster-zeile"></div>
+
         </div>
 
     </div>
 
+
     <div class="rabin-hash-bereich">
 
-        <h3>Rolling Hash</h3>
+        <h3>
+            Rolling Hash
+        </h3>
 
         <div id="rabin-hash-formel">
             Der Algorithmus wurde noch nicht gestartet.
@@ -1065,22 +2051,31 @@
 
     </div>
 
+
     <div id="rabin-info">
         Gib einen Text und ein Suchmuster ein.
     </div>
+
 
     <div id="rabin-ausgabe">
         Suchergebnisse erscheinen hier.
     </div>
 
 </section>
-<!-- =========================================
+
+
+<!-- ========================================
      EVOLUTIONÄRE ALGORITHMEN
-========================================= -->
+======================================== -->
 
-<section class="genetic-text-algorithmus">
+<section
+    class="genetic-text-algorithmus"
+    id="genetic"
+>
 
-    <h2>Evolutionäre Algorithmen</h2>
+    <h2>
+        Evolutionäre Algorithmen
+    </h2>
 
     <p>
         Eine Population entwickelt sich durch Fitnessbewertung,
@@ -1088,7 +2083,7 @@
     </p>
 
 
-    <!-- MODUS-AUSWAHL -->
+    <!-- MODUS -->
 
     <div class="genetic-modus-bereich">
 
@@ -1119,9 +2114,7 @@
     </div>
 
 
-    <!-- =====================================
-         TEXT EVOLUTION
-    ====================================== -->
+    <!-- TEXT -->
 
     <div
         id="genetic-text-bereich"
@@ -1147,9 +2140,7 @@
     </div>
 
 
-    <!-- =====================================
-         ZAHLEN EVOLUTION
-    ====================================== -->
+    <!-- ZAHL -->
 
     <div
         id="genetic-zahl-bereich"
@@ -1170,15 +2161,14 @@
 
         <p class="genetic-modus-beschreibung">
             Die DNA ist eine Zahl zwischen 0 und 1000.
-            Je näher sie an der Zielzahl liegt, desto höher ist die Fitness.
+            Je näher sie an der Zielzahl liegt,
+            desto höher ist die Fitness.
         </p>
 
     </div>
 
 
-    <!-- =====================================
-         FARB EVOLUTION
-    ====================================== -->
+    <!-- FARBE -->
 
     <div
         id="genetic-farbe-bereich"
@@ -1208,9 +2198,7 @@
     </div>
 
 
-    <!-- =====================================
-         KOORDINATEN EVOLUTION
-    ====================================== -->
+    <!-- KOORDINATEN -->
 
     <div
         id="genetic-punkt-bereich"
@@ -1228,6 +2216,7 @@
             min="0"
             max="700"
         >
+
 
         <label for="genetic-ziel-y">
             Zielposition Y
@@ -1249,9 +2238,7 @@
     </div>
 
 
-    <!-- =====================================
-         GEMEINSAME EINSTELLUNGEN
-    ====================================== -->
+    <!-- EINSTELLUNGEN -->
 
     <div class="genetic-eingaben">
 
@@ -1270,6 +2257,7 @@
             >
 
         </div>
+
 
         <div>
 
@@ -1291,9 +2279,7 @@
     </div>
 
 
-    <!-- =====================================
-         STEUERUNG
-    ====================================== -->
+    <!-- BUTTONS -->
 
     <div class="genetic-buttons">
 
@@ -1316,9 +2302,7 @@
     </div>
 
 
-    <!-- =====================================
-         STATUS
-    ====================================== -->
+    <!-- STATUS -->
 
     <div class="genetic-status">
 
@@ -1334,6 +2318,7 @@
 
         </div>
 
+
         <div>
 
             <span class="genetic-label">
@@ -1345,6 +2330,7 @@
             </strong>
 
         </div>
+
 
         <div>
 
@@ -1361,9 +2347,7 @@
     </div>
 
 
-    <!-- =====================================
-         BESTER KANDIDAT
-    ====================================== -->
+    <!-- BESTER KANDIDAT -->
 
     <div class="genetic-best">
 
@@ -1375,8 +2359,6 @@
             -
         </div>
 
-        <!-- Nur im Farbmodus sichtbar -->
-
         <div
             id="genetic-bester-farbe"
             class="genetic-ergebnis-farbe versteckt"
@@ -1385,9 +2367,7 @@
     </div>
 
 
-    <!-- =====================================
-         ZIEL
-    ====================================== -->
+    <!-- ZIEL -->
 
     <div class="genetic-zielbereich">
 
@@ -1399,8 +2379,6 @@
             ALGORITHMUS
         </div>
 
-        <!-- Nur im Farbmodus sichtbar -->
-
         <div
             id="genetic-ziel-farbe-anzeige"
             class="genetic-ergebnis-farbe versteckt"
@@ -1409,10 +2387,7 @@
     </div>
 
 
-    <!-- =====================================
-         KOORDINATEN-VISUALISIERUNG
-         Nur im Koordinatenmodus sichtbar
-    ====================================== -->
+    <!-- KOORDINATEN -->
 
     <div
         id="genetic-koordinaten-flaeche"
@@ -1430,9 +2405,7 @@
     </div>
 
 
-    <!-- =====================================
-         FORTSCHRITT
-    ====================================== -->
+    <!-- FORTSCHRITT -->
 
     <div class="genetic-fortschritt">
 
@@ -1441,27 +2414,32 @@
     </div>
 
 
-    <!-- =====================================
-         POPULATION
-    ====================================== -->
-
-    <h3>Aktuelle Population</h3>
+    <h3>
+        Aktuelle Population
+    </h3>
 
     <div id="genetic-population-anzeige"></div>
 
-
-    <!-- =====================================
-         INFORMATION
-    ====================================== -->
 
     <div id="genetic-info">
         Wähle einen Evolutionsmodus und starte den Algorithmus.
     </div>
 
 </section>
-<section class="ki-auto-algorithmus">
 
-    <h2>Neuroevolution: KI-Rennwagen</h2>
+
+<!-- ========================================
+     NEUROEVOLUTION
+======================================== -->
+
+<section
+    class="ki-auto-algorithmus"
+    id="neuroevolution"
+>
+
+    <h2>
+        Neuroevolution: KI-Rennwagen
+    </h2>
 
     <p>
         Mehrere Autos werden durch kleine neuronale Netze gesteuert.
@@ -1469,9 +2447,11 @@
         damit spätere Generationen die Rennstrecke besser bewältigen.
     </p>
 
+
     <div class="ki-auto-einstellungen">
 
         <div>
+
             <label for="ki-auto-population">
                 Autos pro Generation
             </label>
@@ -1483,9 +2463,12 @@
                 max="100"
                 value="40"
             >
+
         </div>
 
+
         <div>
+
             <label for="ki-auto-mutation">
                 Mutationsrate %
             </label>
@@ -1498,20 +2481,27 @@
                 step="0.5"
                 value="8"
             >
+
         </div>
 
+
         <div>
+
             <label for="ki-auto-tempo">
                 Trainingsgeschwindigkeit
             </label>
 
             <select id="ki-auto-tempo">
+
                 <option value="1">1×</option>
                 <option value="3">3×</option>
                 <option value="8">8×</option>
                 <option value="20">20×</option>
+
             </select>
+
         </div>
+
 
         <label class="ki-auto-checkbox">
 
@@ -1526,6 +2516,7 @@
         </label>
 
     </div>
+
 
     <div class="ki-auto-buttons">
 
@@ -1546,6 +2537,7 @@
         </button>
 
     </div>
+
 
     <div class="ki-auto-status">
 
@@ -1571,6 +2563,7 @@
 
     </div>
 
+
     <div class="ki-auto-legende">
 
         <span>
@@ -1595,6 +2588,7 @@
 
     </div>
 
+
     <div class="ki-auto-canvas-container">
 
         <canvas
@@ -1605,12 +2599,23 @@
 
     </div>
 
+
     <div id="ki-auto-info">
         Starte das Training. Die erste Generation fährt zunächst
         weitgehend zufällig.
     </div>
 
 </section>
-    <script src="script.js"></script>
-    </body>
+
+
+<!-- ========================================
+     JAVASCRIPT
+======================================== -->
+
+<script
+    src="script.js"
+></script>
+
+</body>
+
 </html>
