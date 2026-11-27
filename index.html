@@ -1,656 +1,2621 @@
-<!DOCTYPE html> 
-<html>
-    <head>
-        <Title> SPS & Robotik </Title>
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-        <div id="seite1">
-            <h1 id="start"> SPS & Robotik Grundlagen</h1>
-            <p> Die Robotik arbeitet Hand in Hand mit der SPS.</p>
+<!DOCTYPE html>
+<html lang="de">
 
-            <div class="themen">
-                <nav>
-                <a href="#sps">SPS</a>
-                <a href="#robotik">Robotik</a>
-                </nav>
-            </div>
+<head>
+    <meta charset="UTF-8">
 
-            <button id="darkmode">Dark Mode</button>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-            <div class="sps" id="sps">
-                <h2> Was ist eine SPS? </h2>
-                <p> Eine SPS ist eine speicherprogrammierbare Steuerung und wird zur Automatisierung von Maschinen und Anlagen verwendet.</p>
-                <h3> Typische Bestandteile einer SPS-Anlage </h3>
-                <ul> 
-                    <li>CPU</li>
-                    <li>Sensoren</li>
-                    <li>Aktoren</li>
-                    <li>Ein- und Ausgabemodule</li>
-                    <li>Netzwerk/Kommunikation</li>
-                </ul>
-                    <div class="bedienpult">
-                        <h3>Anlagensteuerung</h3>
-                            <div class="meldeleuchten">
-                                <div>
-                                    <div id="lampe-betrieb" class="leuchte betrieb">
-                                        <p class="beschriftung">Betrieb</p>
-                                    </div>
-                                </div>
+    <title>Algorithm Lab</title>
 
-                                <div>
-                                    <div id="lampe-stop" class="leuchte Stop">
-                                        <p class="beschriftung">Stop</p>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div id="lampe-quit" class="leuchte Quit">
-                                        <p class="beschriftung">Quittieren</p>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div id="lampe-fehler" class="leuchte fehler">
-                                        <p class="beschriftung">Fehler</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <p id="anlagen-status">Anlage bereit</p>
-                            <p id="betriebsart">Betriebsart: HAND</p>
-                            <p id="stoerungs-status">Keine Störung</p>
-                                <div class="taster-gruppe">
-                                    <button id="hand-betrieb"class="wahl-taster">HAND</button>
-                                    <button id="auto-betrieb"class="wahl-taster">AUTO</button>
-                                </div>
-                                <div class="taster-gruppe">
-                                    <button id="start-button" class="taster start">Start</button>
-                                    <button id="stop-button"class="taster stop">Stop</button>
-                                    <div class=""sicherheit>
-                                        <button id="quit-button"class="taster quit">Quit</button>
-                                        <button id="not-aus"class="notaus ">Not Aus</button>
-                                    </div>
-                                    <div class="motor-bereich">
-                                        <div id="motor" class="motor">
-                                            <div class="motor-welle"></div>
-                                        </div>
-                                    <div class="flamme">🔥</div>
-                                    </div>
-                                </div>
-                    </div>
-            </div>
-            <button id="naechste-seite" class="tunnel-button">
-                <img src="tunnel.png" alt="Geheimer Eingang">
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+</head>
+
+
+<body>
+
+<!-- ========================================
+     ALGORITHM LAB NAVIGATION
+======================================== -->
+
+<nav class="algorithmus-nav">
+
+    <div class="nav-logo">
+        ALGORITHM LAB
+    </div>
+
+
+    <div class="nav-links">
+
+
+        <!-- SEARCH -->
+
+        <div class="nav-gruppe">
+
+            <button
+                type="button"
+                class="nav-kategorie"
+            >
+                Search
             </button>
-            <div class="robotik" id="robotik">
-                <div class="roboter-text">
-                    <h2> Was ist Robotik?</h2>
-                    <p> Robotik beschäftigt sich mit der Entwicklung, Programmierung und Steuerung von Robotern. </p>
-                    <h3> Typische Bestandteile eines Industrieroboters</h3>
-                    <ol>
-                        <li>Roboterarm</li>
-                        <li>Steuerung</li>
-                        <li>Bediengerät</li>
-                        <li>Werkzeug</li>
-                        <li>Sensoren</li>
-                    </ol>
-                </div>
-                <div class="roboter-bereich">
-                    <div class="roboter-simulation" id="roboter-simulation">
-                        <button class="reset-roboter" id="reset-roboter">Reset</button>
-                        <div class="position position-links">P1</div>
-                        <div class="position position-rechts">P2</div>
-                        <div class="wuerfel" id="wuerfel"></div>
-                            <div class="roboter" id="roboter">
-                                <div class="roboter-sockel">
-                                    <div class="achse1">
-                                        <div class="oberarm"id="oberarm">
-                                            <div class="achse2">
-                                                <div class="unterarm"id="unterarm">
-                                                    <div class="achse3">
-                                                        <div class="greifer" id="greifer">
-                                                            <div id="master-krone">👑</div>
-                                                            <div class="greifer-links"></div>
-                                                            <div class="greifer-rechts"></div>
-                                                        </div>
-                                                    </div> 
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>   
-                                </div>
-                            </div>
-                    </div>
-                </div>
-                <h3> Mehr über Stäubli Robotik </h3>
-                <a href="https://www.staubli.com" target="_blank"> Stäubli Webseite öffnen</a>
-                <h3> Beispiel eines Industrieroboters </h3>
-                <div class="roboter-karte">
-                    <img class="roboter-bild" src="roboter.jpg" alt=" Ein Sechsachs Roboterarm von Stäubli" >
-                    <div class="roboter-info">
-                        <h3>Industrieroboter</h3>
-                        <p>Achsen : 6</p>
-                        <p>Status: Bereit</p>
-                        <p>Geschwindigkeit: 50%</p>
-                    </div>
-                </div>
+
+
+            <div class="nav-dropdown">
+
+                <a href="#linear-search">
+                    Linear Search
+                </a>
+
+                <a href="#binary-search">
+                    Binary Search
+                </a>
+
+                <a href="#rabin-karp">
+                    Rabin-Karp
+                </a>
+
             </div>
-            <a class="top-button" href="#start">Nach oben</a>
 
         </div>
 
-        <div id="seite2">
-            <div class="secret-level">
 
-                <h1>SECRET AREA</h1>
+        <!-- SORT -->
 
-                <p>
-                Du hast beide Easter Eggs gefunden.
-                </p>
-
-                <div class="secret-inhalt">
-
-                    <h2>⚠ NOTFALLPROTOKOLL ⚠</h2> 
-
-                    <p>
-                    Die Anlage spielt verrückt! Quittiere die Störungen,
-                    bevor die Zeit abläuft.
-                    </p>
-
-                    <div class="spiel-info">
-                        <span>Zeit: <b id="spiel-zeit">25</b></span>
-                        <span>Punkte: <b id="spiel-punkte">0</b></span>
-                    </div>  
-
-                    <div class="stoerungen">
-
-                        <button class="stoerung" id="stoerung1"></button>
-                        <button class="stoerung" id="stoerung2"></button>
-                        <button class="stoerung" id="stoerung3"></button>
-
-            
-                        <button class="stoerung" id="stoerung4"></button>
-                        <button class="stoerung" id="stoerung5"></button>
-                        <button class="stoerung" id="stoerung6"></button>
-
-                    </div>
-
-                    <button id="spiel-start">SYSTEM STARTEN</button>
-
-                    <p id="spiel-meldung">
-                    System bereit
-                    </p>
-
-                </div>
-                <section id="spiel2" class="spiel2-versteckt">
-
-                    <h2>🔓 LEVEL 2</h2>
-
-                    <p>
-                    Weiche den herabfallenden Werkstücken aus!
-                    </p>
-
-                    <div class="spiel2-info">
-                        <span>
-                            Punkte:
-                            <strong id="spiel2-punkte">0</strong>
-                        </span>
-
-                        <span>
-                            Leben:
-                            <strong id="spiel2-leben">3</strong>
-                        </span>
-                    </div>
-
-                    <div id="spiel2-feld">
-
-                        <div id="spiel2-roboter">
-                            🤖
-                        </div>
-
-                    </div>
-
-                    <p id="spiel2-meldung">
-                    Bewege den Roboter mit A/D oder den Pfeiltasten.
-                    </p>
-
-                    <div class="spiel2-steuerung">
-
-                        <button
-                            id="spiel2-links"
-                            type="button"
-                            aria-label="Nach links bewegen"
-                        >
-                        ◀
-                        </button>
-
-                        <button id="spiel2-start" type="button">
-                         LEVEL 2 STARTEN
-                        </button>
-
-                        <button
-                            id="spiel2-rechts"
-                            type="button"
-                            aria-label="Nach rechts bewegen"
-                        >
-                        ▶
-                        </button>
-
-                    </div>
-
-                </section>
-                <section id="spiel3" class="spiel3-versteckt">
-
-                    <h2>⚠ COMBAT PROTOCOL ⚠</h2>
-
-                    <p>
-                    Zerstöre die fehlerhaften Maschinen und besiege
-                    die Corrupted Control Unit.
-                    </p>
-
-                    <div class="spiel3-info">
-
-                        <span>
-                            Punkte:
-                            <strong id="spiel3-punkte">0</strong>
-                        </span>
-
-                        <span>
-                            Leben:
-                            <strong id="spiel3-leben">3</strong>
-                        </span>
-
-                        <span>
-                            Boss:
-                            <strong id="spiel3-boss-leben">GESPERRT</strong>
-                        </span>
-
-                    </div>
-
-                    <div id="spiel3-feld">
-
-                        <!-- Boss -->
-
-                        <div id="spiel3-boss">
-
-                            <div class="boss-name">
-                                CORRUPTED CONTROL UNIT
-                            </div>
-
-                            <div class="boss-lebensbalken">
-                                <div id="boss-lebensanzeige"></div>
-                            </div>
-
-                            <div class="boss-koerper">
-                            ☠
-                            </div>
-
-                        </div>
-
-
-                        <!-- Spieler -->
-
-                        <div id="spiel3-spieler">
-                            🤖
-                        </div>
-
-                    </div>
-
-                    <p id="spiel3-meldung">
-                    Erreiche 100 Punkte in Spiel 2.
-                    </p>
-
-                    <div class="spiel3-steuerung">
-
-                        <button
-                        id="spiel3-links"
-                        type="button"
-                        aria-label="Nach links bewegen"
-                        >
-                         ◀
-                        </button>
-
-                        <button id="spiel3-start" type="button">
-                        LEVEL 3 STARTEN
-                        </button>
-
-                        <button
-                        id="spiel3-schiessen"
-                        type="button"
-                        aria-label="Schießen"
-                        >
-                        FEUER
-                        </button>
-
-                        <button
-                        id="spiel3-rechts"
-                        type="button"
-                        aria-label="Nach rechts bewegen"
-                        >
-                         ▶
-                        </button>
-
-                    </div>
-
-                </section>
-                <section id="spiel4" class="spiel4-versteckt">
-
-                    <h2>⚡ REACTOR CONTROL ⚡</h2>
-
-                    <p>
-                    Halte den Reaktor stabil.
-                    Zu lange kritische Werte führen zum Systemausfall.
-                    </p>
-
-                    <div class="level4-statuszeile">
-
-                        <span>
-                            Restzeit:
-                            <strong id="level4-zeit">60</strong>
-                        </span>
-
-                        <span>
-                        Sichere Zeit:
-                        <strong id="level4-stabil-zeit">0</strong>
-                        </span>
-
-                        <span>
-                            Kritisch seit:
-                            <strong id="level4-kritisch-zeit">0</strong>
-                        </span>
-
-                    </div>
-
-
-                    <div class="level4-anzeigen">
-
-                        <!-- Temperatur -->
-
-                        <div class="level4-anzeige">
-
-                            <div class="level4-anzeige-kopf">
-                                    <span>Temperatur</span>
-
-                                    <strong id="level4-temperatur-text">
-                                    50 %
-                                </strong>
-                            </div>
-
-                            <div class="level4-balken">
-                                <div
-                                id="level4-temperatur-balken"
-                                class="level4-balken-fuellung"
-                                ></div>
-                            </div>
-
-                            <small>Sicherer Bereich: 25 bis 75</small>
-
-                        </div>
-
-
-                        <!-- Druck -->
-
-                        <div class="level4-anzeige">
-
-                            <div class="level4-anzeige-kopf">
-                                <span>Druck</span>
-
-                                <strong id="level4-druck-text">
-                                50 %
-                                </strong>
-                            </div>
-
-                            <div class="level4-balken">
-                                <div
-                                id="level4-druck-balken"
-                                class="level4-balken-fuellung"
-                                ></div>
-                            </div>
-
-                            <small>Sicherer Bereich: 20 bis 80</small>
-
-                        </div>
-
-
-                        <!-- Energie -->
-
-                        <div class="level4-anzeige">
-
-                                <div class="level4-anzeige-kopf">
-                                    <span>Energie</span>
-
-                                    <strong id="level4-energie-text">
-                                        50 %
-                                    </strong>
-                                </div>
-
-                                <div class="level4-balken">
-                                    <div
-                                    id="level4-energie-balken"
-                                    class="level4-balken-fuellung"
-                                    ></div>
-                                </div>
-
-                            <small>Sicherer Bereich: 30 bis 85</small>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="level4-steuerung">
-
-                        <button id="level4-kuehlung" type="button">
-                        KÜHLUNG
-                        </button>
-
-                        <button id="level4-ventil" type="button">
-                        VENTIL ÖFFNEN
-                        </button>
-
-                        <button id="level4-leistung-plus" type="button">
-                        LEISTUNG +
-                        </button>
-
-                        <button id="level4-leistung-minus" type="button">
-                        LEISTUNG -
-                        </button>
-
-                        <button
-                            id="level4-notkuehlung"
-                            class="level4-notfall"
-                            type="button"
-                            >
-                            NOTKÜHLUNG
-                        </button>
-
-                    </div>
-
-
-                    <p id="level4-meldung">
-                        Reaktorkontrolle bereit
-                    </p>
-
-
-                    <div class="level4-ziele">
-
-                        <h3>Bedingungen für Level 5</h3>
-
-                         <p id="level4-ziel-abschluss">
-                        ❓ ???
-                        </p>
-
-                        <p id="level4-ziel-stabil">
-                        ❓ ???
-                        </p>
-
-                        <p id="level4-ziel-notkuehlung">
-                        ❓ ???
-                        </p>
-
-                        </div>
-
-
-                    <button id="level4-start" type="button">
-                    REAKTOR STARTEN
-                    </button>
-
-                </section>
-
-
-<!-- ==================================
-     LEVEL 5: PLATZHALTER
-=================================== -->
-
-                <section id="spiel5" class="spiel5-versteckt">
-
-    <h2>⚠ NETWORK BREACH ⚠</h2>
-
-    <p>
-        Aktiviere alle Kontrollknoten in der richtigen
-        Reihenfolge und erreiche anschließend den Core.
-    </p>
-
-    <div class="level5-status">
-
-        <span>
-            Zeit:
-            <strong id="level5-zeit">120</strong>
-        </span>
-
-        <span>
-            Energie:
-            <strong id="level5-energie">100</strong>
-        </span>
-
-        <span>
-            Knoten:
-            <strong id="level5-knoten-status">0 / 3</strong>
-        </span>
-
-    </div>
-
-
-    <div class="level5-reihenfolge">
-
-        <span>Zugriffssequenz:</span>
-
-        <strong id="level5-sequenz">
-            GESPERRT
-        </strong>
-
-    </div>
-
-
-    <div class="level5-legende">
-
-        <span>🔷 Spieler</span>
-        <span>🔴 Virus</span>
-        <span>🔵 SPS</span>
-        <span>🟠 ROBOT</span>
-        <span>🟢 SAFETY</span>
-        <span>🔒 CORE</span>
-
-    </div>
-
-
-    <div
-        id="level5-feld"
-        aria-label="Netzwerk-Labyrinth"
-    ></div>
-
-
-    <p id="level5-meldung">
-        Netzwerkzugriff bereit
-    </p>
-
-
-    <div class="level5-steuerung">
-
-        <button
-            id="level5-oben"
-            type="button"
-            aria-label="Nach oben"
-        >
-            ▲
-        </button>
-
-        <div class="level5-steuerung-mitte">
+        <div class="nav-gruppe">
 
             <button
-                id="level5-links"
                 type="button"
-                aria-label="Nach links"
+                class="nav-kategorie"
             >
-                ◀
+                Sort
             </button>
 
-            <button
-                id="level5-unten"
-                type="button"
-                aria-label="Nach unten"
-            >
-                ▼
-            </button>
+
+            <div class="nav-dropdown">
+
+                <a href="#bubble-sort">
+                    Bubble Sort
+                </a>
+
+                <a href="#selection-sort">
+                    Selection Sort
+                </a>
+
+                <a href="#insertion-sort">
+                    Insertion Sort
+                </a>
+
+                <a href="#merge-sort">
+                    Merge Sort
+                </a>
+
+                <a href="#quick-sort">
+                    Quick Sort
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- GRAPHEN -->
+
+        <div class="nav-gruppe">
 
             <button
-                id="level5-rechts"
                 type="button"
-                aria-label="Nach rechts"
+                class="nav-kategorie"
             >
-                ▶
+                Graphen
             </button>
+
+
+            <div class="nav-dropdown">
+
+                <a href="#bfs">
+                    BFS / DFS / Dijkstra
+                </a>
+
+                <a href="#binary-tree">
+                    Binary Search Tree
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- BACKTRACKING -->
+
+        <div class="nav-gruppe">
+
+            <button
+                type="button"
+                class="nav-kategorie"
+            >
+                Backtracking
+            </button>
+
+
+            <div class="nav-dropdown">
+
+                <a href="#sudoku">
+                    Sudoku
+                </a>
+
+                <a href="#n-queens">
+                    N-Queens
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- DATEN -->
+
+        <div class="nav-gruppe">
+
+            <button
+                type="button"
+                class="nav-kategorie"
+            >
+                Daten
+            </button>
+
+
+            <div class="nav-dropdown">
+
+                <a href="#kmeans">
+                    K-Means
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- CRYPTO -->
+
+        <div class="nav-gruppe">
+
+            <button
+                type="button"
+                class="nav-kategorie"
+            >
+                Crypto
+            </button>
+
+
+            <div class="nav-dropdown">
+
+                <a href="#caesar">
+                    Caesar
+                </a>
+
+                <a href="#vigenere">
+                    Vigenère
+                </a>
+
+                <a href="#xor">
+                    XOR
+                </a>
+
+                <a href="#rail-fence">
+                    Rail Fence
+                </a>
+
+                <a href="#playfair">
+                    Playfair
+                </a>
+
+                <a href="#aes">
+                    AES-128
+                </a>
+
+                <a href="#aes-decrypt">
+                    AES Decryption
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- AI -->
+
+        <div class="nav-gruppe">
+
+            <button
+                type="button"
+                class="nav-kategorie"
+            >
+                AI
+            </button>
+
+
+            <div class="nav-dropdown">
+
+                <a href="#genetic">
+                    Genetic Algorithm
+                </a>
+
+                <a href="#neuroevolution">
+                    Neuroevolution
+                </a>
+
+            </div>
 
         </div>
 
     </div>
 
-
-    <button id="level5-start" type="button">
-        VERBINDUNG HERSTELLEN
-    </button>
-
-</section>
+</nav>
 
 
-<!-- ==================================
-     ABSCHLUSSBEREICH
-=================================== -->
+<!-- ========================================
+     HAUPTBEREICH
+======================================== -->
+
+<h1>Algorithm Lab</h1>
+
+<p>
+    Algorithmen können hier verstanden und visualisiert werden
+</p>
+
+
+<!-- ========================================
+     LINEAR SEARCH
+======================================== -->
 
 <section
-    id="finale"
-    class="finale-versteckt"
+    class="linear-algorithmus"
+    id="linear-search"
 >
 
-    <h2>🏆 SYSTEM MASTER 🏆</h2>
+    <h2>Linear Search</h2>
 
     <p>
-        Der Virus wurde isoliert und die Kontrolle
-        über die Produktionsanlage wiederhergestellt.
+        Die Zahlen Liste kann so aussehen wie sie will,
+        solange die gesuchte Zahl vorhanden ist finden wir sie.
     </p>
 
-    <div class="finale-liste">
+    <p>
+        Linear Search sucht von links nach rechts,
+        also so wie wir lesen.
+    </p>
 
-        <p>Level 1 ✅</p>
-        <p>Level 2 ✅</p>
-        <p>Level 3 ✅</p>
-        <p>Level 4 ✅</p>
-        <p>Level 5 ✅</p>
+    <input
+        type="text"
+        id="suchZahl"
+        placeholder="Zahl eingeben"
+        autocomplete="off"
+    >
+
+    <button id="linear-suchen">
+        Linear Search starten
+    </button>
+
+
+    <div class="zahlen-container">
+
+        <div class="zahl">8</div>
+        <div class="zahl">1</div>
+        <div class="zahl">16</div>
+        <div class="zahl">13</div>
+        <div class="zahl">3</div>
+        <div class="zahl">12</div>
+        <div class="zahl">5</div>
+        <div class="zahl">17</div>
+        <div class="zahl">4</div>
+        <div class="zahl">9</div>
+        <div class="zahl">2</div>
+        <div class="zahl">6</div>
+        <div class="zahl">10</div>
+        <div class="zahl">14</div>
+        <div class="zahl">20</div>
+        <div class="zahl">19</div>
+        <div class="zahl">7</div>
+        <div class="zahl">11</div>
+        <div class="zahl">15</div>
+        <div class="zahl">18</div>
 
     </div>
 
-    <strong>
-        SECRET CAMPAIGN COMPLETE
-    </strong>
+</section>
+
+
+<!-- ========================================
+     BINARY SEARCH
+======================================== -->
+
+<section
+    class="binary-algorithmus"
+    id="binary-search"
+>
+
+    <h2>Binary Search</h2>
+
+    <p>
+        Die Zahlen Liste muss sortiert sein,
+        sonst funktioniert es nicht!
+    </p>
+
+    <p>
+        Binary Search halbiert bei jedem Schritt
+        den Suchbereich.
+    </p>
+
+
+    <input
+        type="number"
+        id="binarySuchZahl"
+        placeholder="Zahl eingeben"
+        min="1"
+        max="20"
+    >
+
+    <button id="binary-suchen">
+        Binary Search starten
+    </button>
+
+
+    <div class="binary-container">
+
+        <div class="binary-zahl">1</div>
+        <div class="binary-zahl">2</div>
+        <div class="binary-zahl">3</div>
+        <div class="binary-zahl">4</div>
+        <div class="binary-zahl">5</div>
+        <div class="binary-zahl">6</div>
+        <div class="binary-zahl">7</div>
+        <div class="binary-zahl">8</div>
+        <div class="binary-zahl">9</div>
+        <div class="binary-zahl">10</div>
+        <div class="binary-zahl">11</div>
+        <div class="binary-zahl">12</div>
+        <div class="binary-zahl">13</div>
+        <div class="binary-zahl">14</div>
+        <div class="binary-zahl">15</div>
+        <div class="binary-zahl">16</div>
+        <div class="binary-zahl">17</div>
+        <div class="binary-zahl">18</div>
+        <div class="binary-zahl">19</div>
+        <div class="binary-zahl">20</div>
+
+    </div>
 
 </section>
-                <button id="zurueck">Zurück</button>
 
-                    
+
+<!-- ========================================
+     BUBBLE SORT
+======================================== -->
+
+<section
+    class="bubble-sort-algorithmus"
+    id="bubble-sort"
+>
+
+    <h2>Bubble Sort</h2>
+
+    <p>
+        Der Bubble Sort ist ein Sortieralgorithmus,
+        der immer zwei benachbarte Zahlen vergleicht
+        und ihre Plätze tauscht, wenn die linke Zahl
+        größer als die rechte Zahl ist.
+    </p>
+
+    <button id="bubble-start">
+        Bubble Sort starten
+    </button>
+
+
+    <div class="bubble-container">
+
+        <div class="bubble-zahl">15</div>
+        <div class="bubble-zahl">3</div>
+        <div class="bubble-zahl">20</div>
+        <div class="bubble-zahl">8</div>
+        <div class="bubble-zahl">1</div>
+        <div class="bubble-zahl">17</div>
+        <div class="bubble-zahl">4</div>
+        <div class="bubble-zahl">13</div>
+        <div class="bubble-zahl">12</div>
+        <div class="bubble-zahl">9</div>
+        <div class="bubble-zahl">6</div>
+        <div class="bubble-zahl">10</div>
+        <div class="bubble-zahl">7</div>
+        <div class="bubble-zahl">11</div>
+        <div class="bubble-zahl">2</div>
+        <div class="bubble-zahl">5</div>
+        <div class="bubble-zahl">14</div>
+        <div class="bubble-zahl">18</div>
+        <div class="bubble-zahl">19</div>
+        <div class="bubble-zahl">16</div>
+
+    </div>
+
+</section>
+
+
+<!-- ========================================
+     SELECTION SORT
+======================================== -->
+
+<section
+    class="selection-sort-algorithmus"
+    id="selection-sort"
+>
+
+    <h2>Selection Sort</h2>
+
+    <p>
+        Wählt einen Wert aus und bringt ihn
+        an die richtige Stelle.
+    </p>
+
+    <button id="selection-start">
+        Selection Sort starten
+    </button>
+
+
+    <div class="selection-container">
+
+        <div class="selection-zahl">3</div>
+        <div class="selection-zahl">7</div>
+        <div class="selection-zahl">19</div>
+        <div class="selection-zahl">4</div>
+        <div class="selection-zahl">16</div>
+        <div class="selection-zahl">12</div>
+        <div class="selection-zahl">9</div>
+        <div class="selection-zahl">18</div>
+        <div class="selection-zahl">5</div>
+        <div class="selection-zahl">2</div>
+        <div class="selection-zahl">10</div>
+        <div class="selection-zahl">14</div>
+        <div class="selection-zahl">20</div>
+        <div class="selection-zahl">13</div>
+        <div class="selection-zahl">8</div>
+        <div class="selection-zahl">15</div>
+        <div class="selection-zahl">6</div>
+        <div class="selection-zahl">17</div>
+        <div class="selection-zahl">11</div>
+        <div class="selection-zahl">1</div>
+
+    </div>
+
+</section>
+
+
+<!-- ========================================
+     INSERTION SORT
+======================================== -->
+
+<section
+    class="insertion-sort-algorithmus"
+    id="insertion-sort"
+>
+
+    <h2>Insertion Sort</h2>
+
+    <p>
+        Wählt eine Zahl aus und fügt die folgenden
+        Werte schrittweise an der richtigen Position ein.
+    </p>
+
+    <button id="insertion-start">
+        Insertion Sort starten
+    </button>
+
+
+    <div class="insertion-container">
+
+        <div class="insertion-zahl">3</div>
+        <div class="insertion-zahl">10</div>
+        <div class="insertion-zahl">14</div>
+        <div class="insertion-zahl">1</div>
+        <div class="insertion-zahl">18</div>
+        <div class="insertion-zahl">13</div>
+        <div class="insertion-zahl">2</div>
+        <div class="insertion-zahl">9</div>
+        <div class="insertion-zahl">17</div>
+        <div class="insertion-zahl">5</div>
+        <div class="insertion-zahl">12</div>
+        <div class="insertion-zahl">8</div>
+        <div class="insertion-zahl">16</div>
+        <div class="insertion-zahl">4</div>
+        <div class="insertion-zahl">19</div>
+        <div class="insertion-zahl">11</div>
+        <div class="insertion-zahl">7</div>
+        <div class="insertion-zahl">15</div>
+        <div class="insertion-zahl">20</div>
+        <div class="insertion-zahl">6</div>
+
+    </div>
+
+</section>
+
+
+<!-- ========================================
+     MERGE SORT
+======================================== -->
+
+<section
+    class="merge-sort-algorithmus"
+    id="merge-sort"
+>
+
+    <h2>Merge Sort</h2>
+
+    <p>
+        Teilt die Zahlen immer wieder in kleinere Bereiche
+        und führt diese anschließend sortiert zusammen.
+    </p>
+
+    <button id="merge-start">
+        Merge Sort starten
+    </button>
+
+
+    <div class="merge-container">
+
+        <div class="merge-zahl">12</div>
+        <div class="merge-zahl">4</div>
+        <div class="merge-zahl">17</div>
+        <div class="merge-zahl">1</div>
+        <div class="merge-zahl">9</div>
+        <div class="merge-zahl">15</div>
+        <div class="merge-zahl">6</div>
+        <div class="merge-zahl">20</div>
+        <div class="merge-zahl">3</div>
+        <div class="merge-zahl">11</div>
+        <div class="merge-zahl">8</div>
+        <div class="merge-zahl">18</div>
+        <div class="merge-zahl">2</div>
+        <div class="merge-zahl">14</div>
+        <div class="merge-zahl">7</div>
+        <div class="merge-zahl">16</div>
+        <div class="merge-zahl">5</div>
+        <div class="merge-zahl">13</div>
+        <div class="merge-zahl">19</div>
+        <div class="merge-zahl">10</div>
+
+    </div>
+
+</section>
+
+
+<!-- ========================================
+     QUICK SORT
+======================================== -->
+
+<section
+    class="quick-sort-algorithmus"
+    id="quick-sort"
+>
+
+    <h2>Quick Sort</h2>
+
+    <p>
+        Wählt einen Pivot und teilt die Zahlen
+        in kleinere und größere Werte auf.
+    </p>
+
+    <button id="quick-start">
+        Quick Sort starten
+    </button>
+
+
+    <div class="quick-container">
+
+        <div class="quick-zahl">14</div>
+        <div class="quick-zahl">3</div>
+        <div class="quick-zahl">18</div>
+        <div class="quick-zahl">7</div>
+        <div class="quick-zahl">11</div>
+        <div class="quick-zahl">1</div>
+        <div class="quick-zahl">20</div>
+        <div class="quick-zahl">5</div>
+        <div class="quick-zahl">16</div>
+        <div class="quick-zahl">9</div>
+        <div class="quick-zahl">2</div>
+        <div class="quick-zahl">13</div>
+        <div class="quick-zahl">6</div>
+        <div class="quick-zahl">19</div>
+        <div class="quick-zahl">10</div>
+        <div class="quick-zahl">4</div>
+        <div class="quick-zahl">17</div>
+        <div class="quick-zahl">8</div>
+        <div class="quick-zahl">12</div>
+        <div class="quick-zahl">15</div>
+
+    </div>
+
+</section>
+
+
+<!-- ========================================
+     BFS / DFS / DIJKSTRA
+======================================== -->
+
+<section
+    class="bfs-algorithmus"
+    id="bfs"
+>
+
+    <h2>
+        Breadth-First Search
+    </h2>
+
+    <p>
+        BFS durchsucht ein Feld schichtweise
+        und kann den kürzesten Weg finden.
+    </p>
+
+    <button id="bfs-start">
+        BFS starten
+    </button>
+
+    <button id="dfs-start">
+        DFS starten
+    </button>
+
+    <button id="dijkstra-start">
+        Dijkstra starten
+    </button>
+
+    <button id="terrain-modus">
+        Gelände-Modus
+    </button>
+
+    <button id="bfs-reset">
+        Zurücksetzen
+    </button>
+
+    <div id="bfs-grid"></div>
+
+</section>
+
+
+<!-- ========================================
+     BINÄRER SUCHBAUM
+======================================== -->
+
+<section
+    class="baum-algorithmus"
+    id="binary-tree"
+>
+
+    <h2>Binärer Suchbaum</h2>
+
+    <p>
+        Kleinere Werte werden links und größere Werte
+        rechts eingeordnet.
+    </p>
+
+    <input
+        type="number"
+        id="baum-zahl"
+        placeholder="Zahl eingeben"
+    >
+
+    <button id="baum-einfuegen">
+        Einfügen
+    </button>
+
+    <button id="baum-suchen">
+        Suchen
+    </button>
+
+    <button id="baum-reset">
+        Reset
+    </button>
+
+    <div id="baum-container"></div>
+
+</section>
+
+
+<!-- ========================================
+     SUDOKU
+======================================== -->
+
+<section
+    <!-- ========================================
+     SUDOKU-BEREICH
+======================================== -->
+
+<div class="sudoku-bereich" id="sudoku">
+
+
+    <!-- ====================================
+         BESTEHENDER BACKTRACKING-VISUALIZER
+    ===================================== -->
+
+    <section class="sudoku-algorithmus">
+
+        <h2>
+            Sudoku Backtracking
+        </h2>
+
+        <p>
+            Der Algorithmus probiert Zahlen aus und geht zurück,
+            wenn eine Zahl zu keiner gültigen Lösung führt.
+        </p>
+
+        <button id="sudoku-start">
+            Sudoku lösen
+        </button>
+
+        <button id="sudoku-reset">
+            Zurücksetzen
+        </button>
+
+        <div id="sudoku-grid"></div>
+
+    </section>
+
+
+    <!-- ====================================
+         SPIELBARES SUDOKU
+    ===================================== -->
+
+    <section
+        class="sudoku-spiel"
+        id="sudoku-spiel"
+    >
+
+        <div class="sudoku-spiel-header">
+
+            <div>
+
+                <h2>
+                    Sudoku spielen
+                </h2>
+
+                <p>
+                    Löse das Sudoku selbst. Jede Zahl von 1 bis 9
+                    darf in jeder Zeile, Spalte und jedem 3×3-Block
+                    nur einmal vorkommen.
+                </p>
+
             </div>
-            <div id="level-transition">
-                <div class="unlock-text">
-                    <span>UNLOCKED</span>
+
+
+            <div class="sudoku-spiel-schwierigkeit">
+
+                <label for="sudoku-spiel-level">
+                    Schwierigkeit
+                </label>
+
+                <select id="sudoku-spiel-level">
+
+                    <option value="leicht">
+                        Leicht
+                    </option>
+
+                    <option value="mittel">
+                        Mittel
+                    </option>
+
+                    <option value="schwer">
+                        Schwer
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================
+             STEUERUNG
+        ================================== -->
+
+        <div class="sudoku-spiel-buttons">
+
+            <button id="sudoku-spiel-neu">
+                Neues Spiel
+            </button>
+
+            <button id="sudoku-spiel-pruefen">
+                Prüfen
+            </button>
+
+            <button id="sudoku-spiel-hinweis">
+                Hinweis
+            </button>
+
+            <button id="sudoku-spiel-leeren">
+                Eigene Eingaben löschen
+            </button>
+
+        </div>
+
+
+        <!-- =================================
+             STATUS
+        ================================== -->
+
+        <div class="sudoku-spiel-status">
+
+            <div>
+
+                <span>
+                    Schwierigkeit
+                </span>
+
+                <strong id="sudoku-spiel-level-anzeige">
+                    Leicht
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    Zeit
+                </span>
+
+                <strong id="sudoku-spiel-zeit">
+                    00:00
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    Fehler
+                </span>
+
+                <strong id="sudoku-spiel-fehler">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    Hinweise
+                </span>
+
+                <strong id="sudoku-spiel-hinweise">
+                    0 / 3
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    Fortschritt
+                </span>
+
+                <strong id="sudoku-spiel-fortschritt">
+                    0 / 81
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================
+             SPIELFELD
+        ================================== -->
+
+        <div class="sudoku-spiel-rahmen">
+
+            <div id="sudoku-spiel-grid"></div>
+
+        </div>
+
+
+        <!-- =================================
+             ZAHLENAUSWAHL
+        ================================== -->
+
+        <div class="sudoku-spiel-zahlen">
+
+            <button data-zahl="1">1</button>
+            <button data-zahl="2">2</button>
+            <button data-zahl="3">3</button>
+            <button data-zahl="4">4</button>
+            <button data-zahl="5">5</button>
+            <button data-zahl="6">6</button>
+            <button data-zahl="7">7</button>
+            <button data-zahl="8">8</button>
+            <button data-zahl="9">9</button>
+
+            <button
+                id="sudoku-spiel-radierer"
+                class="sudoku-radierer"
+                type="button"
+            >
+                Löschen
+            </button>
+
+        </div>
+
+
+        <!-- =================================
+             INFORMATION
+        ================================== -->
+
+        <div id="sudoku-spiel-info">
+            Wähle ein freies Feld und trage eine Zahl von 1 bis 9 ein.
+        </div>
+
+
+        <!-- =================================
+             GEWINNANZEIGE
+        ================================== -->
+
+        <div
+            id="sudoku-spiel-gewonnen"
+            class="sudoku-spiel-gewonnen versteckt"
+        >
+
+            <span>
+                SUDOKU ABGESCHLOSSEN
+            </span>
+
+            <h3>
+                Sudoku gelöst!
+            </h3>
+
+            <div class="sudoku-gewinn-statistik">
+
+                <div>
+
+                    <span>
+                        Zeit
+                    </span>
+
+                    <strong id="sudoku-gewinn-zeit">
+                        00:00
+                    </strong>
+
                 </div>
+
+
+                <div>
+
+                    <span>
+                        Fehler
+                    </span>
+
+                    <strong id="sudoku-gewinn-fehler">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Hinweise
+                    </span>
+
+                    <strong id="sudoku-gewinn-hinweise">
+                        0
+                    </strong>
+
+                </div>
+
             </div>
-            <script src="script.js"></script>
-    </body>
+
+
+            <button id="sudoku-gewinn-neu">
+                Neues Sudoku
+            </button>
+
+        </div>
+
+    </section>
+
+</div>
+
+</section>
+
+
+<!-- ========================================
+     N-QUEENS
+======================================== -->
+
+<section
+    class="queens-algorithmus"
+    id="n-queens"
+>
+
+    <h2>N-Queens Backtracking</h2>
+
+    <p>
+        Platziere 8 Damen so, dass sich keine zwei Damen
+        gegenseitig schlagen können.
+    </p>
+
+    <button id="queens-start">
+        N-Queens starten
+    </button>
+
+    <button id="queens-reset">
+        Zurücksetzen
+    </button>
+
+    <div id="queens-grid"></div>
+
+</section>
+
+
+<!-- ========================================
+     K-MEANS
+======================================== -->
+
+<section
+    class="kmeans-algorithmus"
+    id="kmeans"
+>
+
+    <h2>K-Means Clustering</h2>
+
+    <p>
+        K-Means teilt Punkte anhand ihrer Entfernung
+        in verschiedene Gruppen ein.
+    </p>
+
+    <label for="kmeans-k">
+        Cluster:
+    </label>
+
+    <select id="kmeans-k">
+        <option value="2">2</option>
+        <option value="3" selected>3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select>
+
+    <button id="kmeans-start">
+        K-Means starten
+    </button>
+
+    <button id="kmeans-zufall">
+        Zufällige Punkte
+    </button>
+
+    <button id="kmeans-reset">
+        Zurücksetzen
+    </button>
+
+    <div id="kmeans-flaeche"></div>
+
+</section>
+
+
+<!-- ========================================
+     CAESAR
+======================================== -->
+
+<section
+    class="caesar-algorithmus"
+    id="caesar"
+>
+
+    <h2>Caesar-Chiffre</h2>
+
+    <p>
+        Die Caesar-Chiffre verschiebt jeden Buchstaben
+        um eine bestimmte Anzahl im Alphabet.
+    </p>
+
+    <input
+        type="text"
+        id="caesar-text"
+        placeholder="Text eingeben"
+    >
+
+    <input
+        type="number"
+        id="caesar-shift"
+        min="1"
+        max="25"
+        value="3"
+    >
+
+    <button id="caesar-verschluesseln">
+        Verschlüsseln
+    </button>
+
+    <button id="caesar-entschluesseln">
+        Entschlüsseln
+    </button>
+
+    <button id="caesar-bruteforce">
+        Brute Force
+    </button>
+
+    <button id="caesar-reset">
+        Reset
+    </button>
+
+    <div id="caesar-ausgabe"></div>
+
+</section>
+
+
+<!-- ========================================
+     VIGENERE
+======================================== -->
+
+<section
+    class="vigenere-algorithmus"
+    id="vigenere"
+>
+
+    <h2>Vigenère-Chiffre</h2>
+
+    <p>
+        Die Vigenère-Chiffre verwendet ein Schlüsselwort,
+        um jeden Buchstaben unterschiedlich zu verschieben.
+    </p>
+
+
+    <div class="vigenere-eingaben">
+
+        <input
+            type="text"
+            id="vigenere-text"
+            placeholder="Text eingeben"
+        >
+
+        <input
+            type="text"
+            id="vigenere-key"
+            placeholder="Schlüsselwort"
+        >
+
+    </div>
+
+
+    <div class="vigenere-buttons">
+
+        <button id="vigenere-verschluesseln">
+            Verschlüsseln
+        </button>
+
+        <button id="vigenere-entschluesseln">
+            Entschlüsseln
+        </button>
+
+        <button id="vigenere-reset">
+            Reset
+        </button>
+
+    </div>
+
+
+    <div id="vigenere-visualisierung">
+
+        <div class="vigenere-zeile">
+
+            <span class="vigenere-label">
+                Text
+            </span>
+
+            <div id="vigenere-text-zeile"></div>
+
+        </div>
+
+
+        <div class="vigenere-zeile">
+
+            <span class="vigenere-label">
+                Schlüssel
+            </span>
+
+            <div id="vigenere-key-zeile"></div>
+
+        </div>
+
+
+        <div class="vigenere-zeile">
+
+            <span class="vigenere-label">
+                Ergebnis
+            </span>
+
+            <div id="vigenere-ergebnis-zeile"></div>
+
+        </div>
+
+    </div>
+
+
+    <div id="vigenere-info">
+        Gib einen Text und ein Schlüsselwort ein.
+    </div>
+
+</section>
+
+
+<!-- ========================================
+     XOR
+======================================== -->
+
+<section
+    class="xor-algorithmus"
+    id="xor"
+>
+
+    <h2>XOR-Verschlüsselung</h2>
+
+    <p>
+        XOR verknüpft die Bits eines Textzeichens mit den Bits
+        eines Schlüssels. Derselbe Schlüssel kann zum Ver- und
+        Entschlüsseln verwendet werden.
+    </p>
+
+
+    <div class="xor-eingaben">
+
+        <input
+            type="text"
+            id="xor-text"
+            placeholder="Text eingeben"
+        >
+
+        <input
+            type="number"
+            id="xor-key"
+            min="0"
+            max="255"
+            value="42"
+            placeholder="Key"
+        >
+
+    </div>
+
+
+    <div class="xor-buttons">
+
+        <button id="xor-verschluesseln">
+            Verschlüsseln
+        </button>
+
+        <button id="xor-entschluesseln">
+            Entschlüsseln
+        </button>
+
+        <button id="xor-reset">
+            Reset
+        </button>
+
+    </div>
+
+
+    <div id="xor-visualisierung">
+
+        <div class="xor-zeile">
+
+            <span class="xor-label">
+                Zeichen:
+            </span>
+
+            <span id="xor-zeichen">
+                -
+            </span>
+
+        </div>
+
+
+        <div class="xor-zeile">
+
+            <span class="xor-label">
+                Zeichen binär:
+            </span>
+
+            <span id="xor-text-binaer">
+                00000000
+            </span>
+
+        </div>
+
+
+        <div class="xor-zeile">
+
+            <span class="xor-label">
+                Schlüssel:
+            </span>
+
+            <span id="xor-key-binaer">
+                00000000
+            </span>
+
+        </div>
+
+
+        <div class="xor-trennlinie"></div>
+
+
+        <div class="xor-zeile xor-ergebnis">
+
+            <span class="xor-label">
+                XOR:
+            </span>
+
+            <span id="xor-ergebnis-binaer">
+                00000000
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div id="xor-ausgabe">
+        Ergebnis erscheint hier.
+    </div>
+
+</section>
+
+
+<!-- ========================================
+     RAIL FENCE
+======================================== -->
+
+<section
+    class="rail-algorithmus"
+    id="rail-fence"
+>
+
+    <h2>Rail-Fence-Chiffre</h2>
+
+    <p>
+        Die Rail-Fence-Chiffre schreibt den Text im Zickzack
+        über mehrere Schienen und liest die Schienen anschließend
+        zeilenweise aus.
+    </p>
+
+
+    <div class="rail-eingaben">
+
+        <input
+            type="text"
+            id="rail-text"
+            placeholder="Text eingeben"
+        >
+
+        <label for="rail-anzahl">
+            Schienen:
+        </label>
+
+        <input
+            type="number"
+            id="rail-anzahl"
+            min="2"
+            max="6"
+            value="3"
+        >
+
+    </div>
+
+
+    <div class="rail-buttons">
+
+        <button id="rail-verschluesseln">
+            Verschlüsseln
+        </button>
+
+        <button id="rail-entschluesseln">
+            Entschlüsseln
+        </button>
+
+        <button id="rail-reset">
+            Reset
+        </button>
+
+    </div>
+
+
+    <div id="rail-visualisierung"></div>
+
+
+    <div id="rail-ausgabe">
+        Ergebnis erscheint hier.
+    </div>
+
+</section>
+
+
+<!-- ========================================
+     PLAYFAIR
+======================================== -->
+
+<section
+    class="playfair-algorithmus"
+    id="playfair"
+>
+
+    <h2>Playfair-Chiffre</h2>
+
+    <p>
+        Die Playfair-Chiffre verschlüsselt Buchstabenpaare
+        mithilfe einer 5 × 5-Schlüsselmatrix. I und J teilen
+        sich dabei ein gemeinsames Feld.
+    </p>
+
+
+    <div class="playfair-eingaben">
+
+        <input
+            type="text"
+            id="playfair-text"
+            placeholder="Text eingeben"
+        >
+
+        <input
+            type="text"
+            id="playfair-key"
+            placeholder="Schlüsselwort"
+        >
+
+    </div>
+
+
+    <div class="playfair-buttons">
+
+        <button id="playfair-verschluesseln">
+            Verschlüsseln
+        </button>
+
+        <button id="playfair-entschluesseln">
+            Entschlüsseln
+        </button>
+
+        <button id="playfair-reset">
+            Reset
+        </button>
+
+    </div>
+
+
+    <div class="playfair-arbeitsbereich">
+
+        <div class="playfair-matrix-bereich">
+
+            <h3>
+                Schlüsselmatrix
+            </h3>
+
+            <div id="playfair-matrix"></div>
+
+        </div>
+
+
+        <div class="playfair-paar-bereich">
+
+            <h3>
+                Aktuelles Buchstabenpaar
+            </h3>
+
+
+            <div id="playfair-aktuelles-paar">
+
+                <span
+                    id="playfair-paar-a"
+                    class="playfair-paar-buchstabe"
+                >
+                    -
+                </span>
+
+                <span class="playfair-paar-trenner">
+                    +
+                </span>
+
+                <span
+                    id="playfair-paar-b"
+                    class="playfair-paar-buchstabe"
+                >
+                    -
+                </span>
+
+            </div>
+
+
+            <div id="playfair-regel">
+                Gib Text und Schlüsselwort ein.
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="playfair-zeile">
+
+        <span class="playfair-label">
+            Paare:
+        </span>
+
+        <div id="playfair-paare"></div>
+
+    </div>
+
+
+    <div class="playfair-zeile">
+
+        <span class="playfair-label">
+            Ergebnis:
+        </span>
+
+        <div id="playfair-ergebnis"></div>
+
+    </div>
+
+
+    <div id="playfair-ausgabe">
+        Ergebnis erscheint hier.
+    </div>
+
+</section>
+
+
+<!-- ========================================
+     AES-128
+======================================== -->
+
+<section
+    class="aes-algorithmus"
+    id="aes"
+>
+
+    <h2>AES-128 Visualizer</h2>
+
+    <p>
+        AES-128 verarbeitet einen Block aus 16 Bytes in einer
+        4 × 4-State-Matrix. Der Visualizer zeigt alle zehn Runden.
+    </p>
+
+
+    <div class="aes-eingaben">
+
+        <div class="aes-eingabe-gruppe">
+
+            <label for="aes-text">
+                Klartext, genau 16 ASCII-Zeichen
+            </label>
+
+            <input
+                type="text"
+                id="aes-text"
+                maxlength="16"
+                value="Hallo AES Welt!!"
+            >
+
+        </div>
+
+
+        <div class="aes-eingabe-gruppe">
+
+            <label for="aes-key">
+                Schlüssel, genau 16 ASCII-Zeichen
+            </label>
+
+            <input
+                type="text"
+                id="aes-key"
+                maxlength="16"
+                value="GeheimerKey12345"
+            >
+
+        </div>
+
+    </div>
+
+
+    <div class="aes-buttons">
+
+        <button id="aes-vorbereiten">
+            AES vorbereiten
+        </button>
+
+        <button id="aes-naechster-schritt">
+            Nächster Schritt
+        </button>
+
+        <button id="aes-automatisch">
+            Automatisch abspielen
+        </button>
+
+        <button id="aes-reset">
+            Reset
+        </button>
+
+    </div>
+
+
+    <div class="aes-status-bereich">
+
+        <div>
+
+            <span class="aes-status-label">
+                Runde:
+            </span>
+
+            <span id="aes-runde">
+                -
+            </span>
+
+        </div>
+
+
+        <div>
+
+            <span class="aes-status-label">
+                Operation:
+            </span>
+
+            <span id="aes-operation">
+                Noch nicht gestartet
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="aes-arbeitsbereich">
+
+        <div class="aes-matrix-bereich">
+
+            <h3>State-Matrix</h3>
+
+            <div id="aes-state-matrix"></div>
+
+        </div>
+
+
+        <div class="aes-matrix-bereich">
+
+            <h3>
+                Aktueller Rundenschlüssel
+            </h3>
+
+            <div id="aes-key-matrix"></div>
+
+        </div>
+
+    </div>
+
+
+    <div class="aes-byte-information">
+
+        <h3>
+            Aktueller Zustand als Bytes
+        </h3>
+
+        <div id="aes-byte-zeile"></div>
+
+    </div>
+
+
+    <div class="aes-erklaerung">
+
+        <h3 id="aes-schritt-titel">
+            AES-128 vorbereiten
+        </h3>
+
+        <p id="aes-schritt-text">
+            Gib einen 16 Zeichen langen Klartext
+            und Schlüssel ein.
+        </p>
+
+    </div>
+
+
+    <div id="aes-ausgabe">
+        Verschlüsseltes Ergebnis erscheint hier.
+    </div>
+
+</section>
+
+
+<!-- ========================================
+     AES DECRYPT
+======================================== -->
+
+<section
+    class="aes-decrypt-algorithmus"
+    id="aes-decrypt"
+>
+
+    <h2>AES-128 Entschlüsseler</h2>
+
+    <p>
+        Dieses Modul entschlüsselt einen einzelnen AES-128-Block.
+        Die inversen AES-Schritte werden in umgekehrter
+        Rundenreihenfolge visualisiert.
+    </p>
+
+
+    <div class="aes-decrypt-eingaben">
+
+        <div class="aes-decrypt-eingabe-gruppe">
+
+            <label for="aes-decrypt-ciphertext">
+                Ciphertext, genau 16 Hex-Bytes
+            </label>
+
+            <input
+                type="text"
+                id="aes-decrypt-ciphertext"
+                placeholder="z. B. A1 3F 27 48 ..."
+            >
+
+        </div>
+
+
+        <div class="aes-decrypt-eingabe-gruppe">
+
+            <label for="aes-decrypt-key">
+                Schlüssel, genau 16 ASCII-Zeichen
+            </label>
+
+            <input
+                type="text"
+                id="aes-decrypt-key"
+                maxlength="16"
+                value="GeheimerKey12345"
+            >
+
+        </div>
+
+    </div>
+
+
+    <div class="aes-decrypt-buttons">
+
+        <button id="aes-decrypt-vorbereiten">
+            Entschlüsselung vorbereiten
+        </button>
+
+        <button id="aes-decrypt-naechster-schritt">
+            Nächster Schritt
+        </button>
+
+        <button id="aes-decrypt-auto">
+            Automatisch abspielen
+        </button>
+
+        <button id="aes-decrypt-reset">
+            Reset
+        </button>
+
+    </div>
+
+
+    <div class="aes-decrypt-status">
+
+        <div>
+
+            <span class="aes-decrypt-status-label">
+                Runde:
+            </span>
+
+            <span id="aes-decrypt-runde">
+                -
+            </span>
+
+        </div>
+
+
+        <div>
+
+            <span class="aes-decrypt-status-label">
+                Operation:
+            </span>
+
+            <span id="aes-decrypt-operation">
+                Noch nicht gestartet
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="aes-decrypt-arbeitsbereich">
+
+        <div class="aes-decrypt-matrix-bereich">
+
+            <h3>State-Matrix</h3>
+
+            <div id="aes-decrypt-state-matrix"></div>
+
+        </div>
+
+
+        <div class="aes-decrypt-matrix-bereich">
+
+            <h3>
+                Aktueller Rundenschlüssel
+            </h3>
+
+            <div id="aes-decrypt-key-matrix"></div>
+
+        </div>
+
+    </div>
+
+
+    <div class="aes-decrypt-byte-bereich">
+
+        <h3>
+            Aktueller Zustand als Bytes
+        </h3>
+
+        <div id="aes-decrypt-byte-zeile"></div>
+
+    </div>
+
+
+    <div class="aes-decrypt-erklaerung">
+
+        <h3 id="aes-decrypt-schritt-titel">
+            AES-128-Entschlüsselung vorbereiten
+        </h3>
+
+        <p id="aes-decrypt-schritt-text">
+            Füge einen AES-Ciphertext mit 16 Hex-Bytes ein
+            und verwende denselben Schlüssel wie beim Verschlüsseln.
+        </p>
+
+    </div>
+
+
+    <div id="aes-decrypt-ausgabe">
+        Der entschlüsselte Klartext erscheint hier.
+    </div>
+
+</section>
+
+
+<!-- ========================================
+     RABIN-KARP
+======================================== -->
+
+<section
+    class="rabin-karp-algorithmus"
+    id="rabin-karp"
+>
+
+    <h2>Rabin-Karp Textsuche</h2>
+
+    <p>
+        Rabin-Karp sucht ein Muster in einem längeren Text.
+        Dabei werden Hashwerte verglichen, bevor die Zeichen
+        direkt überprüft werden.
+    </p>
+
+
+    <div class="rabin-eingaben">
+
+        <div class="rabin-eingabe-gruppe">
+
+            <label for="rabin-text">
+                Text
+            </label>
+
+            <input
+                type="text"
+                id="rabin-text"
+                value="DAS IST EIN ALGORITHMUS TEST"
+                placeholder="Text eingeben"
+            >
+
+        </div>
+
+
+        <div class="rabin-eingabe-gruppe">
+
+            <label for="rabin-muster">
+                Suchmuster
+            </label>
+
+            <input
+                type="text"
+                id="rabin-muster"
+                value="ALGORITHMUS"
+                placeholder="Suchmuster eingeben"
+            >
+
+        </div>
+
+    </div>
+
+
+    <div class="rabin-buttons">
+
+        <button id="rabin-start">
+            Rabin-Karp starten
+        </button>
+
+        <button id="rabin-naechster-schritt">
+            Nächster Schritt
+        </button>
+
+        <button id="rabin-auto">
+            Automatisch abspielen
+        </button>
+
+        <button id="rabin-reset">
+            Reset
+        </button>
+
+    </div>
+
+
+    <div class="rabin-status">
+
+        <div>
+
+            <span class="rabin-status-label">
+                Fensterposition:
+            </span>
+
+            <span id="rabin-position">
+                -
+            </span>
+
+        </div>
+
+
+        <div>
+
+            <span class="rabin-status-label">
+                Muster-Hash:
+            </span>
+
+            <span id="rabin-muster-hash">
+                -
+            </span>
+
+        </div>
+
+
+        <div>
+
+            <span class="rabin-status-label">
+                Fenster-Hash:
+            </span>
+
+            <span id="rabin-fenster-hash">
+                -
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="rabin-visualisierung">
+
+        <div class="rabin-zeile">
+
+            <span class="rabin-label">
+                Text:
+            </span>
+
+            <div id="rabin-text-zeile"></div>
+
+        </div>
+
+
+        <div class="rabin-zeile">
+
+            <span class="rabin-label">
+                Muster:
+            </span>
+
+            <div id="rabin-muster-zeile"></div>
+
+        </div>
+
+    </div>
+
+
+    <div class="rabin-hash-bereich">
+
+        <h3>
+            Rolling Hash
+        </h3>
+
+        <div id="rabin-hash-formel">
+            Der Algorithmus wurde noch nicht gestartet.
+        </div>
+
+    </div>
+
+
+    <div id="rabin-info">
+        Gib einen Text und ein Suchmuster ein.
+    </div>
+
+
+    <div id="rabin-ausgabe">
+        Suchergebnisse erscheinen hier.
+    </div>
+
+</section>
+
+
+<!-- ========================================
+     EVOLUTIONÄRE ALGORITHMEN
+======================================== -->
+
+<section
+    class="genetic-text-algorithmus"
+    id="genetic"
+>
+
+    <h2>
+        Evolutionäre Algorithmen
+    </h2>
+
+    <p>
+        Eine Population entwickelt sich durch Fitnessbewertung,
+        Selektion, Crossover und Mutation immer näher an ein Ziel heran.
+    </p>
+
+
+    <!-- MODUS -->
+
+    <div class="genetic-modus-bereich">
+
+        <label for="genetic-modus">
+            Evolutionsmodus
+        </label>
+
+        <select id="genetic-modus">
+
+            <option value="text" selected>
+                Text Evolution
+            </option>
+
+            <option value="zahl">
+                Zahlen Evolution
+            </option>
+
+            <option value="farbe">
+                Farb Evolution
+            </option>
+
+            <option value="punkt">
+                Koordinaten Evolution
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <!-- TEXT -->
+
+    <div
+        id="genetic-text-bereich"
+        class="genetic-modus-eingabe"
+    >
+
+        <label for="genetic-ziel">
+            Zieltext
+        </label>
+
+        <input
+            type="text"
+            id="genetic-ziel"
+            value="ALGORITHMUS"
+            maxlength="30"
+        >
+
+        <p class="genetic-modus-beschreibung">
+            Die DNA besteht aus Zeichen. Je mehr Zeichen an der
+            richtigen Position stehen, desto höher ist die Fitness.
+        </p>
+
+    </div>
+
+
+    <!-- ZAHL -->
+
+    <div
+        id="genetic-zahl-bereich"
+        class="genetic-modus-eingabe versteckt"
+    >
+
+        <label for="genetic-ziel-zahl">
+            Zielzahl
+        </label>
+
+        <input
+            type="number"
+            id="genetic-ziel-zahl"
+            value="750"
+            min="0"
+            max="1000"
+        >
+
+        <p class="genetic-modus-beschreibung">
+            Die DNA ist eine Zahl zwischen 0 und 1000.
+            Je näher sie an der Zielzahl liegt,
+            desto höher ist die Fitness.
+        </p>
+
+    </div>
+
+
+    <!-- FARBE -->
+
+    <div
+        id="genetic-farbe-bereich"
+        class="genetic-modus-eingabe versteckt"
+    >
+
+        <label for="genetic-ziel-farbe">
+            Zielfarbe
+        </label>
+
+        <input
+            type="color"
+            id="genetic-ziel-farbe"
+            value="#1eaae0"
+        >
+
+        <div
+            id="genetic-farbe-vorschau"
+            class="genetic-farbe-vorschau"
+        ></div>
+
+        <p class="genetic-modus-beschreibung">
+            Die DNA besteht aus Rot-, Grün- und Blauwerten.
+            Die Population versucht, sich der Zielfarbe anzunähern.
+        </p>
+
+    </div>
+
+
+    <!-- KOORDINATEN -->
+
+    <div
+        id="genetic-punkt-bereich"
+        class="genetic-modus-eingabe versteckt"
+    >
+
+        <label for="genetic-ziel-x">
+            Zielposition X
+        </label>
+
+        <input
+            type="number"
+            id="genetic-ziel-x"
+            value="400"
+            min="0"
+            max="700"
+        >
+
+
+        <label for="genetic-ziel-y">
+            Zielposition Y
+        </label>
+
+        <input
+            type="number"
+            id="genetic-ziel-y"
+            value="200"
+            min="0"
+            max="450"
+        >
+
+        <p class="genetic-modus-beschreibung">
+            Die DNA besteht aus einer X- und Y-Koordinate.
+            Die Population versucht, den Zielpunkt zu erreichen.
+        </p>
+
+    </div>
+
+
+    <!-- EINSTELLUNGEN -->
+
+    <div class="genetic-eingaben">
+
+        <div>
+
+            <label for="genetic-population">
+                Populationsgröße
+            </label>
+
+            <input
+                type="number"
+                id="genetic-population"
+                min="20"
+                max="500"
+                value="100"
+            >
+
+        </div>
+
+
+        <div>
+
+            <label for="genetic-mutation">
+                Mutationsrate %
+            </label>
+
+            <input
+                type="number"
+                id="genetic-mutation"
+                min="0"
+                max="50"
+                step="0.1"
+                value="2"
+            >
+
+        </div>
+
+    </div>
+
+
+    <!-- BUTTONS -->
+
+    <div class="genetic-buttons">
+
+        <button id="genetic-start">
+            Evolution starten
+        </button>
+
+        <button id="genetic-pause">
+            Pause
+        </button>
+
+        <button id="genetic-schritt">
+            Eine Generation
+        </button>
+
+        <button id="genetic-reset">
+            Reset
+        </button>
+
+    </div>
+
+
+    <!-- STATUS -->
+
+    <div class="genetic-status">
+
+        <div>
+
+            <span class="genetic-label">
+                Modus
+            </span>
+
+            <strong id="genetic-modus-anzeige">
+                Text Evolution
+            </strong>
+
+        </div>
+
+
+        <div>
+
+            <span class="genetic-label">
+                Generation
+            </span>
+
+            <strong id="genetic-generation">
+                0
+            </strong>
+
+        </div>
+
+
+        <div>
+
+            <span class="genetic-label">
+                Beste Fitness
+            </span>
+
+            <strong id="genetic-fitness">
+                0 %
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <!-- BESTER KANDIDAT -->
+
+    <div class="genetic-best">
+
+        <span class="genetic-label">
+            Bester Kandidat
+        </span>
+
+        <div id="genetic-bester">
+            -
+        </div>
+
+        <div
+            id="genetic-bester-farbe"
+            class="genetic-ergebnis-farbe versteckt"
+        ></div>
+
+    </div>
+
+
+    <!-- ZIEL -->
+
+    <div class="genetic-zielbereich">
+
+        <span class="genetic-label">
+            Ziel
+        </span>
+
+        <div id="genetic-ziel-anzeige">
+            ALGORITHMUS
+        </div>
+
+        <div
+            id="genetic-ziel-farbe-anzeige"
+            class="genetic-ergebnis-farbe versteckt"
+        ></div>
+
+    </div>
+
+
+    <!-- KOORDINATEN -->
+
+    <div
+        id="genetic-koordinaten-flaeche"
+        class="genetic-koordinaten-flaeche versteckt"
+    >
+
+        <div id="genetic-ziel-punkt">
+            Ziel
+        </div>
+
+        <div id="genetic-bester-punkt">
+            DNA
+        </div>
+
+    </div>
+
+
+    <!-- FORTSCHRITT -->
+
+    <div class="genetic-fortschritt">
+
+        <div id="genetic-fortschritt-balken"></div>
+
+    </div>
+
+
+    <h3>
+        Aktuelle Population
+    </h3>
+
+    <div id="genetic-population-anzeige"></div>
+
+
+    <div id="genetic-info">
+        Wähle einen Evolutionsmodus und starte den Algorithmus.
+    </div>
+
+</section>
+
+
+<!-- ========================================
+     NEUROEVOLUTION
+======================================== -->
+
+<section
+    class="ki-auto-algorithmus"
+    id="neuroevolution"
+>
+
+    <h2>
+        Neuroevolution: KI-Rennwagen
+    </h2>
+
+    <p>
+        Mehrere Autos werden durch kleine neuronale Netze gesteuert.
+        Die besten Netze werden ausgewählt, kombiniert und mutiert,
+        damit spätere Generationen die Rennstrecke besser bewältigen.
+    </p>
+
+
+    <div class="ki-auto-einstellungen">
+
+        <div>
+
+            <label for="ki-auto-population">
+                Autos pro Generation
+            </label>
+
+            <input
+                type="number"
+                id="ki-auto-population"
+                min="10"
+                max="100"
+                value="40"
+            >
+
+        </div>
+
+
+        <div>
+
+            <label for="ki-auto-mutation">
+                Mutationsrate %
+            </label>
+
+            <input
+                type="number"
+                id="ki-auto-mutation"
+                min="0"
+                max="50"
+                step="0.5"
+                value="8"
+            >
+
+        </div>
+
+
+        <div>
+
+            <label for="ki-auto-tempo">
+                Trainingsgeschwindigkeit
+            </label>
+
+            <select id="ki-auto-tempo">
+
+                <option value="1">1×</option>
+                <option value="3">3×</option>
+                <option value="8">8×</option>
+                <option value="20">20×</option>
+
+            </select>
+
+        </div>
+
+
+        <label class="ki-auto-checkbox">
+
+            <input
+                type="checkbox"
+                id="ki-auto-sensoren"
+                checked
+            >
+
+            Sensoren des besten Autos anzeigen
+
+        </label>
+
+    </div>
+
+
+    <div class="ki-auto-buttons">
+
+        <button id="ki-auto-start">
+            Training starten
+        </button>
+
+        <button id="ki-auto-pause">
+            Pause
+        </button>
+
+        <button id="ki-auto-naechste-generation">
+            Nächste Generation
+        </button>
+
+        <button id="ki-auto-reset">
+            Reset
+        </button>
+
+    </div>
+
+
+    <div class="ki-auto-status">
+
+        <div>
+            <span>Generation</span>
+            <strong id="ki-auto-generation">1</strong>
+        </div>
+
+        <div>
+            <span>Lebende Autos</span>
+            <strong id="ki-auto-lebend">0 / 40</strong>
+        </div>
+
+        <div>
+            <span>Bester Checkpoint</span>
+            <strong id="ki-auto-checkpoint">0 / 8</strong>
+        </div>
+
+        <div>
+            <span>Bester Fortschritt</span>
+            <strong id="ki-auto-fitness">-</strong>
+        </div>
+
+    </div>
+
+
+    <div class="ki-auto-legende">
+
+        <span>
+            <i class="ki-legende-auto"></i>
+            Aktive Autos
+        </span>
+
+        <span>
+            <i class="ki-legende-bestes"></i>
+            Bestes Auto
+        </span>
+
+        <span>
+            <i class="ki-legende-checkpoint"></i>
+            Checkpoints
+        </span>
+
+        <span>
+            <i class="ki-legende-ziel"></i>
+            Ziel
+        </span>
+
+    </div>
+
+
+    <div class="ki-auto-canvas-container">
+
+        <canvas
+            id="ki-auto-canvas"
+            width="900"
+            height="520"
+        ></canvas>
+
+    </div>
+
+
+    <div id="ki-auto-info">
+        Starte das Training. Die erste Generation fährt zunächst
+        weitgehend zufällig.
+    </div>
+
+</section>
+
+
+<!-- ========================================
+     JAVASCRIPT
+======================================== -->
+
+<script
+    src="script.js"
+></script>
+
+</body>
+
 </html>
